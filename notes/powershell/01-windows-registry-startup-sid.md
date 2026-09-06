@@ -358,6 +358,40 @@ Windows 进行访问检查
 
 ## 16. 今天知识点之间的完整关系
 
+**结构视角**（这些概念在 Windows 里的位置）：
+
+```
+Windows
+                       │
+            ┌──────────┴──────────┐
+            │                     │
+        PowerShell              注册表
+            │                     │
+            │          ┌──────────┼──────────┐
+            │          │          │          │
+            │         HKLM       HKU        HKCU
+            │          │          │          │
+            │       整台电脑    用户集合    当前用户
+            │                     │
+            │                     │
+            │                    SID
+            │                     │
+            │                标识安全主体
+            │
+            └── Get-CimInstance
+                    │
+                    ↓
+          查询 Windows 系统信息
+                    │
+                    ↓
+          Win32_StartupCommand
+                    │
+                    ↓
+                启动项
+```
+
+**探索路径**（今天是怎么顺着一条命令走到这里的）：
+
 ```
 PowerShell
    ↓
@@ -459,6 +493,21 @@ Get-ItemProperty "Registry::HKEY_USERS\<你的SID>\Software\Microsoft\Windows\Cu
 ---
 
 # 复习总结
+
+## 今天最应该记住的 10 个结论
+
+如果今天只允许记住 10 个东西，就是这 10 个：
+
+1. **PowerShell** —— Windows 上用于命令行操作、系统管理和自动化的工具
+2. **Get-CimInstance** —— 用来查询 Windows 系统对象信息
+3. **Win32_StartupCommand** —— 可以用来查询启动项相关信息
+4. **`|`（管道）** —— 把前一个命令的结果交给后一个命令处理
+5. **注册表** —— Windows 保存大量系统、用户和软件配置的核心配置数据库式结构
+6. **HKLM** —— HKEY_LOCAL_MACHINE，机器级配置
+7. **HKCU** —— HKEY_CURRENT_USER，当前用户配置
+8. **HKU** —— HKEY_USERS，不同用户/安全主体配置的集合
+9. **SID** —— Security Identifier，Windows 用来标识安全主体身份的标识符
+10. **Run** —— 注册表中常见的程序自动启动位置
 
 ## 我现在必须理解
 - SID 是什么：Windows 标识安全主体的唯一标识

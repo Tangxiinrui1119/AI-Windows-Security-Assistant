@@ -1,0 +1,29 @@
+# Windows
+Thumbs.db
+Desktop.ini
+*.lnk
+
+# PowerShell
+.pshistory
+
+# C++ 编译产物
+*.exe
+*.obj
+*.o
+*.pdb
+*.dll
+build/
+Debug/
+Release/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# IDE / 编辑器
+.vs/
+.vscode/
+.idea/
+*.user

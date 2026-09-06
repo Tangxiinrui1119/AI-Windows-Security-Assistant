@@ -60,6 +60,6 @@
 
 ## 下一步
 
-1. 学习指针（C++）
-2. 运行 `project/level1-powershell-startup/Get-StartupItems.ps1`，迈出第一步
-3. 在 [docs/devlog](docs/devlog) 记录今天的进展
+1. 复习今天的笔记，完成「实践实验」：`notes/powershell/01-windows-registry-startup-sid.md`
+2. 开始 C++：指针
+3. Level 2：把「查启动项」写成自己的小程序

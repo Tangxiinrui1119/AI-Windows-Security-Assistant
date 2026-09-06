@@ -2,6 +2,8 @@
 
 > 从一条 PowerShell 命令开始，用三年时间，把它做成一个真正的 Windows 安全软件。
 
+🌐 **项目主页（访客入口）**：https://tangxiinrui1119.github.io/AI-Windows-Security-Assistant/
+
 这是我在大学期间（**大二 → 大三 → 大四**）的长期项目仓库。
 代码、学习笔记、开发日志全部记录在这里，一步一步从零成长为一个完整的「AI Windows 安全助手」。
 

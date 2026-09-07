@@ -532,3 +532,5 @@ Get-ItemProperty "Registry::HKEY_USERS\<你的SID>\Software\Microsoft\Windows\Cu
 - 用 `icacls` 观察一个文件夹的 NTFS 权限（ACL），看看里面的 SID
 - 用 `Get-LocalUser | Select-Object Name, SID` 看本机用户和它们的 SID
 - 继续 Level 2：把「查启动项」写成自己的小程序
+
+> 其中 ACL / Access Token / 有效权限的理论已继续学习：[Windows 权限基础（Day 2 笔记）](../security/01-windows-permissions-basics.md)，实战验证待做。

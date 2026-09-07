@@ -60,6 +60,6 @@
 
 ## 下一步
 
-1. 复习今天的笔记，完成「实践实验」：`notes/powershell/01-windows-registry-startup-sid.md`
+1. 用 `icacls` / `whoami /groups` 在真机上验证权限推演（笔记：`notes/security/01-windows-permissions-basics.md`）
 2. 开始 C++：指针
 3. Level 2：把「查启动项」写成自己的小程序

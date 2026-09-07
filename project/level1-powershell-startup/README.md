@@ -98,8 +98,8 @@ Get-ItemProperty 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Run'
 
 ## 后续计划
 - Windows 用户与组（Get-LocalUser、组与 SID）
-- ACL / NTFS 权限 / icacls
-- Access Token 与 Windows 安全模型
+- ACL / NTFS 权限 / icacls ← 理论已学（2026-09-07，见 [Day 2 笔记](../../notes/security/01-windows-permissions-basics.md)），实战验证待做
+- Access Token 与 Windows 安全模型 ← 理论已学（同上）
 - 注册表权限
 - Windows 服务与更完整的启动机制
 - Level 2：把「查启动项」写成自己的程序

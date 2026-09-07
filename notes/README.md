@@ -7,6 +7,9 @@
 ### PowerShell / Windows 基础
 - [01 · Windows 注册表、启动项与 SID](powershell/01-windows-registry-startup-sid.md) —— 2026-09-06 · Day 1
 
+### Windows 安全
+- [01 · Windows 权限基础：SID、Access Token、ACL、ACE 与有效权限](security/01-windows-permissions-basics.md) —— 2026-09-07 · Day 2
+
 ### C++
 - （待开始 —— 第一个主题：指针）
 

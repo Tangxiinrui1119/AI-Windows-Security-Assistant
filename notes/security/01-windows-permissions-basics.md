@@ -1255,3 +1255,5 @@ whoami /groups
 
 **应该看到什么**：当前用户 SID + 所属各组 SID，还有「已启用/已拒绝」的状态。
 **如何理解**：这就是登录后 Access Token 的近似内容——访问资源时，Windows 拿这里的 SID 去和 ACL 匹配。
+
+> ✅ 已实机验证：[02 · Windows ACL 实机验证与有效权限（Day 3）](02-windows-acl-effective-permissions.md)（2026-09-08）

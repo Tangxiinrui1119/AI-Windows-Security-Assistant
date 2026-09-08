@@ -60,6 +60,6 @@
 
 ## 下一步
 
-1. 用 `icacls` / `whoami /groups` 在真机上验证权限推演（笔记：`notes/security/01-windows-permissions-basics.md`）
+1. 清理桌面的 acl-test 测试文件，把 Day 1~3 的权限链路串起来复习一遍
 2. 开始 C++：指针
 3. Level 2：把「查启动项」写成自己的小程序

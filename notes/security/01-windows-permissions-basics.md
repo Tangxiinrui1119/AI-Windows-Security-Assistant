@@ -1257,3 +1257,5 @@ whoami /groups
 **如何理解**：这就是登录后 Access Token 的近似内容——访问资源时，Windows 拿这里的 SID 去和 ACL 匹配。
 
 > ✅ 已实机验证：[02 · Windows ACL 实机验证与有效权限（Day 3）](02-windows-acl-effective-permissions.md)（2026-09-08）
+
+> 续篇（认证线）：[03 · Windows 身份认证与授权体系（二）](03-windows-authentication-ntlm.md)（Day 4，2026-09-09）—— 把「授权」和「认证」两条线在 Access Token 处合流

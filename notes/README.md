@@ -11,6 +11,7 @@
 - [01 · Windows 权限基础：SID、Access Token、ACL、ACE 与有效权限](security/01-windows-permissions-basics.md) —— 2026-09-07 · Day 2
 - [02 · Windows ACL 实机验证与有效权限](security/02-windows-acl-effective-permissions.md) —— 2026-09-08 · Day 3
 - [03 · Windows 身份认证与授权体系（二）：Hash、SAM、LSASS 与 NTLM](security/03-windows-authentication-ntlm.md) —— 2026-09-09 · Day 4
+- [04 · Windows 域安全：Kerberos、KDC、TGT、TGS、SPN、Kerberoasting 与 AD](security/04-windows-kerberos-ad.md) —— 2026-09-10 · Day 5
 
 ### C++
 - （待开始 —— 第一个主题：指针）

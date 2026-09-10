@@ -460,3 +460,5 @@ ACE
   ↓
 资源权限
 ```
+
+> 续篇：[04 · Windows 域安全：Kerberos、KDC、AD 与 Kerberoasting](04-windows-kerberos-ad.md)（Day 5，2026-09-10）—— 域环境下的认证体系 Kerberos

@@ -944,3 +944,5 @@ KDC 通常运行在 DC 上。
 # 今日一句话总结
 
 > Kerberos 负责“证明你是谁”，AD/DC 提供域环境和核心服务，KDC 中的 AS 负责发 TGT、TGS 根据 SPN 发对应服务的 Service Ticket，而最终“你能对资源做什么”仍然由 SID、Access Token、ACL 等授权机制决定。
+
+> 续篇：[05 · Kerberos 深入理解：Ticket 与 Session Key](05-windows-kerberos-ticket-session-key.md)（Day 6，2026-09-14）

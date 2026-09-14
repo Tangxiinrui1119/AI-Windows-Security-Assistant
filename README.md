@@ -60,6 +60,6 @@
 
 ## 下一步
 
-1. 复习 Day 1~5：认证（NTLM / Kerberos）与授权（ACL）两条线（笔记：`notes/security/` 下 01~04 篇）
+1. 复习 Day 1~6：认证（NTLM / Kerberos）与授权（ACL）两条线（笔记：`notes/security/` 下 01~05 篇）
 2. 开始 C++：指针
 3. Level 2：把「查启动项」写成自己的小程序

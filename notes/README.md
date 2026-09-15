@@ -13,6 +13,7 @@
 - [03 · Windows 身份认证与授权体系（二）：Hash、SAM、LSASS 与 NTLM](security/03-windows-authentication-ntlm.md) —— 2026-09-09 · Day 4
 - [04 · Windows 域安全：Kerberos、KDC、TGT、TGS、SPN、Kerberoasting 与 AD](security/04-windows-kerberos-ad.md) —— 2026-09-10 · Day 5
 - [05 · Kerberos 深入理解：Ticket 与 Session Key](security/05-windows-kerberos-ticket-session-key.md) —— 2026-09-14 · Day 6
+- [06 · Windows 事件日志与安全审计](security/06-windows-event-log-security-audit.md) —— 2026-09-15 · Day 7
 
 ### C++
 - （待开始 —— 第一个主题：指针）

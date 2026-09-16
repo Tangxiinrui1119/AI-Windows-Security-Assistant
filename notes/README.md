@@ -16,7 +16,7 @@
 - [06 · Windows 事件日志与安全审计](security/06-windows-event-log-security-audit.md) —— 2026-09-15 · Day 7
 
 ### C++
-- （待开始 —— 第一个主题：指针）
+- [01 · C++ 指针、引用与 const](cpp/01-pointers-references-const.md) —— 2026-09-16
 
 ### Python
 - （待开始 —— 等 C++ 基础稳定后）

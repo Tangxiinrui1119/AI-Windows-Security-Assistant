@@ -14,6 +14,7 @@
 - [04 · Windows 域安全：Kerberos、KDC、TGT、TGS、SPN、Kerberoasting 与 AD](security/04-windows-kerberos-ad.md) —— 2026-09-10 · Day 5
 - [05 · Kerberos 深入理解：Ticket 与 Session Key](security/05-windows-kerberos-ticket-session-key.md) —— 2026-09-14 · Day 6
 - [06 · Windows 事件日志与安全审计](security/06-windows-event-log-security-audit.md) —— 2026-09-15 · Day 7
+- [07 · Windows 进程、PID、PPID 与进程树](security/07-windows-processes-pid-ppid-process-tree.md) —— 2026-09-16 · Day 8
 
 ### C++
 - [01 · C++ 指针、引用与 const](cpp/01-pointers-references-const.md) —— 2026-09-16

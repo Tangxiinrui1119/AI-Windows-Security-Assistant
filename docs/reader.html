@@ -214,7 +214,7 @@ if (!window.marked) {
   pathEl.textContent = '$ cat ' + file;
   srcLink.href = GH_BLOB + file;
 
-  fetch(RAW + file)
+  fetch(RAW + file, { cache: 'no-store' })
     .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.text(); })
     .then(function (md) { render(md, file); })
     .catch(function () { showError(file); });

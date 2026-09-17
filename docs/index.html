@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI Windows 安全助手 · 三年成长计划</title>
-<meta name="description" content="豆豆的大学三年长期项目：从一条 PowerShell 命令开始，成长为真正的 Windows 安全软件。">
+<meta name="description" content="豆豆的大学三年长期项目：以 Python、C++ 与 AI 构建真正的 Windows 安全助手。">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
 <style>
 :root{
@@ -146,6 +146,28 @@ footer a:hover{color:var(--cyan)}
     <span class="chip p">启动于 2026-09-06</span>
   </div>
 
+  <!-- 项目架构 -->
+  <section class="sec">
+    <h2 class="sec-title"><span class="hash">#</span>项目分工</h2>
+    <div class="cards">
+      <a class="card" style="--ca:rgba(83,200,255,.18)" href="reader.html?f=docs/PLAN.md">
+        <span class="ico">🐍</span><h3>Python：主控与 AI 分析</h3>
+        <p>采集和整理 Windows 信息，用规则判断风险，再由 AI 解释发生了什么。</p>
+        <span class="go">查看规划 →</span>
+      </a>
+      <a class="card" style="--ca:rgba(157,123,255,.18)" href="reader.html?f=docs/PLAN.md">
+        <span class="ico">⚙️</span><h3>C++：后续底层能力</h3>
+        <p>逐步走向 Windows API、进程、权限、服务与 ETW 等系统能力。</p>
+        <span class="go">查看规划 →</span>
+      </a>
+      <a class="card" style="--ca:rgba(61,245,176,.18)" href="reader.html?f=docs/PLAN.md">
+        <span class="ico">🛡️</span><h3>Windows Security</h3>
+        <p>从启动项、进程、日志、注册表、网络和权限出发，持续构建自己的安全助手。</p>
+        <span class="go">查看规划 →</span>
+      </a>
+    </div>
+  </section>
+
   <!-- 入口 -->
   <section class="sec">
     <h2 class="sec-title"><span class="hash">#</span>探索入口</h2>
@@ -231,6 +253,7 @@ footer a:hover{color:var(--cyan)}
 (function () {
   var phrases = [
     '从一条 PowerShell 命令开始。',
+    'Python 主控与 AI 分析，C++ 走向 Windows 底层能力。',
     '三年，把它做成真正的 Windows 安全软件。',
     '不追求每天完成很多，追求一直做。'
   ];

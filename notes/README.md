@@ -27,6 +27,11 @@
 - [01 · 数据结构与算法：绪论](data-structures/01-introduction.md) —— 2026-09-20
 - [02 · 数据结构与算法：线性表](data-structures/02-linear-lists.md) —— 2026-09-20
 
+### 信息安全数学基础
+- [学习地图与跨章复习](security-mathematics/README.md)
+- [01 · 整数的可除性](security-mathematics/01-divisibility-of-integers.md) —— 2026-09-20
+- [02 · 同余](security-mathematics/02-congruence.md) —— 2026-09-20
+
 ### AI 应用
 - （大三下开始）
 

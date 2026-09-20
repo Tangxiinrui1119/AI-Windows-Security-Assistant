@@ -43,7 +43,7 @@ Part 10 综合安全评估
 
 ## 已归档的前置笔记
 
-- [Part 06 · Windows 主机安全](06-windows-host-security/)
-- [Part 07 · Active Directory 与 Kerberos](07-active-directory-and-kerberos/)
+- [Part 06 · Windows 主机安全](06-windows-host-security/README.md)
+- [Part 07 · Active Directory 与 Kerberos](07-active-directory-and-kerberos/README.md)
 
 > 只在自己的设备、虚拟机、CTF、靶场或已获得明确授权的环境中进行安全测试与验证。

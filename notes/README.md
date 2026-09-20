@@ -6,8 +6,8 @@
 
 ### 信息安全 / 渗透测试与攻防
 - [学习路线入口](security/penetration-testing/README.md)
-- [Part 06 · Windows 主机安全](security/penetration-testing/06-windows-host-security/)
-- [Part 07 · Active Directory 与 Kerberos](security/penetration-testing/07-active-directory-and-kerberos/)
+- [Part 06 · Windows 主机安全](security/penetration-testing/06-windows-host-security/README.md)
+- [Part 07 · Active Directory 与 Kerberos](security/penetration-testing/07-active-directory-and-kerberos/README.md)
 
 ### C++
 - [01 · C++ 指针、引用与 const](cpp/01-pointers-references-const.md) —— 2026-09-16

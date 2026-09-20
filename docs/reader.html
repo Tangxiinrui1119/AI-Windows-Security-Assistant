@@ -205,7 +205,9 @@ if (!window.marked) {
     });
   }
 
-  var file = cleanPath(new URLSearchParams(location.search).get('f'));
+  var params = new URLSearchParams(location.search);
+  var file = cleanPath(params.get('f'));
+  var version = params.get('v');
   if (!file) {
     pathEl.textContent = '$ 非法路径 —— 已忽略';
     showError(null);
@@ -214,7 +216,8 @@ if (!window.marked) {
   pathEl.textContent = '$ cat ' + file;
   srcLink.href = GH_BLOB + file;
 
-  fetch(RAW + file, { cache: 'no-store' })
+  var rawUrl = RAW + file + (version ? '?v=' + encodeURIComponent(version) : '');
+  fetch(rawUrl, { cache: 'no-store' })
     .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.text(); })
     .then(function (md) { render(md, file); })
     .catch(function () { showError(file); });

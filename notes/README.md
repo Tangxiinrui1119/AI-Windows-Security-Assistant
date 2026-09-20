@@ -24,7 +24,7 @@
 - [02 · 物理层](network/02-physical-layer.md) —— 2026-09-19
 
 ### 数据结构
-- （待开始）
+- [01 · 数据结构与算法：绪论与线性表](data-structures/01-introduction-and-linear-lists.md) —— 2026-09-20
 
 ### AI 应用
 - （大三下开始）

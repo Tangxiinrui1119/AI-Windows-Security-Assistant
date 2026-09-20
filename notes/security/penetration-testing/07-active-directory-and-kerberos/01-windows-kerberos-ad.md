@@ -1,8 +1,8 @@
 # Windows 域安全：Kerberos、KDC、TGT、TGS、SPN、Kerberoasting 与 AD
 
 > 📅 学习日期：2026-09-10（三年计划 Day 5）
-> 📔 关联日志：[docs/devlog/2026/09.md](../../docs/devlog/2026/09.md)
-> 🔗 前置笔记：[03 · Windows 身份认证与授权体系（二）：Hash、SAM、LSASS 与 NTLM](03-windows-authentication-ntlm.md)
+> 📔 关联日志：[docs/devlog/2026/09.md](../../../../docs/devlog/2026/09.md)
+> 🔗 前置笔记：[03 · Windows 身份认证与授权体系（二）：Hash、SAM、LSASS 与 NTLM](../06-windows-host-security/04-windows-authentication-ntlm.md)
 > 学习主题：Kerberos、KDC、TGT、TGS、SPN、Kerberoasting、Active Directory（AD）、Domain Controller（DC）
 > 学习阶段：信息安全基础
 > 🎯 学习目的：理解 Windows 域认证机制与相关攻击原理，为后续防御与检测打基础。
@@ -945,4 +945,4 @@ KDC 通常运行在 DC 上。
 
 > Kerberos 负责“证明你是谁”，AD/DC 提供域环境和核心服务，KDC 中的 AS 负责发 TGT、TGS 根据 SPN 发对应服务的 Service Ticket，而最终“你能对资源做什么”仍然由 SID、Access Token、ACL 等授权机制决定。
 
-> 续篇：[05 · Kerberos 深入理解：Ticket 与 Session Key](05-windows-kerberos-ticket-session-key.md)（Day 6，2026-09-14）
+> 续篇：[05 · Kerberos 深入理解：Ticket 与 Session Key](../07-active-directory-and-kerberos/02-windows-kerberos-ticket-session-key.md)（Day 6，2026-09-14）

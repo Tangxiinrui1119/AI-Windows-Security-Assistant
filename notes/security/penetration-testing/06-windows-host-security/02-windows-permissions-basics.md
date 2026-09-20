@@ -1,8 +1,8 @@
 # Windows 权限基础：SID、Access Token、ACL、ACE 与有效权限
 
 > 📅 学习日期：2026-09-07（三年计划 Day 2）
-> 📔 关联日志：[docs/devlog/2026/09.md](../../docs/devlog/2026/09.md)
-> 🔗 前置笔记：[01 · Windows 注册表、启动项与 SID](../powershell/01-windows-registry-startup-sid.md)
+> 📔 关联日志：[docs/devlog/2026/09.md](../../../../docs/devlog/2026/09.md)
+> 🔗 前置笔记：[01 · Windows 注册表、启动项与 SID](01-windows-registry-startup-sid.md)
 > 学习主题：Windows 安全机制 / NTFS 权限
 > 学习内容：SID、用户组、Access Token、ACL、ACE、Allow/Deny、权限继承、Effective Permissions
 > 学习阶段：信息安全基础
@@ -1256,6 +1256,6 @@ whoami /groups
 **应该看到什么**：当前用户 SID + 所属各组 SID，还有「已启用/已拒绝」的状态。
 **如何理解**：这就是登录后 Access Token 的近似内容——访问资源时，Windows 拿这里的 SID 去和 ACL 匹配。
 
-> ✅ 已实机验证：[02 · Windows ACL 实机验证与有效权限（Day 3）](02-windows-acl-effective-permissions.md)（2026-09-08）
+> ✅ 已实机验证：[02 · Windows ACL 实机验证与有效权限（Day 3）](03-windows-acl-effective-permissions.md)（2026-09-08）
 
-> 续篇（认证线）：[03 · Windows 身份认证与授权体系（二）](03-windows-authentication-ntlm.md)（Day 4，2026-09-09）—— 把「授权」和「认证」两条线在 Access Token 处合流
+> 续篇（认证线）：[03 · Windows 身份认证与授权体系（二）](04-windows-authentication-ntlm.md)（Day 4，2026-09-09）—— 把「授权」和「认证」两条线在 Access Token 处合流

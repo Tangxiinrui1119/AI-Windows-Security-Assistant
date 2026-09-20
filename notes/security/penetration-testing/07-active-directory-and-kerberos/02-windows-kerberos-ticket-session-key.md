@@ -1,8 +1,8 @@
 # Kerberos 深入理解：Ticket 与 Session Key（Day 6）
 
 > 📅 学习日期：2026-09-14（三年计划 Day 6）
-> 📔 关联日志：[docs/devlog/2026/09.md](../../docs/devlog/2026/09.md)
-> 🔗 前置笔记：[04 · Windows 域安全：Kerberos、KDC、TGT、TGS、SPN、Kerberoasting 与 AD](04-windows-kerberos-ad.md)
+> 📔 关联日志：[docs/devlog/2026/09.md](../../../../docs/devlog/2026/09.md)
+> 🔗 前置笔记：[04 · Windows 域安全：Kerberos、KDC、TGT、TGS、SPN、Kerberoasting 与 AD](../07-active-directory-and-kerberos/01-windows-kerberos-ad.md)
 > 学习主题：Kerberos Ticket / Session Key / Pass-the-Ticket
 > 学习阶段：信息安全基础
 > 🎯 学习目的：理解 Kerberos 票据与会话密钥的机制，为后续防御与检测打基础。

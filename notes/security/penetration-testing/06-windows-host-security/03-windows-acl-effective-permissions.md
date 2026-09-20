@@ -1,8 +1,8 @@
 # Windows ACL 实机验证与有效权限（Day 3）
 
 > 📅 学习日期：2026-09-08（三年计划 Day 3）
-> 📔 关联日志：[docs/devlog/2026/09.md](../../docs/devlog/2026/09.md)
-> 🔗 前置笔记：[01 · Windows 权限基础：SID、Access Token、ACL、ACE 与有效权限](01-windows-permissions-basics.md)
+> 📔 关联日志：[docs/devlog/2026/09.md](../../../../docs/devlog/2026/09.md)
+> 🔗 前置笔记：[01 · Windows 权限基础：SID、Access Token、ACL、ACE 与有效权限](02-windows-permissions-basics.md)
 > 学习主题：Windows ACL 实机验证 / icacls / 有效权限
 > 学习阶段：信息安全基础
 

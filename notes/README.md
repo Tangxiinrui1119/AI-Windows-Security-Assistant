@@ -4,18 +4,10 @@
 
 ## 目录
 
-### PowerShell / Windows 基础
-- [01 · Windows 注册表、启动项与 SID](powershell/01-windows-registry-startup-sid.md) —— 2026-09-06 · Day 1
-
-### Windows 安全
-- [01 · Windows 权限基础：SID、Access Token、ACL、ACE 与有效权限](security/01-windows-permissions-basics.md) —— 2026-09-07 · Day 2
-- [02 · Windows ACL 实机验证与有效权限](security/02-windows-acl-effective-permissions.md) —— 2026-09-08 · Day 3
-- [03 · Windows 身份认证与授权体系（二）：Hash、SAM、LSASS 与 NTLM](security/03-windows-authentication-ntlm.md) —— 2026-09-09 · Day 4
-- [04 · Windows 域安全：Kerberos、KDC、TGT、TGS、SPN、Kerberoasting 与 AD](security/04-windows-kerberos-ad.md) —— 2026-09-10 · Day 5
-- [05 · Kerberos 深入理解：Ticket 与 Session Key](security/05-windows-kerberos-ticket-session-key.md) —— 2026-09-14 · Day 6
-- [06 · Windows 事件日志与安全审计](security/06-windows-event-log-security-audit.md) —— 2026-09-15 · Day 7
-- [07 · Windows 进程、PID、PPID 与进程树](security/07-windows-processes-pid-ppid-process-tree.md) —— 2026-09-16 · Day 8
-- [08 · Windows 进程调查：路径、命令行与运行身份](security/08-windows-process-investigation-path-commandline-owner.md) —— 2026-09-17 · Day 9
+### 信息安全 / 渗透测试与攻防
+- [学习路线入口](security/penetration-testing/README.md)
+- [Part 06 · Windows 主机安全](security/penetration-testing/06-windows-host-security/)
+- [Part 07 · Active Directory 与 Kerberos](security/penetration-testing/07-active-directory-and-kerberos/)
 
 ### C++
 - [01 · C++ 指针、引用与 const](cpp/01-pointers-references-const.md) —— 2026-09-16

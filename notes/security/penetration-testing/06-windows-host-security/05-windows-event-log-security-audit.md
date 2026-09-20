@@ -1,8 +1,8 @@
 # Windows 事件日志与安全审计（Day 7）
 
 > 📅 学习日期：2026-09-15（三年计划 Day 7）
-> 📔 关联日志：[docs/devlog/2026/09.md](../../docs/devlog/2026/09.md)
-> 🔗 前置笔记：[05 · Kerberos 深入理解：Ticket 与 Session Key（Day 6）](05-windows-kerberos-ticket-session-key.md)
+> 📔 关联日志：[docs/devlog/2026/09.md](../../../../docs/devlog/2026/09.md)
+> 🔗 前置笔记：[05 · Kerberos 深入理解：Ticket 与 Session Key（Day 6）](../07-active-directory-and-kerberos/02-windows-kerberos-ticket-session-key.md)
 > 学习主题：Windows Event Log / Security Log / Event ID / Logon Type / Logon ID / Audit / Timeline
 > 学习阶段：信息安全基础
 > 🎯 学习目的：理解 Windows 安全日志与审计，利用事件字段关联登录会话、还原时间线，并区分客观事实与猜测。

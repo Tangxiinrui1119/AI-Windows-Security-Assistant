@@ -1,8 +1,8 @@
 # Windows 身份认证与授权体系（二）：Hash、SAM、LSASS 与 NTLM
 
 > 📅 学习日期：2026-09-09（三年计划 Day 4）
-> 📔 关联日志：[docs/devlog/2026/09.md](../../docs/devlog/2026/09.md)
-> 🔗 前置笔记：[01 · Windows 权限基础（Access Token / ACL）](01-windows-permissions-basics.md) ｜ [02 · Windows ACL 实机验证](02-windows-acl-effective-permissions.md)
+> 📔 关联日志：[docs/devlog/2026/09.md](../../../../docs/devlog/2026/09.md)
+> 🔗 前置笔记：[01 · Windows 权限基础（Access Token / ACL）](02-windows-permissions-basics.md) ｜ [02 · Windows ACL 实机验证](03-windows-acl-effective-permissions.md)
 > 学习主题：Windows 身份认证与授权体系
 > 学习阶段：信息安全基础
 > 🎯 学习目的：理解 Windows 认证机制与常见攻击原理，为后续防御与检测打基础。
@@ -461,4 +461,4 @@ ACE
 资源权限
 ```
 
-> 续篇：[04 · Windows 域安全：Kerberos、KDC、AD 与 Kerberoasting](04-windows-kerberos-ad.md)（Day 5，2026-09-10）—— 域环境下的认证体系 Kerberos
+> 续篇：[04 · Windows 域安全：Kerberos、KDC、AD 与 Kerberoasting](../07-active-directory-and-kerberos/01-windows-kerberos-ad.md)（Day 5，2026-09-10）—— 域环境下的认证体系 Kerberos

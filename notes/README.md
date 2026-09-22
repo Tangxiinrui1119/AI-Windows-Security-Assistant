@@ -6,6 +6,14 @@
 
 ### 信息安全 / 渗透测试与攻防
 - [学习路线入口](security/penetration-testing/README.md)
+- [Part 01 · 网络基础补齐](security/penetration-testing/01-network-basics/README.md)
+- [Part 02 · 信息收集与 Nmap](security/penetration-testing/02-recon-and-nmap/README.md)
+- [Part 03 · 常见网络服务](security/penetration-testing/03-common-services/README.md)
+- [Part 04 · Web 安全](security/penetration-testing/04-web-security/README.md)
+- [Part 05 · Linux 基础](security/penetration-testing/05-linux-basics/README.md)
+- [Part 08 · 漏洞分析与验证](security/penetration-testing/08-vulnerability-analysis/README.md)
+- [Part 09 · 防守、日志与修复](security/penetration-testing/09-defense-logging-and-remediation/README.md)
+- [Part 10 · 综合安全评估](security/penetration-testing/10-complete-security-assessment/README.md)
 - [Part 06 · Windows 主机安全](security/penetration-testing/06-windows-host-security/README.md)
 - [Part 07 · Active Directory 与 Kerberos](security/penetration-testing/07-active-directory-and-kerberos/README.md)
 

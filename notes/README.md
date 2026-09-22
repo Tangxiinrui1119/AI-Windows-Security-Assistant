@@ -20,6 +20,7 @@
 ### C++
 - [01 · C++ 指针、引用与 const](cpp/01-pointers-references-const.md) —— 2026-09-16
 - [02 · C++ 数组与指针的关系](cpp/02-arrays-and-pointers.md) —— 2026-09-17
+- [03 · C++ 动态内存：new / delete、栈堆与生命周期](cpp/03-dynamic-memory-new-delete.md) —— 2026-09-22
 
 ### Python
 - （待开始 —— 等 C++ 基础稳定后）

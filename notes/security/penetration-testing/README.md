@@ -8,7 +8,7 @@
 
 ```text
 Part 01 - Network Basics
-状态：即将开始
+状态：进行中
 ```
 
 此前已经学习了一部分 Windows 主机安全与 Kerberos，因此 Part 06 和 Part 07 中会提前存在历史学习笔记，但正式学习顺序仍然从 Part 01 开始。
@@ -17,7 +17,7 @@ Part 01 - Network Basics
 
 | 阶段 | 主题 | 状态 |
 |---|---|---|
-| [Part 01](01-network-basics/README.md) | [网络基础补齐](01-network-basics/README.md) | 📚 即将开始 |
+| [Part 01](01-network-basics/README.md) | [网络基础补齐](01-network-basics/README.md) | 📚 进行中 |
 | [Part 02](02-recon-and-nmap/README.md) | [信息收集与 Nmap](02-recon-and-nmap/README.md) | ⏳ 未开始 |
 | [Part 03](03-common-services/README.md) | [常见网络服务](03-common-services/README.md) | ⏳ 未开始 |
 | [Part 04](04-web-security/README.md) | [Web 安全](04-web-security/README.md) | ⏳ 未开始 |

@@ -5,15 +5,50 @@
 
 ## 一、知识地图
 
-顺序结构
-→ 选择结构 if
-→ 紧凑条件表达式
-→ for + range
-→ while
-→ break / continue
-→ 循环嵌套
-→ pass
+    程序控制结构
+    ↓
+    三种基本结构
+    ├─ 顺序结构
+    ├─ ⭐ 选择结构
+    └─ ⭐ 循环结构
+    ↓
+    顺序结构
+    └─ 语句按先后顺序执行
+    ↓
+    ⭐ 选择结构
+    ├─ if
+    ├─ if / else
+    ├─ if / elif / else
+    ├─ 关系运算符判断条件
+    └─ 条件表达式：A if 条件 else B
+    ↓
+    ⭐ for 循环
+    ├─ for 变量 in 序列
+    └─ range(start, stop, step)
+       ├─ start：起点
+       ├─ stop：终点，不包含
+       └─ step：步长
+    ↓
+    ⭐ while 循环
+    └─ 条件为 True 时持续执行
+    ↓
+    循环控制
+    ├─ break → 跳出当前循环
+    └─ continue → 跳过本轮，进入下一轮
+    ↓
+    循环嵌套
+    └─ 循环中继续包含循环
+    ↓
+    pass
+    └─ 空语句 / 占位，不执行实际操作
 
+> [!IMPORTANT]
+> 本章重点：
+> **⭐ if / elif / else 的分支逻辑**
+> **⭐ range() 的 stop 不包含在结果中**
+> **⭐ for 与 while 的基本使用**
+> **⭐ break 和 continue 的区别**
+> **⭐ Python 依靠缩进表示代码块**
 ## 二、三种基本结构
 
 1. 顺序结构：语句按顺序执行。

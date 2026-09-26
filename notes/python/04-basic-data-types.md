@@ -5,13 +5,76 @@
 
 ## 一、知识地图
 
-数字 Number
-→ 序列：String / Tuple / List
-→ Dictionary
-→ Set
-→ 类型转换
-→ 迭代器与生成器
+    Python 基本内置数据类型
+    ↓
+    ⭐ 可变与不可变
+    ├─ 不可变
+    │  ├─ Number
+    │  ├─ String
+    │  └─ Tuple
+    └─ 可变
+       ├─ List
+       ├─ Dictionary
+       └─ Set
+    ↓
+    Number 数字
+    ├─ int
+    ├─ float
+    ├─ complex
+    ├─ type() / isinstance()
+    ├─ int() / float()
+    └─ round()
+    ↓
+    ⭐ Sequence 序列
+    ├─ String
+    │  ├─ 索引
+    │  ├─ 切片
+    │  ├─ + / * / len()
+    │  └─ 转义字符 / 原始字符串
+    ├─ Tuple
+    │  ├─ 不可修改
+    │  ├─ 索引 / 切片
+    │  └─ ⭐ 单元素元组：(50,)
+    └─ List
+       ├─ append() / insert()
+       ├─ remove() / pop() / del
+       ├─ 索引 / 逆向索引 / 切片
+       ├─ 嵌套列表
+       ├─ in / for / enumerate()
+       └─ zip()
+    ↓
+    ⭐ Dictionary 字典
+    ├─ key : value 键值对
+    ├─ 通过 key 查 value
+    ├─ get() / update()
+    ├─ keys()
+    ├─ values()
+    ├─ items()
+    └─ in 判断键是否存在
+    ↓
+    ⭐ Set 集合
+    ├─ 无序
+    ├─ 元素不重复
+    ├─ set() 创建空集合
+    ├─ add() / update()
+    ├─ remove() / discard() / pop() / clear()
+    ├─ 列表去重
+    └─ 并 / 交 / 差 / 对称差
+    ↓
+    类型转换
+    ↓
+    迭代器与生成器
+    ├─ 按需处理数据
+    ├─ iter()
+    └─ next()
 
+> [!IMPORTANT]
+> 本章重点：
+> **⭐ String / Tuple / Number 不可变，List / Dict / Set 可变**
+> **⭐ 列表的增删改查与切片**
+> **⭐ 字典的 key-value、keys() / values() / items()**
+> **⭐ 集合的“不重复”特性与 set() 空集合**
+> **⭐ (50,) 才是单元素元组**
 ## 二、可变与不可变
 
 不可变数据：

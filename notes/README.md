@@ -23,7 +23,16 @@
 - [03 · C++ 动态内存：new / delete、栈堆与生命周期](cpp/03-dynamic-memory-new-delete.md) —— 2026-09-22
 
 ### Python
-- （待开始 —— 等 C++ 基础稳定后）
+- [Python 课程学习入口 / 九章总目录](python/README.md) —— 2026-09-26
+- [01 · 初识 Python](python/01-python-introduction.md)
+- [02 · 编写简单的程序](python/02-simple-programs.md)
+- [03 · 程序的控制结构](python/03-control-structures.md)
+- [04 · 基本内置数据类型](python/04-basic-data-types.md)
+- [05 · 函数](python/05-functions.md)
+- [06 · 面向对象编程](python/06-object-oriented-programming.md)
+- [07 · 字符串基本操作与正则表达式](python/07-strings-and-regex.md)
+- [08 · 文件读写、CSV 与 JSON](python/08-file-io-csv-json.md)
+- [09 · NumPy 库](python/09-numpy.md)
 
 ### Git & GitHub
 - （实践中学习：建仓库、Pages 主页、提交推送都记录在 [开发日志](../docs/devlog/2026/09.md)）

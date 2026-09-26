@@ -207,7 +207,7 @@ if (!window.marked) {
 
   var params = new URLSearchParams(location.search);
   var file = cleanPath(params.get('f'));
-  var version = params.get('v');
+  var version = params.get('v') || String(Date.now());
   if (!file) {
     pathEl.textContent = '$ 非法路径 —— 已忽略';
     showError(null);

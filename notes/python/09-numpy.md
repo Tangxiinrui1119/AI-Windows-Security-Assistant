@@ -5,16 +5,87 @@
 
 ## 一、知识地图
 
-NumPy
-→ ndarray
-→ 创建数组
-→ dtype 与属性
-→ 索引 / 切片
-→ reshape 等形态操作
-→ 拼接 / 切分
-→ 转置 / 翻转
-→ ufunc 元素级运算
+    NumPy
+    ↓
+    NumPy 概述
+    ├─ Python 科学计算第三方基础库
+    ├─ 多维数组
+    ├─ 矩阵运算
+    └─ 数学函数库
+    ↓
+    ⭐ ndarray
+    ├─ NumPy 核心数据对象
+    ├─ 元素类型相同
+    ├─ 维度 = 轴 axis
+    └─ 轴的个数 = 秩 rank
+    ↓
+    ⭐ 创建 ndarray
+    ├─ np.array(列表 / 元组)
+    ├─ np.arange()
+    ├─ np.linspace()
+    ├─ np.indices()
+    ├─ np.ones() / np.zeros()
+    └─ np.random.rand() / randn()
+    ↓
+    dtype 数据类型
+    ├─ bool
+    ├─ int / uint
+    ├─ float
+    └─ complex
+    ↓
+    ⭐ ndarray 常用属性
+    ├─ ndim → 维度 / 秩
+    ├─ shape → 各维度大小
+    ├─ size → 元素总数
+    ├─ dtype → 元素类型
+    ├─ itemsize → 单个元素字节数
+    └─ data → 缓冲区
+    ↓
+    ⭐ 索引与切片
+    ├─ 一维索引：a[i]
+    ├─ 多维索引：a[row, col]
+    ├─ x[start:stop:step]
+    ├─ 多维切片：先行后列
+    └─ ⭐ 切片得到原数组视图，修改会反映到原数组
+    ↓
+    ⭐ 数组形态操作
+    ├─ reshape() → 返回新形态数组
+    ├─ resize() → 直接改变原数组
+    ├─ swapaxes() → 交换轴
+    ├─ flatten() → 展平为拷贝
+    └─ ravel() → 展平为视图
+    ↓
+    数组拼接
+    ├─ vstack() → 按行 / 垂直拼接
+    ├─ hstack() → 按列 / 水平拼接
+    └─ concatenate() → axis 指定方向
+    ↓
+    数组切分
+    ├─ vsplit()
+    ├─ hsplit()
+    └─ split()
+    ↓
+    转置与翻转
+    ├─ transpose() / T
+    ├─ fliplr() → 左右翻转
+    └─ flipud() → 上下翻转
+    ↓
+    ⭐ ufunc 元素级运算
+    ├─ 一元：sqrt / square / ceil / floor / sin / cos / log / diff...
+    ├─ 算术：add / subtract / multiply / divide / power / mod
+    ├─ 比较：equal / not_equal / less / greater...
+    └─ where(condition, x, y)
+    ↓
+    综合示例
+    └─ NumPy 随机数 + 绘图
 
+> [!IMPORTANT]
+> 本章重点：
+> **⭐ ndarray 是什么，以及为什么元素类型统一**
+> **⭐ ndim / shape / size / dtype**
+> **⭐ 多维索引与切片**
+> **⭐ reshape 与 resize、flatten 与 ravel 的区别**
+> **⭐ NumPy 运算通常对数组元素批量执行**
 ## 二、NumPy 是什么
 
 NumPy（Numerical Python）是 Python 科学计算常用的第三方基础库。

@@ -5,11 +5,58 @@
 
 ## 一、知识地图
 
-Python 的产生与发展
-→ Python 的特点与应用
-→ Python 开发环境
-→ 程序运行过程：编译 / 解释
+    Python 初识
+    ↓
+    Python 的产生与发展
+    ├─ 1989：Guido van Rossum 开始构思
+    ├─ 1991：第一个公开版本
+    ├─ Python 2.x
+    └─ Python 3.x
+    ↓
+    Python 的特点
+    ├─ ⭐ 语法简洁、可读性好
+    ├─ ⭐ 标准库丰富
+    ├─ 跨平台 / 可移植
+    ├─ 可扩展
+    ├─ 开源
+    └─ 第三方库丰富
+    ↓
+    Python 的应用
+    ├─ Web 开发
+    ├─ 自动化运维
+    ├─ 数据分析
+    └─ 人工智能
+    ↓
+    Python 的不足
+    ├─ 执行速度相对 C/C++ 较慢
+    └─ 源代码加密较困难
+    ↓
+    Python 开发环境
+    ├─ IPython
+    ├─ Jupyter Notebook
+    ├─ qtconsole
+    ├─ Anaconda
+    └─ ⭐ PyCharm / IDE
+    ↓
+    ⭐ 程序运行过程
+    ├─ 编译 Compilation
+    │  ├─ 源代码 → 目标代码
+    │  └─ 编译器 Compiler
+    └─ 解释 Interpretation
+       ├─ 源代码逐条转换并执行
+       └─ 解释器 Interpreter
+    ↓
+    ⭐ Python 程序运行
+    ├─ .py 源文件
+    ├─ Python 解释器
+    └─ python hello.py
 
+> [!IMPORTANT]
+> 本章重点：
+> **⭐ Python 的主要特点**
+> **⭐ 开发环境与 Python 解释器的区别**
+> **⭐ 编译与解释的区别**
+> **⭐ .py 文件如何由 Python 解释器运行**
 ## 二、Python 的产生与特点
 
 - Python 由 Guido van Rossum（吉多·范罗苏姆）设计。

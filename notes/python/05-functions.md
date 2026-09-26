@@ -5,15 +5,72 @@
 
 ## 一、知识地图
 
-定义函数
-→ 调用与参数
-→ return
-→ 默认 / 关键字 / 不定长参数
-→ lambda
-→ 局部与全局变量
-→ math / random
-→ datetime
+    Python 函数
+    ↓
+    ⭐ 定义函数 def
+    ├─ 函数名
+    ├─ 参数列表
+    └─ 函数体
+    ↓
+    ⭐ 函数调用
+    ├─ 形参 → 定义时
+    └─ 实参 → 调用时
+    ↓
+    ⭐ return
+    ├─ 返回结果给调用者
+    └─ 不带表达式 → None
+    ↓
+    参数传递
+    ├─ 不可变对象
+    │  ├─ number
+    │  ├─ string
+    │  └─ tuple
+    └─ 可变对象
+       ├─ list
+       ├─ set
+       └─ dictionary
+    ↓
+    ⭐ 参数形式
+    ├─ 位置参数
+    ├─ 关键字参数
+    ├─ 默认参数
+    ├─ *args → 收集额外位置参数
+    ├─ **kwargs → 收集额外关键字参数
+    ├─ / → 强制位置参数
+    └─ * → 后续参数强制关键字传入
+    ↓
+    lambda 匿名函数
+    └─ lambda 参数: expression
+    ↓
+    main() / 模块运行示例
+    ↓
+    ⭐ 变量作用域
+    ├─ 局部变量
+    ├─ 全局变量
+    └─ global
+    ↓
+    常用库
+    ├─ math
+    ├─ ⭐ random
+    │  ├─ random()
+    │  ├─ randint()
+    │  ├─ randrange()
+    │  ├─ choice()
+    │  ├─ shuffle()
+    │  ├─ uniform()
+    │  └─ seed()
+    └─ ⭐ datetime
+       ├─ strptime()
+       ├─ date(year, month, day)
+       └─ 时间差计算
 
+> [!IMPORTANT]
+> 本章重点：
+> **⭐ 形参与实参的区别**
+> **⭐ return 是“返回”，不是 print() 输出**
+> **⭐ *args 与 **kwargs 分别收集什么参数**
+> **⭐ 局部变量、全局变量与 global**
+> **⭐ random 和 datetime 常用函数见到要认识**
 ## 二、定义与调用
 
 函数可以提高代码复用性和模块化程度。

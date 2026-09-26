@@ -5,14 +5,70 @@
 
 ## 一、知识地图
 
-open 打开文件
-→ read / write
-→ with 自动关闭
-→ seek
-→ CSV
-→ JSON
-→ 综合数据处理
+    文件读写
+    ↓
+    ⭐ open() 打开文件
+    ├─ filename → 文件路径字符串
+    ├─ mode → 打开模式
+    └─ f → 文件对象
+    ↓
+    ⭐ 打开模式
+    ├─ r → 只读
+    ├─ w → 覆盖写
+    ├─ x → 创建写
+    ├─ a → 追加写
+    ├─ b → 二进制
+    ├─ t → 文本
+    └─ + → 增加读写能力
+    ↓
+    文件关闭
+    ├─ close()
+    ├─ closed 属性
+    └─ ⭐ with → 操作结束自动关闭
+    ↓
+    ⭐ 读取文件
+    ├─ read() → 整体字符串
+    ├─ readline() → 一行
+    ├─ readlines() → 多行字符串列表
+    └─ seek() → 移动文件读写位置
+    ↓
+    ⭐ 写文件
+    ├─ write() → 写一个字符串 / 字节流
+    ├─ writelines() → 写字符串列表
+    ├─ w → 覆盖
+    └─ a → 追加
+    ↓
+    ⭐ CSV
+    ├─ 逗号分隔数据
+    ├─ import csv
+    ├─ csv.reader() → reader 对象
+    ├─ csv.writer() → writer 对象
+    ├─ writerow() → 写一行
+    └─ writerows() → 写多行
+    ↓
+    ⭐ JSON
+    ├─ 轻量级数据交换格式
+    ├─ key:value 键值对
+    ├─ {} → 对象
+    ├─ [] → 数组
+    ├─ import json
+    ├─ dumps() → Python 对象 → JSON 字符串
+    ├─ loads() → JSON 字符串 → Python 对象
+    └─ ensure_ascii=False → 保留中文字符
+    ↓
+    综合实例
+    ├─ split() 分割文本
+    ├─ 正则提取数据
+    ├─ 写入 CSV
+    └─ 输出 JSON
 
+> [!IMPORTANT]
+> 本章重点：
+> **⭐ r / w / a 三种最常用打开模式**
+> **⭐ read / readline / readlines 的区别**
+> **⭐ write / writelines 与覆盖写、追加写**
+> **⭐ csv.reader / csv.writer / writerow / writerows**
+> **⭐ JSON 的键值对结构，以及 dumps() / loads() 的方向**
 ## 二、打开文件
 
 基本格式：

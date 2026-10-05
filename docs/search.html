@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>知识点搜索 · AI Windows 安全助手</title>
+<meta name="description" content="搜索 C++、Python、计算机网络、数据结构和信息安全学习笔记，快速回到要复习的知识点。">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔎</text></svg>">
+<style>
+:root{--bg:#06090f;--panel:#0a1120;--panel2:#0d1626;--border:#1b2a45;--border-hi:#2e466e;--green:#3df5b0;--cyan:#53c8ff;--text:#dbe7f5;--dim:#8596b3;--mono:"Cascadia Code",Consolas,monospace;--sans:-apple-system,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif}
+*{box-sizing:border-box;margin:0}
+.search-bg{position:fixed;inset:0;z-index:-1;background:radial-gradient(ellipse at 50% 0,rgba(83,200,255,.12),transparent 65%),linear-gradient(rgba(83,200,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(83,200,255,.035) 1px,transparent 1px);background-size:100% 100%,46px 46px,46px 46px}
+</style>
+<link rel="stylesheet" href="search.css?v=1">
+<script src="search-core.js?v=1" defer></script>
+<script src="search.js?v=1" defer></script>
+<script src="search-shortcuts.js?v=1" defer></script>
+</head>
+<body class="search-page">
+<div class="search-bg" aria-hidden="true"></div>
+<main class="wrap">
+  <header class="search-top">
+    <span>🛡️ AI Windows 安全助手</span>
+    <nav aria-label="页面导航"><a href="index.html">← 首页</a><a href="reader.html?f=notes%2FREADME.md">学习笔记目录</a></nav>
+  </header>
+  <h1 class="search-heading">知识点搜索</h1>
+  <p class="search-intro">突然想起一个知识点，就从这里找到它。</p>
+  <form class="knowledge-search" id="search-form" role="search">
+    <label for="query">想复习哪个知识点？</label>
+    <div class="search-row"><input class="search-input" id="query" name="q" type="search" maxlength="160" placeholder="例如：三次握手、ACL、new / delete" autocomplete="off"><button class="search-button" type="submit">搜索</button></div>
+    <p class="search-hint">搜索标题和正文 · 多个关键词用空格隔开 · <kbd>Ctrl</kbd> + <kbd>K</kbd> 快速搜索</p>
+  </form>
+  <p class="search-status"><span id="sync-status" role="status">正在载入笔记…</span><button class="search-retry" id="retry" type="button" hidden>重试</button></p>
+  <nav class="search-filters" id="filters" aria-label="按笔记分类筛选"></nav>
+  <p class="search-count" id="result-count" role="status" aria-live="polite"></p>
+  <ul class="search-results" id="results"></ul>
+  <div class="search-empty" id="empty">
+    <h2 id="empty-title">从一个关键词开始</h2>
+    <p id="empty-message">可以输入中文概念、英文术语或代码中的名字。</p>
+    <div class="search-examples" id="examples">
+      <button type="button" class="search-example">三次握手</button><button type="button" class="search-example">ACL</button><button type="button" class="search-example">new delete</button><button type="button" class="search-example">Kerberos</button><button type="button" class="search-example">链表</button><button type="button" class="search-example">NumPy</button>
+    </div>
+  </div>
+  <noscript><p class="search-empty">请启用浏览器的 JavaScript 以使用搜索。也可以通过上方的学习笔记目录阅读。</p></noscript>
+</main>
+</body>
+</html>
+

@@ -31,7 +31,7 @@ a{color:inherit}
 .top{display:flex;justify-content:space-between;align-items:center;padding:22px 0;flex-wrap:wrap;gap:10px}
 .logo{font-family:var(--mono);font-size:14px;color:var(--cyan);letter-spacing:.5px}
 .logo b{color:var(--text)}
-.nav{display:flex;gap:10px}
+.nav{display:flex;gap:10px;flex-wrap:wrap}
 .gh-link{font-family:var(--mono);font-size:13px;color:var(--dim);border:1px solid var(--border);border-radius:8px;padding:6px 14px;transition:.25s}
 .gh-link:hover{color:var(--green);border-color:var(--green);box-shadow:0 0 14px rgba(61,245,176,.25)}
 /* 路径条 */
@@ -83,6 +83,10 @@ footer a:hover{color:var(--cyan)}
   .md pre{margin:16px -6px}
 }
 </style>
+<link rel="stylesheet" href="search.css?v=1">
+<script src="search-core.js?v=1" defer></script>
+<script src="reader-search.js?v=1" defer></script>
+<script src="search-shortcuts.js?v=1" defer></script>
 </head>
 <body>
 <div class="bg"></div>
@@ -96,6 +100,15 @@ footer a:hover{color:var(--cyan)}
       <a class="gh-link" id="src-link" href="#" target="_blank" rel="noopener">GitHub 查看原文 ↗</a>
     </nav>
   </header>
+
+  <form class="knowledge-search search-reader" action="search.html" method="get" role="search">
+    <label class="sr-only" for="reader-search">搜索全部学习笔记</label>
+    <div class="search-row">
+      <input class="search-input" id="reader-search" name="q" type="search" maxlength="160" placeholder="搜索知识点，例如：三次握手、ACL、new / delete" autocomplete="off">
+      <button class="search-button" type="submit">搜索</button>
+    </div>
+  </form>
+  <div class="search-context" id="search-context" hidden></div>
 
   <div class="path" id="path">$ 正在解析路径…</div>
 
@@ -203,6 +216,7 @@ if (!window.marked) {
       if (/^https?:\/\//i.test(src)) return;
       im.src = RAW + resolvePath(baseDir, src);
     });
+    document.dispatchEvent(new Event('note-rendered'));
   }
 
   var params = new URLSearchParams(location.search);
@@ -225,3 +239,4 @@ if (!window.marked) {
 </script>
 </body>
 </html>
+

@@ -114,6 +114,8 @@ footer a:hover{color:var(--cyan)}
   .tbody{padding:20px 18px 24px}
 }
 </style>
+<link rel="stylesheet" href="search.css?v=1">
+<script src="search-shortcuts.js?v=1" defer></script>
 </head>
 <body>
 <div class="bg"></div>
@@ -145,6 +147,15 @@ footer a:hover{color:var(--cyan)}
     <span class="chip c">三年之约 · 第 <b id="day">1</b> 天</span>
     <span class="chip p">启动于 2026-09-06</span>
   </div>
+
+  <form class="knowledge-search" action="search.html" method="get" role="search">
+    <label for="home-search">知识点搜索</label>
+    <div class="search-row">
+      <input class="search-input" id="home-search" name="q" type="search" maxlength="160" placeholder="搜索笔记，例如：三次握手、ACL、new / delete" autocomplete="off">
+      <button class="search-button" type="submit">搜索</button>
+    </div>
+    <p class="search-hint">搜标题，也搜正文 · <kbd>Ctrl</kbd> + <kbd>K</kbd> 快速搜索</p>
+  </form>
 
   <!-- 项目架构 -->
   <section class="sec">
@@ -307,3 +318,4 @@ footer a:hover{color:var(--cyan)}
 </script>
 </body>
 </html>
+

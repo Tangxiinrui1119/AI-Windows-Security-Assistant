@@ -17,9 +17,9 @@
     processed.add(doc);
     var headings = Array.from(doc.querySelectorAll('h1,h2,h3,h4,h5,h6'));
     var indexed = params.has('i') && headings[Number(params.get('i'))];
-    var target = indexed && core.normalize(indexed.textContent.trim()) === core.normalize(section) ? indexed : headings.find(function (h) {
-      return core.normalize(h.textContent.trim()) === core.normalize(section);
-    });
+    var matching = headings.filter(function (h) { return core.normalize(h.textContent.trim()) === core.normalize(section); });
+    var target = params.has('n') ? matching[Number(params.get('n')) || 0] :
+      indexed && core.normalize(indexed.textContent.trim()) === core.normalize(section) ? indexed : matching[0];
     var walker = document.createTreeWalker(doc, NodeFilter.SHOW_TEXT, { acceptNode: function (node) {
       return node.parentElement.closest('script,style,mark') || !core.ranges(node.nodeValue, terms).length ?
         NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT;

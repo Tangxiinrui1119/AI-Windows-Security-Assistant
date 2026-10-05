@@ -43,6 +43,10 @@ test('C++ pointer and arithmetic operators survive the text index', () => {
   assert.ok(doc.sections[0].text.includes('a * b'));
   assert.ok(!doc.sections[0].text.includes('**释放**'));
 });
+test('Repeated section names retain the occurrence of the relevant section', () => {
+  const doc = core.parse('notes/cpp/01.md', '# 示例\n## 第一次\n普通\n## 第一次\n特别关键词');
+  assert.equal(core.search([doc], '特别关键词')[0].headingOccurrence, 1);
+});
 test('Snippets include distant body hits and strip Markdown link URLs', () => {
   const doc = core.parse('notes/cpp/01.md', '# 内存\n' + '普通文字'.repeat(100) + ' 悬空指针 [引用](https://example.com)');
   const result = core.search([doc], '悬空指针')[0];

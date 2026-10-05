@@ -78,7 +78,8 @@
       });
       best = best || { heading: '', text: '' };
       var score = terms.reduce(function (sum, term) { return sum + (title.includes(term) ? 20 : 0); }, 0) + bestScore;
-      results.push({ doc: doc, score: score, heading: best.heading, headingIndex: best.headingIndex,
+      var occurrence = sections.slice(0, sections.indexOf(best)).filter(function (s) { return s.heading === best.heading; }).length;
+      results.push({ doc: doc, score: score, heading: best.heading, headingIndex: best.headingIndex, headingOccurrence: occurrence,
         snippet: snippet(best.text || best.heading || doc.title, terms) });
       return results;
     }, []).sort(function (a, b) { return b.score - a.score || a.doc.path.localeCompare(b.doc.path); });

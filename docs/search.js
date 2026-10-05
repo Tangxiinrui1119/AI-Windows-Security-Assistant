@@ -22,6 +22,42 @@
       return await (json ? response.json() : response.text());
     } finally { clearTimeout(timeout); }
   }
+  // The reader already uses raw Markdown. Its maintained directory pages are a
+  // second discovery route when the GitHub tree endpoint is unavailable.
+  async function directoryCatalog() {
+    var queue = ['notes/README.md'], visited = new Set(), paths = new Set();
+    while (queue.length) {
+      var batch = queue.splice(0, 4).filter(function (path) {
+        if (visited.has(path)) return false; visited.add(path); return true;
+      });
+      if (visited.size > 200) throw new Error('Too many directory pages');
+      var pages = await Promise.all(batch.map(async function (path) {
+        var markdown = await request('https://raw.githubusercontent.com/' + repo + '/main/' + path + '?v=' + Date.now(), false);
+        return { path: path, markdown: markdown };
+      }));
+      pages.forEach(function (page) {
+        var pattern = /\[[^\]]*\]\(([^\s)]+)(?:\s+[^)]*)?\)/g, match;
+        while ((match = pattern.exec(page.markdown))) {
+          var link;
+          try { link = new URL(match[1], 'https://notes.invalid/' + page.path); } catch (_) { continue; }
+          if (link.origin !== 'https://notes.invalid') continue;
+          var path;
+          try { path = decodeURIComponent(link.pathname.slice(1)); } catch (_) { continue; }
+          if (/^notes\/(?:[\w-]+\/)*README\.md$/i.test(path)) {
+            if (!visited.has(path)) queue.push(path);
+          } else if (core.eligible(path)) paths.add(path);
+        }
+      });
+    }
+    if (!paths.size) throw new Error('Empty directory');
+    return Array.from(paths).sort().map(function (path) { return { path: path, sha: null }; });
+  }
+  async function blobSha(markdown) {
+    var bytes = new TextEncoder().encode(markdown), prefix = new TextEncoder().encode('blob ' + bytes.length + '\0');
+    var data = new Uint8Array(prefix.length + bytes.length); data.set(prefix); data.set(bytes, prefix.length);
+    var hash = await crypto.subtle.digest('SHA-1', data);
+    return Array.from(new Uint8Array(hash)).map(function (b) { return b.toString(16).padStart(2, '0'); }).join('');
+  }
   function use(data) { cache = data; documents = data.documents; isReady = true; render(); }
   function updateAddress() {
     var params = new URLSearchParams();
@@ -65,6 +101,7 @@
       link.className = 'search-result';
       var params = new URLSearchParams({ f: match.doc.path, q: query, s: match.heading, v: match.doc.sha });
       if (Number.isInteger(match.headingIndex) && match.headingIndex >= 0) params.set('i', match.headingIndex);
+      params.set('n', match.headingOccurrence || 0);
       if (selected) params.set('category', selected);
       link.href = 'reader.html?' + params.toString();
       line(link, 'p', 'search-result-meta', match.doc.label + (match.doc.part ? ' / ' + match.doc.part : ''), []);
@@ -93,9 +130,12 @@
     syncing = true; retry.hidden = true;
     status.textContent = documents.length ? '已载入 ' + documents.length + ' 篇笔记，正在检查新内容…' : '正在载入笔记…';
     try {
-      var catalog = await request('https://api.github.com/repos/' + repo + '/git/trees/main?recursive=1', true);
-      if (!Array.isArray(catalog.tree) || catalog.truncated) throw new Error('Incomplete catalog');
-      var entries = catalog.tree.filter(function (e) { return e.type === 'blob' && core.eligible(e.path); });
+      var entries;
+      try {
+        var catalog = await request('https://api.github.com/repos/' + repo + '/git/trees/main?recursive=1', true);
+        if (!Array.isArray(catalog.tree) || catalog.truncated) throw new Error('Incomplete catalog');
+        entries = catalog.tree.filter(function (e) { return e.type === 'blob' && core.eligible(e.path); });
+      } catch (_) { entries = await directoryCatalog(); }
       var existing = new Map(documents.map(function (doc) { return [doc.path, doc]; }));
       var next = new Array(entries.length), cursor = 0, failed = 0;
       async function worker() {
@@ -104,8 +144,9 @@
           if (old && old.sha === entry.sha) { next[i] = old; continue; }
           try {
             var path = entry.path.split('/').map(encodeURIComponent).join('/');
-            var markdown = await request('https://raw.githubusercontent.com/' + repo + '/main/' + path + '?v=' + entry.sha, false);
-            next[i] = core.parse(entry.path, markdown, entry.sha);
+            var markdown = await request('https://raw.githubusercontent.com/' + repo + '/main/' + path + '?v=' + (entry.sha || Date.now()), false);
+            var sha = entry.sha || await blobSha(markdown);
+            next[i] = old && old.sha === sha ? old : core.parse(entry.path, markdown, sha);
           } catch (_) { failed++; next[i] = old; }
         }
       }

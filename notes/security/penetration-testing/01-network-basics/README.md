@@ -6,5 +6,6 @@
 
 - [01 · 网络通信基础](01-network-communication-basics.md) —— 2026-09-22
 - [02 · 子网、路由、ARP 与网络诊断](02-subnet-routing-arp-and-diagnostics.md) —— 2026-09-24
+- [03 · 端口、监听与网络连接](03-ports-listening-and-network-connections.md) —— 2026-10-05
 
 [← 返回信息安全学习路线](../README.md)

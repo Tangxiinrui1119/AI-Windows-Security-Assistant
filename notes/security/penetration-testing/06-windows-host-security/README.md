@@ -11,5 +11,6 @@
 - [05 · Windows 事件日志与安全审计](05-windows-event-log-security-audit.md) —— 原 Day 7
 - [06 · Windows 进程、PID、PPID 与进程树](06-windows-processes-pid-ppid-process-tree.md) —— 原 Day 8
 - [07 · Windows 进程调查：路径、命令行与运行身份](07-windows-process-investigation-path-commandline-owner.md) —— 原 Day 9
+- [08 · Windows 主机安全：进程与网络行为联合分析](08-windows-process-network-behavior-analysis.md) —— 2026-10-06 衔接补充
 
 [← 返回信息安全学习路线](../README.md)

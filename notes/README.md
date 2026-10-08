@@ -23,6 +23,7 @@
 - [01 · C++ 指针、引用与 const](cpp/01-pointers-references-const.md) —— 2026-09-16
 - [02 · C++ 数组与指针的关系](cpp/02-arrays-and-pointers.md) —— 2026-09-17
 - [03 · C++ 动态内存：new / delete、栈堆与生命周期](cpp/03-dynamic-memory-new-delete.md) —— 2026-09-22
+- [04 · C++ STL vector 入门与指针复习](cpp/04-stl-vector-basics.md) —— 2026-10-08
 
 ### Python
 - [Python 课程学习入口 / 九章总目录](python/README.md) —— 2026-09-26
@@ -64,4 +65,5 @@
 - 概念按「是什么 → 为什么存在 → 怎么工作 → 例子 → 易混淆点 → 以后用在哪」写
 - 命令按「命令 → 作用 → 为什么用 → 拆解 → 例子 → 预期结果 → 如何理解 → 常见错误」写
 - 超出当日所学的内容标注「扩展知识」
+
 

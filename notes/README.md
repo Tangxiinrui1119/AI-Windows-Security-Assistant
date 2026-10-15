@@ -24,6 +24,7 @@
 - [02 · C++ 数组与指针的关系](cpp/02-arrays-and-pointers.md) —— 2026-09-17
 - [03 · C++ 动态内存：new / delete、栈堆与生命周期](cpp/03-dynamic-memory-new-delete.md) —— 2026-09-22
 - [04 · C++ STL vector 入门与指针复习](cpp/04-stl-vector-basics.md) —— 2026-10-08
+- [05 · C++ STL 迭代器与成绩分析器实操](cpp/05-stl-iterators-and-score-manager.md) —— 2026-10-15（[练习任务书](cpp/exercises/score_manager_task.md)）
 
 ### Python
 - [Python 课程学习入口 / 九章总目录](python/README.md) —— 2026-09-26

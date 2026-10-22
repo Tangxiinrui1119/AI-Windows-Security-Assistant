@@ -42,8 +42,12 @@
 - （实践中学习：建仓库、Pages 主页、提交推送都记录在 [开发日志](../docs/devlog/2026/09.md)）
 
 ### 计算机网络
+- [课程复习目录](network/README.md) · [静态网页入口](https://tangxiinrui1119.github.io/AI-Windows-Security-Assistant/network/index.html)
 - [01 · 计算机网络概述](network/01-network-overview.md) —— 2026-09-19
 - [02 · 物理层](network/02-physical-layer.md) —— 2026-09-19
+
+- [03 · 数据链路层](network/03-data-link-layer.md) —— 2026-10-22
+- [04 · 网络层](network/04-network-layer.md) —— 2026-10-22
 
 ### 数据结构
 - [01 · 数据结构与算法：绪论](data-structures/01-introduction.md) —— 2026-09-20
@@ -67,6 +71,7 @@
 - 概念按「是什么 → 为什么存在 → 怎么工作 → 例子 → 易混淆点 → 以后用在哪」写
 - 命令按「命令 → 作用 → 为什么用 → 拆解 → 例子 → 预期结果 → 如何理解 → 常见错误」写
 - 超出当日所学的内容标注「扩展知识」
+
 
 
 

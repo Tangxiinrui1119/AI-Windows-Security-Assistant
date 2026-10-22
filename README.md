@@ -7,6 +7,12 @@
 这是我在大学期间（**大二 → 大三 → 大四**）的长期项目仓库。
 代码、学习笔记、开发日志全部记录在这里，一步一步从零成长为一个完整的「AI Windows 安全助手」。
 
+## 计算机网络复习
+
+第3章数据链路层与第4章网络层已按上传PDF整理：[Markdown目录](notes/network/README.md) · [静态全文网页](https://tangxiinrui1119.github.io/AI-Windows-Security-Assistant/network/index.html) · [站内搜索](https://tangxiinrui1119.github.io/AI-Windows-Security-Assistant/search.html)。
+
+包含章节结构、概念对比、公式、例题与课件勘误；[搜索引擎收录与维护说明](docs/SEARCH-ENGINES.md)。
+
 ## 项目方向
 
 项目以 **Python** 作为主控、数据处理与 AI 分析层：把 Windows 的系统信息整理成可靠的事实，再结合规则和 AI 帮用户理解风险。
@@ -69,3 +75,4 @@
 1. 复习 Day 1~6：认证（NTLM / Kerberos）与授权（ACL）两条线（笔记：`notes/security/` 下 01~05 篇）
 2. 开始 C++：指针
 3. Level 2：把「查启动项」写成自己的小程序
+

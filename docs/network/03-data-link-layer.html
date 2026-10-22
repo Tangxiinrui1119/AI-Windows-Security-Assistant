@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>第3章 数据链路层 · 计算机网络复习笔记</title><meta name="description" content="计算机网络第3章中文复习笔记：帧、CRC、PPP、CSMA/CD、MAC地址、以太网交换机、VLAN与高速以太网。"><meta name="robots" content="index,follow"><link rel="canonical" href="https://tangxiinrui1119.github.io/AI-Windows-Security-Assistant/network/03-data-link-layer.html"><link rel="sitemap" type="application/xml" href="../sitemap.xml"><style>body{margin:0;background:#f4f7fb;color:#172238;font:17px/1.85 system-ui,"Microsoft YaHei",sans-serif}main{max-width:1000px;margin:auto;padding:28px 24px 70px}article{background:white;border:1px solid #d9e2ee;border-radius:16px;padding:clamp(18px,4vw,48px)}a{color:#075fb5}nav{display:flex;flex-wrap:wrap;gap:18px;margin-bottom:24px}h1{font-size:2em}h2{margin-top:2em;border-bottom:1px solid #dae3ed;padding-bottom:8px}h3{margin-top:1.6em}table{display:block;overflow:auto;border-collapse:collapse;max-width:100%;margin:22px 0;font-size:.92em}td,th{border:1px solid #cad5e3;padding:9px 13px;text-align:left}th{background:#eaf2fc}pre{overflow:auto;padding:18px;background:#eef3f9;border-radius:8px}code{font-family:Consolas,monospace;overflow-wrap:anywhere}blockquote{border-left:4px solid #2475ba;margin:18px 0;padding:1px 18px;background:#f2f7fd;color:#40526a}.search{display:flex;gap:8px;margin:18px 0}input{min-width:0;flex:1;padding:10px;font:inherit}button{padding:8px 16px;font:inherit}footer{margin-top:28px;color:#52647a}li{margin:5px 0}html{scroll-behavior:smooth}@media(max-width:600px){main{padding:16px 10px}body{font-size:16px}h1{font-size:1.6em}}</style></head><body><main><nav><a href="../index.html">网站首页</a><a href="index.html">网络课程目录</a><a href="../reader.html?f=notes/README.md">全部学习笔记</a><a href="../search.html">知识点搜索</a></nav><form class="search" action="../search.html" role="search"><input type="search" name="q" aria-label="搜索全部学习笔记" placeholder="搜索知识点"><button>搜索</button></form><article><nav aria-label="章节目录"><a href="#section-1">知识地图与复习顺序</a><a href="#section-2">3.1 使用点对点信道的数据链路层</a><a href="#section-8">3.2 点对点协议 PPP</a><a href="#section-12">3.3 使用广播信道的数据链路层</a><a href="#section-20">3.4 扩展的以太网</a><a href="#section-25">3.5 高速以太网</a><a href="#section-30">考前速记与自测</a></nav><h1 id="section-0">第3章 数据链路层</h1>
+<blockquote>
+<p>整理日期：2026-10-22。依据用户上传的《计算机网络-第3章-数据链路层.pdf》（谢希仁《计算机网络》第8版课件，104页）。合并重复动画与图示，保留原章节编号；页码均指 PDF 页码。补充说明和勘误单独标注。</p>
+<p>关联：<a href="index.html">网络课程目录</a> · <a href="../reader.html?f=notes%2Fnetwork%2F02-physical-layer.md">上一章：物理层</a> · <a href="04-network-layer.html">下一章：网络层</a>。关联项目：为安全助手理解网卡、MAC、局域网和网络连接提供基础；本次仅整理课程笔记，无新增项目实验。</p>
+</blockquote>
+<h2 id="section-1">知识地图与复习顺序</h2>
+<ol>
+<li><strong>3.1</strong>：链路如何变成数据链路？封装成帧、透明传输、差错检测分别解决什么问题？</li>
+<li><strong>3.2</strong>：点对点协议 PPP 如何封装、填充并建立连接？</li>
+<li><strong>3.3</strong>：共享以太网如何协调发送？重点是 CSMA/CD、争用期、最短帧、MAC 地址与帧格式。</li>
+<li><strong>3.4</strong>：集线器与交换机怎样扩展以太网？自学习、STP、VLAN 各解决什么问题？</li>
+<li><strong>3.5</strong>：速率提高后哪些机制保留，哪些只适用于半双工？</li>
+</ol>
+<h2 id="section-2">3.1 使用点对点信道的数据链路层</h2>
+<h3 id="section-3">3.1.1 数据链路和帧（PDF 2–8页）</h3>
+<p>数据链路层位于网络层与物理层之间。主机、路由器、交换机都需要相应的链路层功能：主机处理完整协议栈，路由器逐跳处理到网络层，普通二层交换机处理到数据链路层。一条端到端路径可能经过多种链路，每段可以使用不同协议。</p>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>含义</th>
+<th>注意</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>链路 link</td>
+<td>相邻结点之间的一段物理线路，中间没有其他交换结点</td>
+<td>只是整条通信路径的一部分</td>
+</tr>
+<tr>
+<td>数据链路 data link</td>
+<td>链路加上控制传输所需的协议硬件、软件</td>
+<td>常由适配器实现</td>
+</tr>
+<tr>
+<td>帧 frame</td>
+<td>数据链路层的协议数据单元</td>
+<td>网络层的 IP 数据报被装入帧中</td>
+</tr>
+<tr>
+<td>适配器 / NIC / 网卡</td>
+<td>计算机连接网络的接口设备</td>
+<td>通常包含物理层和链路层功能</td>
+</tr>
+</tbody></table>
+<p>发送端把 IP 数据报封装成帧，物理层把帧变成比特流；接收端检查帧并取出数据报。所谓两个对等链路层之间的“数字管道”，是隐藏物理传输细节后的抽象。</p>
+<p>两种信道：<strong>点对点信道</strong>是一对一；<strong>广播信道</strong>是一对多共享媒体，必须协调各站的发送。</p>
+<h3 id="section-4">3.1.2 三个基本问题（PDF 9–22页）</h3>
+<h4 id="section-5">一、封装成帧</h4>
+<p><code>帧 = 首部 + 数据部分 + 尾部</code>。首尾包含帧定界信息及协议控制信息。最大传送单元 <strong>MTU</strong> 限制的是<strong>帧的数据部分</strong>，不是整个帧长。</p>
+<p>课件用 ASCII 控制字符举例：SOH 表示首部开始，EOT 表示传输结束；定界不完整的帧应丢弃。具体协议有自己的定界方式，不能把 SOH/EOT 当作所有帧通用格式。</p>
+<h4 id="section-6">二、透明传输</h4>
+<p>数据中若恰好出现与定界符相同的代码，接收端不能把它当成边界。透明传输要求协议允许任意数据内容通过，用户无需避开某些字符。</p>
+<p><strong>字节填充</strong>：发送端在数据中的 SOH、EOT 前插入 ESC；数据本身的 ESC 也需要再加一个 ESC。接收端删除所插入的转义字符，还原原始数据。</p>
+<p>示意：原始数据 <code>SOH ESC EOT</code>，转义后为 <code>ESC SOH ESC ESC ESC EOT</code>，外面另加真正的帧定界符。</p>
+<blockquote>
+<p>理解补充：透明性解决“内容会不会被误认为控制信息”；它本身不保证传输中不会发生比特差错。</p>
+</blockquote>
+<h4 id="section-7">三、差错检测与 CRC</h4>
+<p>传输可能使 0 变 1 或 1 变 0。误码率：<code>BER = 错误比特数 / 传输比特总数</code>，与信噪比有关。课件主要介绍循环冗余检验 <strong>CRC</strong>。</p>
+<p>设数据 M 有 k 位，生成多项式对应的除数 P 有 n+1 位：</p>
+<ol>
+<li>在 M 后补 n 个 0，得到 <code>M × 2^n</code>。</li>
+<li>对 P 作模2除法，取 n 位余数 R（不足 n 位补前导0）。</li>
+<li>发送 <code>T = M × 2^n ⊕ R</code>，即 M 后拼接 R。</li>
+<li>接收端用相同 P 除收到的 T：余数非0则检出差错；为0则通过该项检查。</li>
+</ol>
+<p><strong>模2运算</strong>：加减都是逐位异或，不进位、不借位。如 <code>0101 ⊕ 0011 = 0110</code>；模2乘法的部分积也用异或累加，如 <code>1011 × 101 = 100111</code>。</p>
+<p>课件例：<code>M=101001，k=6，P=1101，n=3</code>。</p>
+<pre><code class="language-text">补零：101001000
+模2除以1101：商110101，余数001
+发送：101001001
+接收端用1101检验该发送串，余数为000
+</code></pre>
+<p><code>P=1101</code> 对应 <code>P(x)=x^3+x^2+1</code>。课件列出的常用多项式：</p>
+<ul>
+<li>CRC-16：<code>x^16 + x^15 + x^2 + 1</code>。</li>
+<li>CRC-CCITT：<code>x^16 + x^12 + x^5 + 1</code>。</li>
+<li>CRC-32：<code>x^32+x^26+x^23+x^22+x^16+x^12+x^11+x^10+x^8+x^7+x^5+x^4+x^2+x+1</code>。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>易混概念</th>
+<th>正确区分</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CRC 与 FCS</td>
+<td>CRC 是检错方法；FCS 是帧检验序列字段，CRC 是产生它的方法之一</td>
+</tr>
+<tr>
+<td>检错与纠错</td>
+<td>CRC 能发现大量差错，不能指出具体哪位错，也不自动修正</td>
+</tr>
+<tr>
+<td>检验通过与绝对无错</td>
+<td>仍可能漏检；“无差错接受”是概率极高的判断</td>
+</tr>
+<tr>
+<td>无比特差错与可靠传输</td>
+<td>帧还可能丢失、重复、失序；可靠传输需序号、确认、重传等机制</td>
+</tr>
+</tbody></table>
+<h2 id="section-8">3.2 点对点协议 PPP</h2>
+<h3 id="section-9">3.2.1 PPP 协议的特点（PDF 23–26页）</h3>
+<p>PPP（Point-to-Point Protocol）用于点对点链路，课件以用户接入 ISP 为例。设计首要要求是<strong>简单</strong>。</p>
+<p>应满足：封装成帧、透明传输、支持多种网络层协议和多种链路、差错检测、检测连接状态、规定 MTU、网络层地址协商、数据压缩协商。</p>
+<p>课件所列不需要的功能：纠错、流量控制、帧序号、多点线路支持，以及单工/半双工链路支持。PPP 检出坏帧后丢弃，不提供基于帧序号和确认的可靠交付。</p>
+<p>三部分组成：</p>
+<table>
+<thead>
+<tr>
+<th>组成</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>封装方法</td>
+<td>把 IP 数据报等封装到串行链路</td>
+</tr>
+<tr>
+<td>LCP：链路控制协议</td>
+<td>建立、配置、测试、终止数据链路</td>
+</tr>
+<tr>
+<td>NCP：网络控制协议族</td>
+<td>为不同网络层协议分别协商配置；不是仅一个协议</td>
+</tr>
+</tbody></table>
+<h3 id="section-10">3.2.2 PPP 协议的帧格式（PDF 27–30页）</h3>
+<p>课件基本格式如下（不讨论协商压缩）：</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>长度</th>
+<th>值或作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>F</td>
+<td>1字节</td>
+<td>0x7E，即01111110，帧标志</td>
+</tr>
+<tr>
+<td>A</td>
+<td>1字节</td>
+<td>0xFF，点对点场景不承担普通目的寻址作用</td>
+</tr>
+<tr>
+<td>C</td>
+<td>1字节</td>
+<td>0x03</td>
+</tr>
+<tr>
+<td>协议</td>
+<td>2字节</td>
+<td>0x0021：IPv4；0x8021：IP控制协议；0xC021：LCP</td>
+</tr>
+<tr>
+<td>信息</td>
+<td>默认不超过1500字节</td>
+<td>网络层数据或控制信息</td>
+</tr>
+<tr>
+<td>FCS</td>
+<td>2字节</td>
+<td>帧检验序列</td>
+</tr>
+<tr>
+<td>F</td>
+<td>1字节</td>
+<td>0x7E</td>
+</tr>
+</tbody></table>
+<p>PPP 是面向字节的协议，帧长是整数字节。实现透明传输的方法随链路传输方式变化：</p>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>处理</th>
+<th>课件示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>异步传输</td>
+<td>字符填充，以0x7D转义并改变后续字符</td>
+<td>7E→7D 5E；7D→7D 5D；03→7D 23</td>
+</tr>
+<tr>
+<td>同步传输，如SONET/SDH</td>
+<td>零比特填充：内容中每遇连续5个1就插入0，接收端删除该0</td>
+<td>01111110→011111010</td>
+</tr>
+</tbody></table>
+<p>PPP 不使用序号、确认的理由：链路差错较少；链路可靠也不能确保整个 IP 网络可靠；FCS 足以承担此处的检错任务。</p>
+<h3 id="section-11">3.2.3 PPP 协议的工作状态（PDF 31–32页）</h3>
+<pre><code class="language-text">链路静止 → 物理连接建立 → 链路建立（LCP协商）
+→ 鉴别（若需要） → 网络层协议配置（NCP） → 链路打开
+→ 结束网络层配置 → 链路终止（LCP） → 物理连接释放 → 静止
+</code></pre>
+<p>配置或鉴别失败会走终止过程。课件拨号例中，NCP 配置临时 IP 地址，结束时释放；具体接入方式和地址分配策略由实现决定。</p>
+<h2 id="section-12">3.3 使用广播信道的数据链路层</h2>
+<h3 id="section-13">3.3.1 局域网的数据链路层（PDF 33–38页）</h3>
+<p>局域网通常属于一个单位，地理范围和站点数有限；便于共享资源、扩展和调整，提高可用性。课件展示总线、环形、星形拓扑及相应传输媒体。</p>
+<p>共享媒体的协调方法：</p>
+<ul>
+<li>静态划分：频分、时分、波分、码分复用。</li>
+<li>动态接入：随机接入（可能碰撞）与受控接入（令牌、轮询等）。</li>
+</ul>
+<p>以太网两项历史标准：DIX Ethernet V2（1982）和 IEEE 802.3（1983）。两者相近但并非完全相同。IEEE 将链路层分为 <strong>LLC（逻辑链路控制）</strong> 与 <strong>MAC（媒体接入控制）</strong>；MAC 处理媒体接入，LLC 与具体媒体无关。课件以常用 Ethernet V2 为主，通常不再展开 LLC。</p>
+<p>网卡负责串并行转换、缓存、配合设备驱动、实现以太网协议。IP 地址属于网络层配置，MAC 标识链路接口。</p>
+<h3 id="section-14">3.3.2 CSMA/CD 协议（PDF 39–53页）</h3>
+<p>早期以太网共享一根总线，信号可被所有站听到，靠目的 MAC 地址选择接收者。多个站同时发送会碰撞。其交付方式是无连接、尽最大努力：不编号、不要求确认，坏帧丢弃，高层决定是否重传。</p>
+<p>课件还介绍传统10 Mbit/s以太网的曼彻斯特编码：便于提取同步信息，代价是需要更高的频带宽度；不能推广为所有高速以太网均使用该编码。</p>
+<p><strong>CSMA/CD = 载波监听多点接入 / 碰撞检测</strong>：</p>
+<ol>
+<li>发送前监听；忙则等待。</li>
+<li>满足空闲间隔后发送，同时继续检测碰撞。</li>
+<li>遇碰撞立即停止发送数据，并发送人为干扰信号，使相关站知道碰撞。</li>
+<li>用截断二进制指数退避算法等待随机时间，之后重新监听、重试。</li>
+</ol>
+<p><strong>先听后发仍会碰撞</strong>：信号传播有时延，远端可能尚未听见发送信号便开始发送。设最大单程端到端传播时延为 τ，最迟约 <code>2τ</code> 才能知道是否碰撞，这个窗口称为<strong>争用期 / 碰撞窗口</strong>。</p>
+<table>
+<thead>
+<tr>
+<th>量</th>
+<th>公式</th>
+<th>决定因素</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>发送时延 T₀</td>
+<td><code>L/C</code></td>
+<td>帧长L、发送速率C</td>
+</tr>
+<tr>
+<td>单程传播时延 τ</td>
+<td><code>d/v</code></td>
+<td>距离d、媒体传播速度v</td>
+</tr>
+<tr>
+<td>争用期</td>
+<td><code>2τ</code></td>
+<td>最大往返传播时延</td>
+</tr>
+<tr>
+<td>检出碰撞所需最短发送长度</td>
+<td><code>L_min ≥ 2τC</code></td>
+<td>发送尚未结束时必须能听到碰撞</td>
+</tr>
+</tbody></table>
+<p>10 Mbit/s传统以太网的争用期为 <strong>512 bit时间 = 51.2 μs</strong>，对应 <strong>64字节最短有效MAC帧</strong>。帧若过短，发送者可能发完后才听到碰撞。帧间最小间隔为 <strong>96 bit时间 = 9.6 μs</strong>。</p>
+<p>课件推算：若传播速率 <code>v≈2×10^8 m/s</code>，τ=25.6 μs，则仅按传播时间估计距离约5.12 km。这是简化估计，不能据此认为任意实际以太网布线都支持5 km；设备、线缆标准还有额外限制。</p>
+<p>截断二进制指数退避：设重传次数为 i，<code>k=min(i,10)</code>；从 <code>0…2^k−1</code> 中随机取整数 r，退避时间 <code>r×2τ</code>。第1次为{0,1}，第2次为{0,1,2,3}。课件规定重传达16次仍失败则放弃并向高层报告。</p>
+<p><strong>使用CSMA/CD的共享以太网只能半双工</strong>；现代交换式全双工链路没有共享媒体碰撞，不使用CSMA/CD。</p>
+<h3 id="section-15">3.3.3 使用集线器的星形拓扑（PDF 53–57页）</h3>
+<p>10BASE-T：10表示10 Mbit/s，BASE表示基带，T表示双绞线。使用两对双绞线和RJ-45，课件给出的主机到集线器距离不超过100 m。</p>
+<p>集线器是多接口转发器，工作在<strong>物理层</strong>。外观是星形，<strong>逻辑仍为共享总线</strong>，共享带宽和碰撞域，仍使用CSMA/CD。优点是便于增加站点、连接网段、隔离个别故障并显示运行情况。</p>
+<h3 id="section-16">3.3.4 以太网的信道利用率（PDF 58–60页）</h3>
+<p>碰撞与争用消耗信道，实际利用率达不到100%。设 <code>T₀=L/C</code>，<code>a=τ/T₀=τC/L</code>。a越小，传播延迟相对越小，利用率越高。</p>
+<p>课件在无碰撞且总线空闲就立即调度发送的<strong>理想化模型</strong>下：</p>
+<p><code>S_max = T₀/(T₀+τ) = 1/(1+a)</code>。</p>
+<p>它不是实际CSMA/CD在任意负载下的通用吞吐公式。固定速率时应限制距离、避免帧过短。课件提到“利用率约30%已重载”，应理解为共享争用式以太网背景，不能套用到现代交换机端口。</p>
+<h3 id="section-17">3.3.5 以太网的 MAC 层（PDF 61–70页）</h3>
+<h4 id="section-18">一、MAC 地址</h4>
+<p>常用MAC地址48位，即6字节。课件模型为：前24位组织唯一标识符OUI由IEEE分配，后24位由厂商分配。地址标识<strong>接口/适配器</strong>，并非主机的地理位置；多个网卡可以有多个MAC。</p>
+<p>第一字节的最低位 I/G：0为单站，1为组地址。次低位 G/L（也常写U/L）：0为全球管理，1为本地管理。全48位为1，即 <code>FF:FF:FF:FF:FF:FF</code>，是广播目的地址。</p>
+<p>网卡识别发往自己的单播、广播，以及配置接收的多播。广播和多播地址用于目的地址。混杂模式会接收接口所能听到的其他帧；它并不让交换机自动把所有端口的流量送来。</p>
+<blockquote>
+<p>补充：MAC可以采用本地管理或软件配置；“固化在ROM”描述的是课件中的传统硬件地址模型，不能推导出MAC永不可更改。</p>
+</blockquote>
+<h4 id="section-19">二、Ethernet V2 MAC 帧</h4>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th align="right">字节数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>目的地址</td>
+<td align="right">6</td>
+<td>接收接口或组</td>
+</tr>
+<tr>
+<td>源地址</td>
+<td align="right">6</td>
+<td>发送接口</td>
+</tr>
+<tr>
+<td>类型</td>
+<td align="right">2</td>
+<td>指明数据部分的上层协议</td>
+</tr>
+<tr>
+<td>数据及必要填充</td>
+<td align="right">46–1500</td>
+<td>不足46字节需填充；上限通常为MTU</td>
+</tr>
+<tr>
+<td>FCS</td>
+<td align="right">4</td>
+<td>CRC检错</td>
+</tr>
+</tbody></table>
+<p>MAC帧长度 <code>6+6+2+(46…1500)+4 = 64…1518字节</code>。物理层发送前还加7字节前同步码和1字节帧开始定界符；<strong>这8字节不计入上述MAC帧长</strong>。帧间间隔也不是帧字段。</p>
+<p>无效帧包括：非整数字节、FCS检验失败、数据字段长度不合法。以太网丢弃无效帧，不负责确认重传。</p>
+<p>V2的两字节字段表示类型；IEEE 802.3相应位置可表示长度，数据内包含LLC。课件用0x0600区分两者。</p>
+<blockquote>
+<p>精确边界补充：长度值为0…1500，类型值从1536（0x0600）起；1501…1535不是普通合法长度，不能简单把所有小于0x0600的值都当作有效长度。</p>
+</blockquote>
+<h2 id="section-20">3.4 扩展的以太网</h2>
+<h3 id="section-21">3.4.1 在物理层扩展以太网（PDF 71–72页）</h3>
+<p>可采用光纤与光纤调制解调器延伸链路，或级联集线器扩展覆盖。<strong>碰撞域</strong>是某站发送会与其他站发生碰撞的范围。</p>
+<p>集线器把多个碰撞域合为更大的一个：覆盖扩大，但总吞吐量并未随站点数增加，碰撞风险上升，且不能直接用普通集线器互连不同速率的网段。扩展仍须满足时延和标准限制。</p>
+<h3 id="section-22">3.4.2 在数据链路层扩展以太网（PDF 73–87页）</h3>
+<p>网桥、交换机按目的MAC转发或过滤。交换机本质上是多端口网桥，通常用专用芯片转发，可同时连接多对端口，端口有缓存、可支持不同速率，常用全双工。</p>
+<table>
+<thead>
+<tr>
+<th>比较</th>
+<th>集线器</th>
+<th>二层交换机（未划分VLAN）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>工作层</td>
+<td>物理层</td>
+<td>数据链路层</td>
+</tr>
+<tr>
+<td>转发依据</td>
+<td>比特再生，不查MAC</td>
+<td>目的MAC及交换表</td>
+</tr>
+<tr>
+<td>带宽</td>
+<td>N个用户共享B，平均约B/N</td>
+<td>课件理想模型每端口独享B，总容量约N×B</td>
+</tr>
+<tr>
+<td>碰撞域</td>
+<td>所有端口属于同一碰撞域</td>
+<td>每端口隔离；全双工连接不发生碰撞</td>
+</tr>
+<tr>
+<td>广播域</td>
+<td>不隔离</td>
+<td>默认也不隔离</td>
+</tr>
+</tbody></table>
+<p>上表N×B是课件的端口容量模型，实际吞吐还受交换容量、端口竞争等约束。</p>
+<p>交换方式：<strong>存储转发</strong>先收完整帧，可检错、缓存及速率匹配；<strong>直通交换</strong>收到目的MAC就开始转发，延迟小，但可能传播坏帧。</p>
+<h4 id="section-23">自学习：学源地址，查目的地址</h4>
+<ol>
+<li>收到帧，记录或更新 <code>(源MAC，进入端口，有效时间)</code>。</li>
+<li>查目的MAC：已知且对应另一端口，仅从该端口转发。</li>
+<li>未知目的地址，向除进入端口之外的相关端口泛洪。</li>
+<li>若目的地址仍在进入端口方向，过滤该帧。</li>
+<li>老化删除过期项目，适应主机移动、更换网卡等情况。</li>
+</ol>
+<p>课件例：A从端口1发给未知的B，先学 <code>A→1</code> 再泛洪；B从端口3回答，学 <code>B→3</code>，并将回答单独转发到端口1。只有作为<strong>源地址出现</strong>才会被学习，不能因泛洪到B就认为已学到B。</p>
+<p>双交换机例（PDF 80–81页）：S1端口1接A、端口2接C；S2端口1接E；二者端口5互连。依次A→B、C→E、E→A后：S1学到A→1、C→2、E→5；S2学到A→5、C→5、E→1。</p>
+<p>冗余链路可能形成环路，引发重复帧、地址学习混乱和广播风暴。**STP生成树协议（IEEE 802.1D）**在逻辑上阻断部分链路，保留无环树状转发结构，无须拆掉实际布线。</p>
+<h3 id="section-24">3.4.3 虚拟局域网 VLAN（PDF 87–95页）</h3>
+<p>广播域是一次广播能到达的设备范围。仅换成交换机仍可能广播过多、难以隔离部门、管理困难。<strong>VLAN</strong>是与物理位置无关、按共同需求组成的逻辑局域网组；它是一种服务，并非全新物理网络。</p>
+<p>每个VLAN形成独立广播域。课件中B1属于VLAN2，其广播由B2、B3收到，不传播到VLAN1、VLAN3。优点：改善性能、管理、成本和安全隔离。</p>
+<table>
+<thead>
+<tr>
+<th>划分依据</th>
+<th>特点</th>
+<th>代价或限制</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>交换机端口</td>
+<td>最简单、最常用</td>
+<td>移动到不同端口需调整配置</td>
+</tr>
+<tr>
+<td>网卡MAC</td>
+<td>设备移动时可保留分组</td>
+<td>维护MAC列表，换网卡需更新</td>
+</tr>
+<tr>
+<td>协议类型</td>
+<td>按帧类型分组，如IP、IPX</td>
+<td>按协议规则管理</td>
+</tr>
+<tr>
+<td>IP子网</td>
+<td>按源IP及子网归属分组</td>
+<td>需相应识别能力</td>
+</tr>
+<tr>
+<td>高层应用或服务</td>
+<td>按更高层需求分组</td>
+<td>取决于设备支持</td>
+</tr>
+</tbody></table>
+<p><strong>802.1Q带标记帧</strong>：在源MAC后、原类型/长度字段前插入4字节标记：2字节标记类型0x8100，加2字节TCI。课件TCI分为3位优先级、1位CFI、12位VLAN ID。最大MAC帧由1518增至1522字节；课件图中最小数据部分可为42字节，对应整体最小帧长仍为64。</p>
+<blockquote>
+<p>数值补充：12位有4096种编码，常规可配置VID为1…4094；0和4095有特殊用途，因此“4096种编码”不等于4096个普通可用VLAN。CFI是课件沿用的字段名称，现代以太网语境常称DEI。</p>
+</blockquote>
+<h2 id="section-25">3.5 高速以太网</h2>
+<h3 id="section-26">3.5.1 100BASE-T 以太网（PDF 96–97页）</h3>
+<p>速率达到或超过100 Mbit/s称高速以太网。100BASE-T也叫快速以太网，IEEE 802.3u。保持以太网帧格式和64字节最小帧长；半双工使用CSMA/CD，全双工不使用。</p>
+<p>从10提高到100 Mbit/s后，512 bit争用期由51.2变成5.12 μs；96 bit帧间隔由9.6变成0.96 μs。保持最短帧时，必须相应限制传播时延。</p>
+<table>
+<thead>
+<tr>
+<th>标准</th>
+<th>课件媒体</th>
+<th align="right">课件网段最大长度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>100BASE-TX</td>
+<td>两对5类UTP或STP</td>
+<td align="right">100 m</td>
+</tr>
+<tr>
+<td>100BASE-T4</td>
+<td>四对3类或5类UTP</td>
+<td align="right">100 m</td>
+</tr>
+<tr>
+<td>100BASE-FX</td>
+<td>光纤链路</td>
+<td align="right">2000 m</td>
+</tr>
+</tbody></table>
+<p>上述是课件列举的规格；距离还要结合双工模式、光纤类型和具体标准条件理解。</p>
+<h3 id="section-27">3.5.2 吉比特以太网（PDF 98–100页）</h3>
+<p>1 Gbit/s，兼容以太网帧格式，可有半双工或全双工；半双工用CSMA/CD，全双工不用。</p>
+<table>
+<thead>
+<tr>
+<th>标准</th>
+<th>媒体</th>
+<th align="right">课件距离</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1000BASE-SX</td>
+<td>多模光纤</td>
+<td align="right">550 m</td>
+</tr>
+<tr>
+<td>1000BASE-LX</td>
+<td>单模/多模光纤，长距对应单模</td>
+<td align="right">5000 m</td>
+</tr>
+<tr>
+<td>1000BASE-CX</td>
+<td>两对屏蔽铜缆</td>
+<td align="right">25 m</td>
+</tr>
+<tr>
+<td>1000BASE-T</td>
+<td>四对5类UTP</td>
+<td align="right">100 m</td>
+</tr>
+</tbody></table>
+<p>半双工为了兼顾64字节最小帧和约100 m网段：</p>
+<ul>
+<li><strong>载波延伸</strong>：短帧后附特殊符号，使发送占用延伸到512字节时间（4096 bit时间）。MAC帧最小长度本身仍为64字节；延伸符号不是应用数据。</li>
+<li><strong>分组突发</strong>：第一短帧延伸后，可连续发送若干短帧，只保留必要帧间隔；课件示意突发计时器以1500字节为基准，可略超出。</li>
+<li>全双工不需要上述两种机制。</li>
+</ul>
+<h3 id="section-28">3.5.3 10吉比特以太网和更快的以太网（PDF 101–102页）</h3>
+<p>10GE沿用以太网MAC帧结构和最小、最大帧长；<strong>只采用全双工</strong>，不使用CSMA/CD。课件先用早期光纤方案讲解，后表格也列出了铜缆方案，不能记成“10GE只能用光纤”。</p>
+<table>
+<thead>
+<tr>
+<th>标准</th>
+<th>媒体</th>
+<th align="right">课件距离</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>10GBASE-SR</td>
+<td>多模光纤</td>
+<td align="right">300 m</td>
+</tr>
+<tr>
+<td>10GBASE-LR</td>
+<td>单模光纤</td>
+<td align="right">10 km</td>
+</tr>
+<tr>
+<td>10GBASE-ER</td>
+<td>单模光纤</td>
+<td align="right">40 km</td>
+</tr>
+<tr>
+<td>10GBASE-CX4</td>
+<td>四对双芯铜缆</td>
+<td align="right">15 m</td>
+</tr>
+<tr>
+<td>10GBASE-T</td>
+<td>四对6A类UTP</td>
+<td align="right">100 m</td>
+</tr>
+</tbody></table>
+<p>40GE/100GE表格进一步列出：背板KR、铜缆CR、多模SR、单模LR/ER等，分别覆盖约1 m、7 m、100 m、10 km、40 km等级；示例包括40GBASE-KR4、CR4、SR4、LR4及100GBASE-CR10、SR10/SR4、LR4、ER4。它们是课件中的代表规格，不是所有光模块的统一距离。</p>
+<p>以太网从局域网扩展到城域网、广域网：技术成熟、互操作好、成本低，统一帧格式简化管理。</p>
+<h3 id="section-29">3.5.4 使用以太网进行宽带接入（PDF 103页）</h3>
+<p>优势：双向宽带、按需求升级、端到端以太网无需反复转换帧格式；以太网本身不承担PPP式用户鉴别。</p>
+<p><strong>PPPoE = PPP over Ethernet</strong>：把PPP帧封装在以太网中，结合以太网接入与PPP的链路管理、鉴别能力。课件以ADSL和FTTx用户名密码接入举例。</p>
+<blockquote>
+<p>适用范围说明：课件“FTTx都要用PPPoE”的表述过于绝对；这里保留PPPoE接入机制，不把它理解为所有光纤接入的唯一方式。</p>
+</blockquote>
+<h2 id="section-30">考前速记与自测</h2>
+<table>
+<thead>
+<tr>
+<th>必会问题</th>
+<th>答案线索</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>为什么先听后发仍会冲突？</td>
+<td>传播时延，远端尚未听见信号</td>
+</tr>
+<tr>
+<td>最短帧怎么算？</td>
+<td><code>L_min≥2τC</code>，先统一bit、秒单位</td>
+</tr>
+<tr>
+<td>为什么数据至少46字节？</td>
+<td>最短帧64减首尾18</td>
+</tr>
+<tr>
+<td>PPP与以太网是否保证可靠传输？</td>
+<td>都不靠帧确认、序号提供可靠交付</td>
+</tr>
+<tr>
+<td>交换机依据什么学习、什么转发？</td>
+<td>源MAC学习，目的MAC转发</td>
+</tr>
+<tr>
+<td>交换机是否隔离广播？</td>
+<td>默认不隔离，VLAN划分广播域</td>
+</tr>
+<tr>
+<td>STP与VLAN的任务相同吗？</td>
+<td>STP防环；VLAN分逻辑广播域</td>
+</tr>
+<tr>
+<td>全双工是否使用CSMA/CD？</td>
+<td>不使用</td>
+</tr>
+</tbody></table>
+<p>练习计算：若共享信道速率100 Mbit/s，最大单程传播时延2 μs，则理论最短长度为<code>2×2 μs×100 Mbit/s=400 bit=50字节</code>。这是公式练习；若使用标准以太网MAC格式，仍须遵守64字节最小帧长。</p>
+<p>课件作业（PDF 104页）：第3章8、9、10、20、22、27、33题；思考3、4、13、14、21、29题。PDF未提供题干，本笔记不臆造原题或答案。</p>
+</article><footer>依据用户提供课件整理 · Markdown为内容源，静态正文可直接抓取 · <a href="../SEARCH-ENGINES.md">搜索引擎说明</a></footer></main></body></html>

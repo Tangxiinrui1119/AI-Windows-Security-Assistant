@@ -1,17 +1,77 @@
 <!doctype html>
-<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>第3章 数据链路层 · 计算机网络复习笔记</title><meta name="description" content="计算机网络第3章中文复习笔记：帧、CRC、PPP、CSMA/CD、MAC地址、以太网交换机、VLAN与高速以太网。"><meta name="robots" content="index,follow"><link rel="canonical" href="https://tangxiinrui1119.github.io/AI-Windows-Security-Assistant/network/03-data-link-layer.html"><link rel="sitemap" type="application/xml" href="../sitemap.xml"><style>body{margin:0;background:#f4f7fb;color:#172238;font:17px/1.85 system-ui,"Microsoft YaHei",sans-serif}main{max-width:1000px;margin:auto;padding:28px 24px 70px}article{background:white;border:1px solid #d9e2ee;border-radius:16px;padding:clamp(18px,4vw,48px)}a{color:#075fb5}nav{display:flex;flex-wrap:wrap;gap:18px;margin-bottom:24px}h1{font-size:2em}h2{margin-top:2em;border-bottom:1px solid #dae3ed;padding-bottom:8px}h3{margin-top:1.6em}table{display:block;overflow:auto;border-collapse:collapse;max-width:100%;margin:22px 0;font-size:.92em}td,th{border:1px solid #cad5e3;padding:9px 13px;text-align:left}th{background:#eaf2fc}pre{overflow:auto;padding:18px;background:#eef3f9;border-radius:8px}code{font-family:Consolas,monospace;overflow-wrap:anywhere}blockquote{border-left:4px solid #2475ba;margin:18px 0;padding:1px 18px;background:#f2f7fd;color:#40526a}.search{display:flex;gap:8px;margin:18px 0}input{min-width:0;flex:1;padding:10px;font:inherit}button{padding:8px 16px;font:inherit}footer{margin-top:28px;color:#52647a}li{margin:5px 0}html{scroll-behavior:smooth}@media(max-width:600px){main{padding:16px 10px}body{font-size:16px}h1{font-size:1.6em}}</style></head><body><main><nav><a href="../index.html">网站首页</a><a href="index.html">网络课程目录</a><a href="../reader.html?f=notes/README.md">全部学习笔记</a><a href="../search.html">知识点搜索</a></nav><form class="search" action="../search.html" role="search"><input type="search" name="q" aria-label="搜索全部学习笔记" placeholder="搜索知识点"><button>搜索</button></form><article><nav aria-label="章节目录"><a href="#section-1">知识地图与复习顺序</a><a href="#section-2">3.1 使用点对点信道的数据链路层</a><a href="#section-8">3.2 点对点协议 PPP</a><a href="#section-12">3.3 使用广播信道的数据链路层</a><a href="#section-20">3.4 扩展的以太网</a><a href="#section-25">3.5 高速以太网</a><a href="#section-30">考前速记与自测</a></nav><h1 id="section-0">第3章 数据链路层</h1>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>第3章 数据链路层 · 计算机网络复习笔记</title><meta name="description" content="计算机网络第3章中文复习笔记：帧、CRC、PPP、CSMA/CD、MAC地址、以太网交换机、VLAN与高速以太网。"><meta name="robots" content="index,follow"><link rel="canonical" href="https://tangxiinrui1119.github.io/AI-Windows-Security-Assistant/network/03-data-link-layer.html"><link rel="sitemap" type="application/xml" href="../sitemap.xml"><style>body{margin:0;background:#f4f7fb;color:#172238;font:17px/1.85 system-ui,"Microsoft YaHei",sans-serif}main{max-width:1000px;margin:auto;padding:28px 24px 70px}article{background:white;border:1px solid #d9e2ee;border-radius:16px;padding:clamp(18px,4vw,48px)}a{color:#075fb5}nav{display:flex;flex-wrap:wrap;gap:18px;margin-bottom:24px}h1{font-size:2em}h2{margin-top:2em;border-bottom:1px solid #dae3ed;padding-bottom:8px}h3{margin-top:1.6em}table{display:block;overflow:auto;border-collapse:collapse;max-width:100%;margin:22px 0;font-size:.92em}td,th{border:1px solid #cad5e3;padding:9px 13px;text-align:left}th{background:#eaf2fc}pre{overflow:auto;padding:18px;background:#eef3f9;border-radius:8px}code{font-family:Consolas,monospace;overflow-wrap:anywhere}blockquote{border-left:4px solid #2475ba;margin:18px 0;padding:1px 18px;background:#f2f7fd;color:#40526a}.search{display:flex;gap:8px;margin:18px 0}input{min-width:0;flex:1;padding:10px;font:inherit}button{padding:8px 16px;font:inherit}footer{margin-top:28px;color:#52647a}li{margin:5px 0}html{scroll-behavior:smooth}@media(max-width:600px){main{padding:16px 10px}body{font-size:16px}h1{font-size:1.6em}}</style></head><body><main><nav><a href="../index.html">网站首页</a><a href="index.html">网络课程目录</a><a href="../reader.html?f=notes/README.md">全部学习笔记</a><a href="../search.html">知识点搜索</a></nav><form class="search" action="../search.html" role="search"><input type="search" name="q" aria-label="搜索全部学习笔记" placeholder="搜索知识点"><button>搜索</button></form><article><nav aria-label="章节目录"><a href="#section-1">一、知识地图</a><a href="#section-2">3.1 使用点对点信道的数据链路层</a><a href="#section-8">3.2 点对点协议 PPP</a><a href="#section-12">3.3 使用广播信道的数据链路层</a><a href="#section-20">3.4 扩展的以太网</a><a href="#section-25">3.5 高速以太网</a><a href="#section-30">考前速记与自测</a></nav><h1 id="section-0">第3章 数据链路层</h1>
 <blockquote>
 <p>整理日期：2026-10-22。依据用户上传的《计算机网络-第3章-数据链路层.pdf》（谢希仁《计算机网络》第8版课件，104页）。合并重复动画与图示，保留原章节编号；页码均指 PDF 页码。补充说明和勘误单独标注。</p>
 <p>关联：<a href="index.html">网络课程目录</a> · <a href="../reader.html?f=notes%2Fnetwork%2F02-physical-layer.md">上一章：物理层</a> · <a href="04-network-layer.html">下一章：网络层</a>。关联项目：为安全助手理解网卡、MAC、局域网和网络连接提供基础；本次仅整理课程笔记，无新增项目实验。</p>
 </blockquote>
-<h2 id="section-1">知识地图与复习顺序</h2>
-<ol>
-<li><strong>3.1</strong>：链路如何变成数据链路？封装成帧、透明传输、差错检测分别解决什么问题？</li>
-<li><strong>3.2</strong>：点对点协议 PPP 如何封装、填充并建立连接？</li>
-<li><strong>3.3</strong>：共享以太网如何协调发送？重点是 CSMA/CD、争用期、最短帧、MAC 地址与帧格式。</li>
-<li><strong>3.4</strong>：集线器与交换机怎样扩展以太网？自学习、STP、VLAN 各解决什么问题？</li>
-<li><strong>3.5</strong>：速率提高后哪些机制保留，哪些只适用于半双工？</li>
-</ol>
+<h2 id="section-1">一、知识地图</h2>
+<pre><code>数据链路层
+↓
+任务：在相邻结点之间传送帧
+├─ 链路：相邻结点间的物理线路
+├─ 数据链路：链路 + 协议的硬件与软件
+└─ 帧：首部 + 数据 + 尾部
+↓
+⭐ 3.1 三个基本问题
+├─ 封装成帧
+│   ├─ 帧定界
+│   └─ MTU：数据部分的长度上限
+├─ 透明传输
+│   └─ 字节填充：避免把数据误认成控制字符
+└─ ⭐ 差错检测
+    ├─ CRC：模2除法 → 求余数 → 添加冗余码
+    ├─ FCS：帧检验序列
+    └─ 检错通过 ≠ 可靠传输
+↓
+3.2 点对点协议 PPP
+├─ 三部分
+│   ├─ 封装方法
+│   ├─ LCP：建立、配置和测试链路
+│   └─ NCP：协商网络层配置
+├─ ⭐ 帧格式与透明传输
+│   ├─ 标志字段：0x7E
+│   ├─ 异步传输：字符填充
+│   └─ 同步传输：连续5个1后填0
+└─ 工作状态：建立 → 鉴别 → 配置 → 打开 → 终止
+↓
+⭐ 3.3 广播信道与以太网
+├─ 局域网：共享媒体，需要协调发送
+├─ ⭐ CSMA/CD
+│   ├─ 先监听 → 边发边检测 → 碰撞后退避
+│   ├─ 争用期：2τ
+│   ├─ 最短帧：L_min ≥ 2τC
+│   └─ 截断二进制指数退避
+├─ 集线器：物理星形，逻辑共享总线
+├─ 信道利用率：a = τ/T₀，理想上限1/(1+a)
+└─ ⭐ MAC地址与MAC帧
+    ├─ 地址：48位，区分单播 / 多播 / 广播
+    ├─ MAC帧：64～1518字节
+    └─ 数据：46～1500字节，FCS：4字节
+↓
+⭐ 3.4 扩展的以太网
+├─ 集线器扩展：扩大同一个碰撞域
+├─ ⭐ 交换机
+│   ├─ 学源MAC → 查目的MAC → 转发或过滤
+│   ├─ 未知目的：泛洪；表项会老化
+│   └─ 各端口隔离碰撞域，默认不隔离广播域
+├─ STP：逻辑阻断冗余链路，消除环路
+└─ ⭐ VLAN
+    ├─ 逻辑分组 → 划分广播域
+    └─ 802.1Q：插入4字节标记
+↓
+3.5 高速以太网与宽带接入
+├─ 100BASE-T：100 Mbit/s
+├─ 吉比特以太网：1 Gbit/s
+│   └─ 半双工：载波延伸、分组突发
+├─ 10GE及更快以太网：沿用MAC帧结构
+├─ ⭐ 全双工：不使用CSMA/CD
+└─ PPPoE：在以太网上封装PPP
+</code></pre>
+<blockquote>
+<p><strong>⭐ 本章重点（复习建议）</strong></p>
+<p><strong>CRC计算与FCS；PPP帧格式、字节/比特填充；CSMA/CD争用期、最短帧与退避；MAC地址及帧长；交换机自学习；碰撞域与广播域；VLAN与802.1Q。</strong></p>
+<p>先理解“发送时延和传播时延不同”，再做最短帧计算。⭐用于标记复习优先级，不代表教师明确划定的考试范围。</p>
+</blockquote>
 <h2 id="section-2">3.1 使用点对点信道的数据链路层</h2>
 <h3 id="section-3">3.1.1 数据链路和帧（PDF 2–8页）</h3>
 <p>数据链路层位于网络层与物理层之间。主机、路由器、交换机都需要相应的链路层功能：主机处理完整协议栈，路由器逐跳处理到网络层，普通二层交换机处理到数据链路层。一条端到端路径可能经过多种链路，每段可以使用不同协议。</p>

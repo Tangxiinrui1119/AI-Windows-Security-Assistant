@@ -1,10 +1,84 @@
 <!doctype html>
-<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>第4章 网络层 · 计算机网络复习笔记</title><meta name="description" content="计算机网络第4章中文复习笔记：IP与CIDR、ARP、IPv4首部和分片、最长前缀匹配、ICMP、IPv6、RIP、OSPF、BGP、VPN与NAT。"><meta name="robots" content="index,follow"><link rel="canonical" href="https://tangxiinrui1119.github.io/AI-Windows-Security-Assistant/network/04-network-layer.html"><link rel="sitemap" type="application/xml" href="../sitemap.xml"><style>body{margin:0;background:#f4f7fb;color:#172238;font:17px/1.85 system-ui,"Microsoft YaHei",sans-serif}main{max-width:1000px;margin:auto;padding:28px 24px 70px}article{background:white;border:1px solid #d9e2ee;border-radius:16px;padding:clamp(18px,4vw,48px)}a{color:#075fb5}nav{display:flex;flex-wrap:wrap;gap:18px;margin-bottom:24px}h1{font-size:2em}h2{margin-top:2em;border-bottom:1px solid #dae3ed;padding-bottom:8px}h3{margin-top:1.6em}table{display:block;overflow:auto;border-collapse:collapse;max-width:100%;margin:22px 0;font-size:.92em}td,th{border:1px solid #cad5e3;padding:9px 13px;text-align:left}th{background:#eaf2fc}pre{overflow:auto;padding:18px;background:#eef3f9;border-radius:8px}code{font-family:Consolas,monospace;overflow-wrap:anywhere}blockquote{border-left:4px solid #2475ba;margin:18px 0;padding:1px 18px;background:#f2f7fd;color:#40526a}.search{display:flex;gap:8px;margin:18px 0}input{min-width:0;flex:1;padding:10px;font:inherit}button{padding:8px 16px;font:inherit}footer{margin-top:28px;color:#52647a}li{margin:5px 0}html{scroll-behavior:smooth}@media(max-width:600px){main{padding:16px 10px}body{font-size:16px}h1{font-size:1.6em}}</style></head><body><main><nav><a href="../index.html">网站首页</a><a href="index.html">网络课程目录</a><a href="../reader.html?f=notes/README.md">全部学习笔记</a><a href="../search.html">知识点搜索</a></nav><form class="search" action="../search.html" role="search"><input type="search" name="q" aria-label="搜索全部学习笔记" placeholder="搜索知识点"><button>搜索</button></form><article><nav aria-label="章节目录"><a href="#section-1">知识地图与课件覆盖范围</a><a href="#section-2">4.1 网络层的几个重要概念</a><a href="#section-5">4.2 网际协议 IP</a><a href="#section-16">4.3 IP 层转发分组的过程</a><a href="#section-20">4.4 网际控制报文协议 ICMP</a><a href="#section-23">4.5 IPv6（正文在PDF 117–122页）</a><a href="#section-28">4.6 互联网的路由选择协议</a><a href="#section-36">4.7 IP 多播</a><a href="#section-37">4.8 虚拟专用网 VPN 和网络地址转换 NAT</a><a href="#section-41">4.9 多协议标记交换 MPLS</a><a href="#section-42">4.10 软件定义网络 SDN 简介</a><a href="#section-43">跨章复习与计算自测</a><a href="#section-44">资料说明</a></nav><h1 id="section-0">第4章 网络层</h1>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>第4章 网络层 · 计算机网络复习笔记</title><meta name="description" content="计算机网络第4章中文复习笔记：IP与CIDR、ARP、IPv4首部和分片、最长前缀匹配、ICMP、IPv6、RIP、OSPF、BGP、VPN与NAT。"><meta name="robots" content="index,follow"><link rel="canonical" href="https://tangxiinrui1119.github.io/AI-Windows-Security-Assistant/network/04-network-layer.html"><link rel="sitemap" type="application/xml" href="../sitemap.xml"><style>body{margin:0;background:#f4f7fb;color:#172238;font:17px/1.85 system-ui,"Microsoft YaHei",sans-serif}main{max-width:1000px;margin:auto;padding:28px 24px 70px}article{background:white;border:1px solid #d9e2ee;border-radius:16px;padding:clamp(18px,4vw,48px)}a{color:#075fb5}nav{display:flex;flex-wrap:wrap;gap:18px;margin-bottom:24px}h1{font-size:2em}h2{margin-top:2em;border-bottom:1px solid #dae3ed;padding-bottom:8px}h3{margin-top:1.6em}table{display:block;overflow:auto;border-collapse:collapse;max-width:100%;margin:22px 0;font-size:.92em}td,th{border:1px solid #cad5e3;padding:9px 13px;text-align:left}th{background:#eaf2fc}pre{overflow:auto;padding:18px;background:#eef3f9;border-radius:8px}code{font-family:Consolas,monospace;overflow-wrap:anywhere}blockquote{border-left:4px solid #2475ba;margin:18px 0;padding:1px 18px;background:#f2f7fd;color:#40526a}.search{display:flex;gap:8px;margin:18px 0}input{min-width:0;flex:1;padding:10px;font:inherit}button{padding:8px 16px;font:inherit}footer{margin-top:28px;color:#52647a}li{margin:5px 0}html{scroll-behavior:smooth}@media(max-width:600px){main{padding:16px 10px}body{font-size:16px}h1{font-size:1.6em}}</style></head><body><main><nav><a href="../index.html">网站首页</a><a href="index.html">网络课程目录</a><a href="../reader.html?f=notes/README.md">全部学习笔记</a><a href="../search.html">知识点搜索</a></nav><form class="search" action="../search.html" role="search"><input type="search" name="q" aria-label="搜索全部学习笔记" placeholder="搜索知识点"><button>搜索</button></form><article><nav aria-label="章节目录"><a href="#section-1">一、知识地图</a><a href="#section-2">课件覆盖范围</a><a href="#section-3">4.1 网络层的几个重要概念</a><a href="#section-6">4.2 网际协议 IP</a><a href="#section-17">4.3 IP 层转发分组的过程</a><a href="#section-21">4.4 网际控制报文协议 ICMP</a><a href="#section-24">4.5 IPv6（正文在PDF 117–122页）</a><a href="#section-29">4.6 互联网的路由选择协议</a><a href="#section-37">4.7 IP 多播</a><a href="#section-38">4.8 虚拟专用网 VPN 和网络地址转换 NAT</a><a href="#section-42">4.9 多协议标记交换 MPLS</a><a href="#section-43">4.10 软件定义网络 SDN 简介</a><a href="#section-44">跨章复习与计算自测</a><a href="#section-45">资料说明</a></nav><h1 id="section-0">第4章 网络层</h1>
 <blockquote>
 <p>整理日期：2026-10-22。依据用户上传的《计算机网络-第4章-网络层.pdf》（谢希仁《计算机网络》第8版课件，122页）。页码均指PDF页码；合并重复演示，保留教材章节编号。关联项目：为安全助手理解IP、路由、ARP、网络诊断和内网通信提供基础；本次没有新增项目实验或单独学习日志。</p>
 <p><a href="index.html">网络课程目录</a> · <a href="03-data-link-layer.html">上一章：数据链路层</a> · <a href="../reader.html?f=notes%2FREADME.md">全部学习笔记</a></p>
 </blockquote>
-<h2 id="section-1">知识地图与课件覆盖范围</h2>
+<h2 id="section-1">一、知识地图</h2>
+<pre><code>网络层
+↓
+任务：让不同网络中的主机通过IP通信
+↓
+4.1 网络层的重要概念
+├─ ⭐ 虚电路服务 / 数据报服务
+│   └─ IP：无连接、尽最大努力交付
+└─ 数据层面：查表转发 / 控制层面：计算路由
+↓
+⭐ 4.2 网际协议 IP
+├─ 虚拟互连网络：屏蔽底层网络差异
+├─ ⭐ IPv4地址与CIDR
+│   ├─ 32位地址：网络前缀 + 主机号
+│   ├─ 分类编址：A / B / C / D / E（历史模型）
+│   ├─ 网络地址 = IP AND 掩码
+│   ├─ 地址块大小 = 2^(32−前缀长度)
+│   └─ 路由聚合：多个前缀汇总为较短前缀
+├─ ⭐ IP地址与MAC地址
+│   ├─ IP：端到端逻辑寻址
+│   └─ MAC：当前链路交付，经过路由器重新封装
+├─ ⭐ ARP
+│   ├─ 查缓存 → 广播请求 → 通常单播回答
+│   └─ 跨网通信：解析本链路下一跳的MAC
+└─ ⭐ IPv4数据报
+    ├─ 首部20～60字节；TTL、协议号、首部检验和
+    └─ 分片：标识、DF、MF、片偏移（8字节单位）
+↓
+⭐ 4.3 IP分组转发
+├─ 目的IP → 查转发表 → 下一跳 / 输出接口
+├─ ⭐ 最长前缀匹配：选最具体的路由
+├─ 主机路由：/32；默认路由：/0
+└─ 二叉线索查表：本PDF仅列标题
+↓
+4.4 ICMP
+├─ 差错报告：不可达、时间超过、参数问题、重定向
+├─ 询问：回送、时间戳
+└─ ⭐ 应用
+    ├─ PING：回送请求与回答
+    └─ Traceroute / tracert：递增TTL，观察反馈
+↓
+4.5 IPv6
+├─ 128位地址，40字节基本首部
+├─ 地址类型：单播 / 多播 / 任播
+├─ ⭐ 过渡：双协议栈 / 隧道
+└─ ICMPv6：本PDF仅列标题
+↓
+⭐ 4.6 路由选择协议
+├─ 自治系统AS → 域内IGP / 域间EGP
+├─ ⭐ RIP：距离向量
+│   ├─ 邻居交换完整路由表；16表示不可达
+│   ├─ 同一下一跳：距离变大也要更新
+│   └─ 坏消息传播慢：计数到无穷
+├─ ⭐ OSPF：链路状态
+│   ├─ 可靠洪泛 → LSDB → SPF计算路径
+│   └─ 分区域；直接由IP承载，协议号89
+├─ BGP：路径向量、AS路径、策略；使用TCP
+└─ 路由器构成：本PDF仅列标题
+↓
+4.7 IP多播：本PDF仅列总目录
+↓
+⭐ 4.8 VPN与NAT
+├─ 私有地址：10/8、172.16/12、192.168/16
+├─ VPN：通过公共网络承载专用通信
+├─ NAT：改写IP地址
+└─ ⭐ NAPT：改写地址和端口，多会话共享公网IP
+↓
+4.9 MPLS / 4.10 SDN：本PDF仅列总目录
+</code></pre>
+<blockquote>
+<p><strong>⭐ 本章重点（复习建议）</strong></p>
+<p><strong>CIDR与掩码计算、路由聚合；IP与MAC的逐跳变化；ARP找谁；IPv4首部和分片计算；最长前缀匹配；ICMP诊断原理；RIP更新规则及与OSPF/BGP的对比；私有地址和NAT/NAPT。</strong></p>
+<p>先连通“目的IP → 查路由 → 下一跳 → ARP → MAC封装”这条主线，再记协议细节。⭐用于标记复习优先级，不代表教师明确划定的考试范围。</p>
+</blockquote>
+<h2 id="section-2">课件覆盖范围</h2>
 <p>主线：<strong>IP地址确定目的网络 → 路由与最长前缀匹配确定下一跳 → ARP取得本链路下一跳MAC → 封装帧逐跳发送</strong>。</p>
 <table>
 <thead>
@@ -60,8 +134,8 @@
 <td>无正文，保留位置待补</td>
 </tr>
 </tbody></table>
-<h2 id="section-2">4.1 网络层的几个重要概念</h2>
-<h3 id="section-3">4.1.1 网络层提供的两种服务（PDF 3–6页）</h3>
+<h2 id="section-3">4.1 网络层的几个重要概念</h2>
+<h3 id="section-4">4.1.1 网络层提供的两种服务（PDF 3–6页）</h3>
 <p>网络层为不同网络上的主机提供通信。核心争论是：<strong>可靠交付主要由网络负责，还是由端系统负责？</strong></p>
 <table>
 <thead>
@@ -109,7 +183,7 @@
 </tbody></table>
 <p>虚电路是存储转发网络中的<strong>逻辑连接</strong>，不是建立专属物理电路。互联网IP采用<strong>无连接、尽最大努力的数据报服务</strong>，不承诺可靠性、带宽、时限或按序到达。需要可靠通信的应用可以使用TCP等端系统机制；并不是所有运输层协议都可靠。</p>
 <p>这样可降低网络内部设备复杂度和成本，使网络适应多样应用。</p>
-<h3 id="section-4">4.1.2 网络层的两个层面（PDF 6–7页）</h3>
+<h3 id="section-5">4.1.2 网络层的两个层面（PDF 6–7页）</h3>
 <table>
 <thead>
 <tr>
@@ -130,9 +204,9 @@
 </tr>
 </tbody></table>
 <p><strong>路由选择</strong>回答“如何得到路由”；<strong>转发</strong>回答“当前分组从哪里出去”。</p>
-<h2 id="section-5">4.2 网际协议 IP</h2>
+<h2 id="section-6">4.2 网际协议 IP</h2>
 <p>IPv4是本节主要对象。课件同时列出配套的ARP、ICMP、IGMP。ARP报文直接封装在链路层帧中；ICMP、IGMP报文由IP承载。图中协议位置用于说明协作关系，不代表ARP先封装成IP数据报。</p>
-<h3 id="section-6">4.2.1 虚拟互连网络（PDF 9–13页）</h3>
+<h3 id="section-7">4.2.1 虚拟互连网络（PDF 9–13页）</h3>
 <p>异构网络在寻址、最大分组长度、媒体接入、超时、差错恢复、路由和管理等方面不同。互联网没有要求把所有底层网络改成相同技术，而是用路由器和统一的IP层屏蔽这些差异。</p>
 <table>
 <thead>
@@ -159,11 +233,11 @@
 </tr>
 </tbody></table>
 <p>IP网是一个<strong>虚拟互连网络</strong>：用户可用统一IP地址通信，看不见具体链路的异构细节。数据报经路由器逐跳存储转发；最后一跳到目的主机是直接交付，跨网络先交给路由器是间接交付。</p>
-<h3 id="section-7">4.2.2 IP 地址（PDF 13–34页）</h3>
-<h4 id="section-8">一、地址及表示</h4>
+<h3 id="section-8">4.2.2 IP 地址（PDF 13–34页）</h3>
+<h4 id="section-9">一、地址及表示</h4>
 <p>IPv4地址32位，分成4个8位组，采用点分十进制。如<code>10000000 00001011 00000011 00011111 = 128.11.3.31</code>。</p>
 <p>地址标识<strong>接口</strong>，不是永久标识一整台机器。主机或路由器连接多个网络时有相应接口地址。公开可路由地址应保持全局唯一；后述私有地址允许在独立网络重复使用。</p>
-<h4 id="section-9">二、分类编址（历史模型）</h4>
+<h4 id="section-10">二、分类编址（历史模型）</h4>
 <p><code>IP地址 = 网络号 + 主机号</code>。</p>
 <table>
 <thead>
@@ -248,7 +322,7 @@
 </tr>
 </tbody></table>
 <p>分类编址的优点是管理和转发简单；问题是地址块大小固定、浪费严重，即使划子网也不能根治地址耗尽。</p>
-<h4 id="section-10">三、无分类编址 CIDR</h4>
+<h4 id="section-11">三、无分类编址 CIDR</h4>
 <p>CIDR（Classless Inter-Domain Routing，无分类域间路由选择）采用：</p>
 <p><code>IP地址 = 网络前缀（n位） + 主机号（32−n位）</code>，写成<code>a.b.c.d/n</code>。</p>
 <p>前缀不再固定为A/B/C类别，n可以取0…32。地址块含<code>2^(32−n)</code>个地址；普通广播子网的可用主机地址通常为<code>2^(32−n)−2</code>，但/31点对点和/32不能机械减2。</p>
@@ -365,7 +439,7 @@
 </tr>
 </tbody></table>
 <p>IP地址不带前缀长度时，不能在CIDR环境中仅凭外观断定网络地址。课件简写<code>128.14.32/20</code>时省略末尾0；实际配置宜写完整四段，避免工具解释差异。</p>
-<h4 id="section-11">四、路由聚合 / 构造超网</h4>
+<h4 id="section-12">四、路由聚合 / 构造超网</h4>
 <p>把连续、正确对齐且有共同前缀的地址块汇总为较短前缀，可减少转发表条目。课件将<code>192.24.0.0/24</code>至<code>192.24.15.0/24</code>汇成<code>192.24.0.0/20</code>，16条路由变1条。</p>
 <p>分配例：</p>
 <table>
@@ -409,7 +483,7 @@
 </tbody></table>
 <p>大学需约800个地址，可分/22。对外只通告大学汇总前缀，内部再细分。前缀越短、地址块越大；聚合不能随意把不连续网段拼接，也要确保转发方向适合汇总。</p>
 <p>IP编址分等级有利管理与聚合；不同规模网络在IP层平等。课件模型中，普通二层互连的同一IP网络使用共同前缀，不同IP网络由路由器连接；点对点路由器链路可用/31，也可采用未编号接口方案。</p>
-<h3 id="section-12">4.2.3 IP 地址与 MAC 地址（PDF 34–38页）</h3>
+<h3 id="section-13">4.2.3 IP 地址与 MAC 地址（PDF 34–38页）</h3>
 <table>
 <thead>
 <tr>
@@ -465,7 +539,7 @@
 </tr>
 </tbody></table>
 <p>不要把“IP源、目的不变”误记成整个IP首部不变：TTL和首部检验和会变化；NAT还会修改地址。笔记本移动到其他网络时，通常需要新的IP配置；网卡的MAC身份与地理位置没有直接绑定。</p>
-<h3 id="section-13">4.2.4 地址解析协议 ARP（PDF 38–47页）</h3>
+<h3 id="section-14">4.2.4 地址解析协议 ARP（PDF 38–47页）</h3>
 <p>ARP解决：<strong>已知本链路下一跳的IPv4地址，求其MAC地址</strong>。不是查询全球任意远端主机MAC的协议。</p>
 <ol>
 <li>查ARP高速缓存：存IP、MAC、老化时间、类型等映射。</li>
@@ -499,7 +573,7 @@
 </tr>
 </tbody></table>
 <p>例如A=209.0.0.5要发给远端B=219.1.0.6，A解析本地网关209.0.0.1的MAC，IP目的仍是B；路由器在B所在链路再解析B的MAC。整个解析过程由协议栈自动完成。</p>
-<h3 id="section-14">4.2.5 IP 数据报的格式（PDF 47–57页）</h3>
+<h3 id="section-15">4.2.5 IP 数据报的格式（PDF 47–57页）</h3>
 <p>IPv4数据报由首部与数据组成，固定首部20字节，带选项时首部最多60字节。</p>
 <table>
 <thead>
@@ -572,7 +646,7 @@
 </tbody></table>
 <p>常见协议值：ICMP=1，IGMP=2，IPv4封装=4，TCP=6，UDP=17，IPv6封装=41，ESP=50，AH=51，ICMPv6=58，OSPF=89。协议号与TCP/UDP端口号不是同一概念。</p>
 <p>课件简化写“总长度不超过MTU”，应理解为<strong>在某条链路上传输的每个IP分组/分片</strong>需满足该链路MTU；原始数据报可以大于MTU，需要在允许条件下分片。</p>
-<h4 id="section-15">分片例4-1</h4>
+<h4 id="section-16">分片例4-1</h4>
 <p>原始总长3820字节，其中首部20、数据3800；每片总长不得超过1420。每片最大数据为<code>1420−20=1400</code>，且非末片的数据长度需是8的倍数。</p>
 <table>
 <thead>
@@ -631,11 +705,11 @@
 <p>计算：<code>1400/8=175</code>，<code>2800/8=350</code>。每片都要有首部，不能把数据长度当作总长度。末片MF=0；一个未分片的数据报也可MF=0，所以不能只看MF判断是否曾分片。</p>
 <p>TTL每过路由器减1；初始TTL=1的分组不能被第一个路由器继续转发。TTL改变使首部检验和需更新。</p>
 <p>首部检验和：先把该字段置0，按16位字进行反码算术求和（最高位进位回卷到最低位），再取反；接收端含检验和求和再取反，正确时为0。选项提供灵活性但增加路由器处理开销，因此课件强调实际较少使用。</p>
-<h2 id="section-16">4.3 IP 层转发分组的过程</h2>
-<h3 id="section-17">4.3.1 基于终点的转发（PDF 58–62页）</h3>
+<h2 id="section-17">4.3 IP 层转发分组的过程</h2>
+<h3 id="section-18">4.3.1 基于终点的转发（PDF 58–62页）</h3>
 <p>路由器依据<strong>目的IP</strong>查转发表，逐跳交付，不为每个分组写入完整路径。典型条目是<code>目的网络前缀 → 下一跳/输出接口</code>，按网络而非每台主机建表可大幅减小规模。</p>
 <p>课件例：H1=128.1.2.194/26，网络为128.1.2.192/26；目标H2=128.1.2.132。<code>132 AND 192 = 128</code>，目标属于128.1.2.128/26，与H1不在同一子网，先交网关R1。R1有该子网直连路由，从接口1直接交付H2。</p>
-<h3 id="section-18">4.3.2 最长前缀匹配（PDF 62–69页）</h3>
+<h3 id="section-19">4.3.2 最长前缀匹配（PDF 62–69页）</h3>
 <p>一个目的地址可同时匹配多条路由，选择<strong>匹配前缀最长</strong>的一条，因为它描述的范围最具体。</p>
 <table>
 <thead>
@@ -663,10 +737,10 @@
 </tbody></table>
 <p>特殊路由：<strong>主机路由a.b.c.d/32</strong>最具体；<strong>默认路由0.0.0.0/0</strong>在无更具体匹配时使用。</p>
 <p>简化流程：取目的D → /32及其他匹配中取最长 → 若仅有默认路由则走默认 → 完全无路由则丢弃，按条件报告差错。直连目的解析主机MAC；非直连解析下一跳MAC。<strong>下一跳IP不替换IP首部的目的地址</strong>，它用于本次链路封装。</p>
-<h3 id="section-19">4.3.3 使用二叉线索查找转发表</h3>
+<h3 id="section-20">4.3.3 使用二叉线索查找转发表</h3>
 <p>上传课件仅在58页小目录列出此标题，没有展开正文；不补写成已讲知识点。复习当前PDF应先掌握逐位掩码匹配与最长前缀规则。</p>
-<h2 id="section-20">4.4 网际控制报文协议 ICMP</h2>
-<h3 id="section-21">4.4.1 ICMP 报文的种类（PDF 70–72页）</h3>
+<h2 id="section-21">4.4 网际控制报文协议 ICMP</h2>
+<h3 id="section-22">4.4.1 ICMP 报文的种类（PDF 70–72页）</h3>
 <p>ICMP用于报告网络差错和异常状态，属于网络层，由IP封装（IPv4协议号1）。统一开头为：类型8位、代码8位、检验和16位，其后字段随报文类型变化。</p>
 <table>
 <thead>
@@ -711,7 +785,7 @@
 <blockquote>
 <p>课件勘误：72页把ICMP时间戳解释为“自1900年以来的秒数”，与NTP式时间概念混淆。按<a href="https://www.rfc-editor.org/rfc/rfc792.html">RFC 792</a>，ICMP时间戳是自UTC午夜以来的毫秒数，32位；无法按此格式提供时有非标准值标志。</p>
 </blockquote>
-<h3 id="section-22">4.4.2 ICMP 的应用举例（PDF 73–76页）</h3>
+<h3 id="section-23">4.4.2 ICMP 的应用举例（PDF 73–76页）</h3>
 <p><strong>PING</strong>测试连通性，使用回送请求/回答。它是应用程序直接使用ICMP的例子，不经TCP/UDP。没有回答也可能是过滤或限速，不能单凭一次失败断言主机不存在。</p>
 <p><strong>Traceroute</strong>逐步提高TTL：TTL=1时第一跳丢弃并返回时间超过；TTL=2时第二跳报告；依次获得中间路由器信息。课件描述的经典UDP探测在到达目的后由ICMP端口不可达结束。</p>
 <blockquote>
@@ -721,9 +795,9 @@
 <pre><code class="language-text">ping mail.sina.com.cn
 tracert mail.sina.com.cn
 </code></pre>
-<h2 id="section-23">4.5 IPv6（正文在PDF 117–122页）</h2>
+<h2 id="section-24">4.5 IPv6（正文在PDF 117–122页）</h2>
 <p>课件用IPv4地址资源耗尽说明扩大地址空间的必要性。这里的“耗尽”指相应分配池状态，不是IPv4已停止工作，也不意味着没有存量地址转让或回收。</p>
-<h3 id="section-24">4.5.1 IPv6 的基本首部</h3>
+<h3 id="section-25">4.5.1 IPv6 的基本首部</h3>
 <p>IPv6仍提供无连接传送，地址从32位增至128位；支持更丰富的地址层次、扩展首部、自动配置和流相关处理。</p>
 <p><code>IPv6分组 = 固定40字节基本首部 + 有效载荷</code>，有效载荷包含零个或多个扩展首部，再接上层数据。</p>
 <table>
@@ -774,7 +848,7 @@ tracert mail.sina.com.cn
 <blockquote>
 <p>表述范围：自动配置并非“IPv6禁止或永远不需要DHCP”；可以使用无状态自动配置，也存在DHCPv6。流标号等支持相关服务机制，不等于IPv6自动保证带宽、时延。</p>
 </blockquote>
-<h3 id="section-25">4.5.2 IPv6 的地址</h3>
+<h3 id="section-26">4.5.2 IPv6 的地址</h3>
 <p>课件讲三种基本类型：</p>
 <table>
 <thead>
@@ -797,16 +871,16 @@ tracert mail.sina.com.cn
 </tr>
 </tbody></table>
 <p>本PDF没有详细展开IPv6文本地址压缩规则，不将其混入课件主体。</p>
-<h3 id="section-26">4.5.3 从 IPv4 向 IPv6 过渡</h3>
+<h3 id="section-27">4.5.3 从 IPv4 向 IPv6 过渡</h3>
 <ul>
 <li><strong>双协议栈</strong>：主机或路由器同时实现IPv4、IPv6，按对端和网络条件选择协议。</li>
 <li><strong>隧道技术</strong>：IPv6分组整体作为IPv4载荷跨越IPv4网络，到出口解封装。课件图中内部源A、目的F仍属于IPv6，外部IPv4头使用隧道入口B和出口E的地址。</li>
 </ul>
 <p>IPv6不是能被IPv4设备直接理解的相同报文格式；课件“向后兼容”应理解为通过双栈、隧道等实现渐进共存，不能认为纯IPv6节点天生能直接转发IPv4。</p>
-<h3 id="section-27">4.5.4 ICMPv6</h3>
+<h3 id="section-28">4.5.4 ICMPv6</h3>
 <p>本PDF仅在117页小目录列出标题，没有正文；不补写为已覆盖。</p>
-<h2 id="section-28">4.6 互联网的路由选择协议</h2>
-<h3 id="section-29">4.6.1 有关路由选择协议的几个基本概念（PDF 77–80页）</h3>
+<h2 id="section-29">4.6 互联网的路由选择协议</h2>
+<h3 id="section-30">4.6.1 有关路由选择协议的几个基本概念（PDF 77–80页）</h3>
 <p>理想算法应正确完整、计算简单、稳定、公平、自适应，并按目标得到合理“最佳”路径。不存在脱离度量和约束的绝对最佳路由。</p>
 <table>
 <thead>
@@ -832,10 +906,10 @@ tracert mail.sina.com.cn
 <li><strong>IGP内部网关协议</strong>：AS内，域内路由，如RIP、OSPF。</li>
 <li><strong>EGP外部网关协议</strong>：AS间，域间路由，课件重点为BGP-4。这里EGP是类别名称，不能将它与特定历史EGP协议混同。</li>
 </ul>
-<h3 id="section-30">4.6.2 内部网关协议 RIP（PDF 81–93页）</h3>
+<h3 id="section-31">4.6.2 内部网关协议 RIP（PDF 81–93页）</h3>
 <p>RIP为分布式<strong>距离向量</strong>协议。各路由器维护到目的网络的距离和下一跳。课件计数：直连网络距离1，每经过一个路由器加1；最大有限度量15，<strong>16表示不可达</strong>。</p>
 <p>三个特点：只与相邻路由器交换；交换自己所知的完整路由表；周期交换（课件例30秒），变化时及时通告。</p>
-<h4 id="section-31">距离向量更新算法</h4>
+<h4 id="section-32">距离向量更新算法</h4>
 <p>收到邻居X的表后，先把每项距离加1（不超过不可达值16），下一跳改为X，然后逐项处理：</p>
 <ol>
 <li>本地没有目的网络：增加该路由。</li>
@@ -901,10 +975,10 @@ tracert mail.sina.com.cn
 </tr>
 </tbody></table>
 <p>RIPv2通过UDP端口520传送，支持CIDR、简单鉴别及多播。基本首部4字节，每条路由20字节，课件不带额外鉴别条目的基本格式最多25项，长<code>4+20×25=504字节</code>；字段含地址族、路由标记、网络地址、子网掩码、下一跳、距离。</p>
-<h4 id="section-32">坏消息传播得慢</h4>
+<h4 id="section-33">坏消息传播得慢</h4>
 <p>当网1故障，R1已知不可达，R2却仍通告旧路径。R1误以为可经R2到达，把距离改3；R2又改4，如此逐步数到16，才一致认为不可达。这就是<strong>计数到无穷</strong>和慢收敛问题。</p>
 <p>RIP优点为简单；不足是网络规模小、周期全表交换、故障消息收敛慢。这里“开销小”指实现简单，不等于全表通信量总是很小。</p>
-<h3 id="section-33">4.6.3 内部网关协议 OSPF（PDF 94–100页）</h3>
+<h3 id="section-34">4.6.3 内部网关协议 OSPF（PDF 94–100页）</h3>
 <p>OSPF（开放最短路径优先）是分布式<strong>链路状态</strong>协议，使用Dijkstra/SPF计算路径。它交换“我与哪些邻居相连、链路度量是什么”，不直接周期交换完整路径表。</p>
 <p>三个要点：采用洪泛法传播；传播本路由器相邻链路状态；变化时及时更新并周期刷新（课件例30分钟）。同步后的相关区域链路状态数据库LSDB反映拓扑，各路由器以自己为根计算不同路由表。</p>
 <p>区域划分降低交换量和维护状态，使协议适于较大AS；代价是层次和报文管理更复杂。</p>
@@ -937,7 +1011,7 @@ tracert mail.sina.com.cn
 </blockquote>
 <p>OSPF五种分组：Hello、数据库描述、链路状态请求、链路状态更新、链路状态确认。直接封装在IP中，<strong>协议号89</strong>，不经TCP/UDP；课件OSPFv2首部24字节。</p>
 <p>工作过程：Hello确认邻居 → 交换数据库描述、请求缺失项、同步数据库 → 可靠洪泛更新、确认。课件Hello间隔10秒、40秒未收到判不可达，属于所述场景参数，不能认为所有网络类型固定如此。完全邻接表示相应数据库达到同步；物理相邻不等于已完全邻接。</p>
-<h3 id="section-34">4.6.4 外部网关协议 BGP（PDF 101–105页）</h3>
+<h3 id="section-35">4.6.4 外部网关协议 BGP（PDF 101–105页）</h3>
 <p>BGP在AS间交换可达性与路径信息，采用<strong>路径向量</strong>。不同AS的代价口径和商业管理策略不同，因此目标是选择可达、无环并符合策略的较好路由，不保证全互联网某个统一最短路径。</p>
 <p>AS选择BGP发言人。两个对等体先建立TCP连接，再建立BGP会话并交换信息。路径包含到目标网络经过的AS序列，结合策略选择路径；例如课件AS2向AS1通告经AS2可达N1…N4，主干可通告经(AS1,AS3)到达其他网络。</p>
 <table>
@@ -986,13 +1060,13 @@ tracert mail.sina.com.cn
 <td>强调策略和AS间可达性</td>
 </tr>
 </tbody></table>
-<h3 id="section-35">4.6.5 路由器的构成</h3>
+<h3 id="section-36">4.6.5 路由器的构成</h3>
 <p>76页目录列出该项，但此PDF没有展开正文。本笔记不补画成课件已有结构图。</p>
-<h2 id="section-36">4.7 IP 多播</h2>
+<h2 id="section-37">4.7 IP 多播</h2>
 <p>仅在第2页总目录出现；8页提到IGMP配套协议，但没有4.7正文。具体多播组管理与路由留待后续材料。</p>
-<h2 id="section-37">4.8 虚拟专用网 VPN 和网络地址转换 NAT</h2>
+<h2 id="section-38">4.8 虚拟专用网 VPN 和网络地址转换 NAT</h2>
 <p>课件先讲私有地址与NAT，再讲VPN；这里保留4.8.1、4.8.2编号，先交代共同的私有地址概念。</p>
-<h3 id="section-38">本地互联网与私有地址（PDF 106–108、112页）</h3>
+<h3 id="section-39">本地互联网与私有地址（PDF 106–108、112页）</h3>
 <p>内部网络可自行分配本地地址，但若随意与公网地址重叠，就会产生歧义。RFC 1918规定三段私有地址，允许不同机构复用，不能在公共互联网按普通公网目的地址路由。</p>
 <table>
 <thead>
@@ -1019,7 +1093,7 @@ tracert mail.sina.com.cn
 </tr>
 </tbody></table>
 <p>注意不是所有172开头的地址都是私有；课件NAT公网示例172.38.1.5不在172.16/12内。</p>
-<h3 id="section-39">4.8.1 虚拟专用网 VPN（PDF 113–116页）</h3>
+<h3 id="section-40">4.8.1 虚拟专用网 VPN（PDF 113–116页）</h3>
 <p>VPN利用公共互联网承载机构内部通信，在效果上形成专用网，不必为所有网点铺设专线。“虚拟”描述承载方式，“专用”描述访问与通信范围。</p>
 <p>有保密要求时，须使用提供相应保护的加密方案；<strong>隧道封装本身不等于加密</strong>。课件示例为加密内部数据报后再加外部IP头：</p>
 <pre><code class="language-text">内层：X 10.1.0.1 → Y 10.2.0.3
@@ -1029,7 +1103,7 @@ tracert mail.sina.com.cn
 载荷：被保护的内部数据报；到R2后解封装并交付Y
 </code></pre>
 <p>课件区分：同一机构内部的内联网intranet；与外部合作机构组成的外联网extranet；流动员工经软件建立隧道访问单位网络的远程接入VPN。</p>
-<h3 id="section-40">4.8.2 网络地址转换 NAT（PDF 108–112页）</h3>
+<h3 id="section-41">4.8.2 网络地址转换 NAT（PDF 108–112页）</h3>
 <p>NAT路由器位于专用网与互联网边界，具有全球地址，按转换表改写IP地址。</p>
 <table>
 <thead>
@@ -1082,11 +1156,11 @@ tracert mail.sina.com.cn
 </tr>
 </tbody></table>
 <p>通常由内网先发起建立动态映射，回包才能找到内部会话。课件“内网不能当服务器”限定于<strong>没有额外静态映射等配置的动态NAT/NAPT模型</strong>；实际端口映射可提供入站服务。NAT负责地址改写，不提供VPN式加密，也不能替代完整防火墙策略。</p>
-<h2 id="section-41">4.9 多协议标记交换 MPLS</h2>
+<h2 id="section-42">4.9 多协议标记交换 MPLS</h2>
 <p>仅在总目录出现，上传PDF未展开；待补。</p>
-<h2 id="section-42">4.10 软件定义网络 SDN 简介</h2>
+<h2 id="section-43">4.10 软件定义网络 SDN 简介</h2>
 <p>仅在总目录出现，上传PDF未展开；待补。当前材料可先联系4.1的数据层面与控制层面概念。</p>
-<h2 id="section-43">跨章复习与计算自测</h2>
+<h2 id="section-44">跨章复习与计算自测</h2>
 <table>
 <thead>
 <tr>
@@ -1130,6 +1204,6 @@ tracert mail.sina.com.cn
 <p>自测1：192.168.10.130/26 → 网络192.168.10.128/26，广播192.168.10.191，普通可用主机62个。</p>
 <p>自测2：20字节首部、MTU1500时，非末片最多数据<code>floor((1500−20)/8)×8=1480</code>字节；片偏移用数据起点除8，不能除首部加数据总长。</p>
 <p>课件作业（PDF 122页）：4-18、20、24、30、31、33、37、47；思考4-03、04、06、07、13、34、41、42、48。题干未附，不虚构原题答案。</p>
-<h2 id="section-44">资料说明</h2>
+<h2 id="section-45">资料说明</h2>
 <p>主体来源为用户上传的第4章PDF。文中“补充”“勘误”用于防止把简化教学表述记为无条件规则；ICMP时间戳勘误参照<a href="https://www.rfc-editor.org/rfc/rfc792.html">RFC 792</a>。未展开的小节保持目录位置，不表示已覆盖完整教材第4章。</p>
 </article><footer>依据用户提供课件整理 · Markdown为内容源，静态正文可直接抓取 · <a href="../SEARCH-ENGINES.md">搜索引擎说明</a></footer></main></body></html>

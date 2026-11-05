@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>第6章 应用层 · 计算机网络复习笔记</title><meta name="description" content="计算机网络第6章应用层复习笔记：DNS、FTP、TELNET、WWW、URL、HTTP、电子邮件、DHCP与SNMP。"><meta name="robots" content="index,follow"><link rel="canonical" href="https://tangxiinrui1119.github.io/AI-Windows-Security-Assistant/network/06-application-layer.html"><link rel="sitemap" type="application/xml" href="../sitemap.xml"><style>body{margin:0;background:#f4f7fb;color:#172238;font:17px/1.85 system-ui,"Microsoft YaHei",sans-serif}main{max-width:1000px;margin:auto;padding:28px 24px 70px}article{background:white;border:1px solid #d9e2ee;border-radius:16px;padding:clamp(18px,4vw,48px)}a{color:#075fb5}nav{display:flex;flex-wrap:wrap;gap:18px;margin-bottom:24px}h1{font-size:2em}h2{margin-top:2em;border-bottom:1px solid #dae3ed;padding-bottom:8px}h3{margin-top:1.6em}table{display:block;overflow:auto;border-collapse:collapse;max-width:100%;margin:22px 0;font-size:.92em}td,th{border:1px solid #cad5e3;padding:9px 13px;text-align:left}th{background:#eaf2fc}pre{overflow:auto;padding:18px;background:#eef3f9;border-radius:8px}code{font-family:Consolas,monospace;overflow-wrap:anywhere}blockquote{border-left:4px solid #2475ba;margin:18px 0;padding:1px 18px;background:#f2f7fd;color:#40526a}.search{display:flex;gap:8px;margin:18px 0}input{min-width:0;flex:1;padding:10px;font:inherit}button{padding:8px 16px;font:inherit}footer{margin-top:28px;color:#52647a}li{margin:5px 0}html{scroll-behavior:smooth}@media(max-width:600px){main{padding:16px 10px}body{font-size:16px}h1{font-size:1.6em}}</style></head><body><main><nav><a href="../index.html">网站首页</a><a href="index.html">网络课程目录</a><a href="../reader.html?f=notes/README.md">全部学习笔记</a><a href="../search.html">知识点搜索</a></nav><form class="search" action="../search.html" role="search"><input type="search" name="q" aria-label="搜索全部学习笔记" placeholder="搜索知识点"><button>搜索</button></form><article><nav aria-label="章节目录"><a href="#section-1">一、知识地图</a><a href="#section-2">课件覆盖范围</a><a href="#section-3">0. 应用层与应用层协议（PDF 2～3页）</a><a href="#section-6">6.1 域名系统 DNS</a><a href="#section-22">6.2 文件传送协议 FTP</a><a href="#section-26">6.3 远程终端协议 TELNET</a><a href="#section-29">6.4 万维网 WWW</a><a href="#section-59">6.5 电子邮件</a><a href="#section-69">6.6 动态主机配置协议 DHCP（PDF 71～79页）</a><a href="#section-75">6.7 简单网络管理协议 SNMP</a><a href="#section-91">二、本章常用端口速查</a><a href="#section-92">三、本章易混淆点</a><a href="#section-93">四、复习时优先串起的主线</a><a href="#section-94">五、课件最后的应用层思考（PDF 95页）</a></nav><h1 id="section-0">第6章 应用层</h1>
+<blockquote><p>整理日期：2026-11-05。依据用户上传的《计算机网络-第6章-应用层.pdf》（谢希仁《计算机网络》第8版课件，共95页，课件标注日期2026-11-01）逐页整理。保留课件6.1～6.7的章节结构，页码均指PDF页码。理解提示用于串联课件内容；课件未展开的内容明确标注，不自行补写。</p><p></p><p><a href="index.html">网络课程目录</a> · <a href="../reader.html?f=notes/network/05-transport-layer.md">上一章：运输层</a> · <a href="../reader.html?f=notes/README.md">全部学习笔记</a>。关联项目：为理解 DNS、HTTP、DHCP、网络服务端口和网络管理打基础；本次没有新增项目实验或单独学习日志。</p></blockquote>
+<h2 id="section-1">一、知识地图</h2>
+<pre><code>应用层
+↓
+任务：规定不同主机上的应用进程如何交换报文
+↓
+6.1 ⭐ DNS 域名系统
+├─ 域名：层次树状结构
+├─ 根 / 顶级 / 权限 / 本地域名服务器
+└─ ⭐ 递归查询、迭代查询、DNS缓存
+↓
+6.2 FTP 文件传送协议
+├─ 客户—服务器方式
+├─ ⭐ 控制连接与数据连接分离
+└─ TCP；控制端口21、数据端口20
+↓
+6.3 TELNET 远程终端协议
+├─ 通过TCP远程登录
+└─ ⭐ NVT网络虚拟终端，统一不同系统的表示
+↓
+6.4 ⭐ WWW / URL / HTTP / HTML
+├─ WWW是分布式超媒体系统，不是特殊网络
+├─ URL定位资源；HTTP规定请求与响应
+├─ ⭐ HTTP报文、方法、状态码、Cookie
+├─ HTTP/1.0非持续连接；HTTP/1.1持续连接
+└─ HTML、搜索引擎、博客微博、社交网站
+↓
+6.5 ⭐ 电子邮件
+├─ 用户代理、邮件服务器、邮件协议
+├─ ⭐ SMTP负责发送；POP3 / IMAP负责读取
+├─ 信封与邮件内容；首部与主体
+└─ Web邮件：用户侧HTTP，邮件服务器之间SMTP
+↓
+6.6 ⭐ DHCP 动态主机配置协议
+├─ 自动配置IP、子网掩码、默认路由器、DNS
+├─ ⭐ Discover → Offer → Request → ACK
+└─ UDP 67 / 68；租用期与续租
+↓
+6.7 SNMP 简单网络管理协议
+├─ 管理站 / 代理 / 被管对象
+├─ ⭐ SMI规定命名、类型、编码；MIB保存管理对象
+├─ Get读、Set写、Trap报告事件
+└─ UDP 161 / 162</code></pre>
+<blockquote><p><strong>⭐ 本章复习重点（学习建议）</strong></p><p></p><p><strong>DNS四类服务器与递归/迭代查询；FTP两个TCP连接的作用；TELNET的NVT；URL结构；HTTP连接方式、报文结构、方法和状态码；SMTP与POP3/IMAP的分工；DHCP四步交互与租用期；SNMP管理模型、SMI/MIB、Get/Set/Trap及端口。</strong></p><p></p><p>⭐表示复习优先级建议，不代表教师明确划定的考试范围。</p></blockquote>
+<h2 id="section-2">课件覆盖范围</h2>
+<table><thead><tr><th>章节</th><th>PDF位置</th><th>主要内容</th></tr></thead><tbody><tr><td>应用层与应用层协议</td><td>2～3页</td><td>应用层作用、应用层协议定义、客户—服务器方式</td></tr><tr><td>6.1 域名系统DNS</td><td>4～16页</td><td>域名结构、四类域名服务器、递归与迭代查询、缓存</td></tr><tr><td>6.2 文件传送协议FTP</td><td>17～19页</td><td>FTP特点、主从进程、控制连接和数据连接</td></tr><tr><td>6.3 远程终端协议TELNET</td><td>20～22页</td><td>远程登录、NVT格式</td></tr><tr><td>6.4 万维网WWW</td><td>23～53页</td><td>WWW、URL、HTTP、HTML、搜索引擎、博客微博、SNS</td></tr><tr><td>6.5 电子邮件</td><td>54～70页</td><td>邮件系统、SMTP、邮件格式、POP3/IMAP、Web邮件</td></tr><tr><td>6.6 动态主机配置协议DHCP</td><td>71～79页</td><td>协议配置、DORA过程、租用期和续租</td></tr><tr><td>6.7 简单网络管理协议SNMP</td><td>80～95页</td><td>网络管理、管理模型、SMI、MIB、PDU、UDP端口</td></tr></tbody></table>
+<blockquote><p><strong>课件范围说明：</strong> 课件目录列出了6.2.3“简单文件传送协议TFTP”和6.5.6“MIME通用互联网邮件扩充”，但95页正文没有展开这两个小节的具体工作原理。本笔记只保留其目录信息，不把课件未讲的内容补写成课堂知识。6.3目录页还重复出现“6.2.3 TFTP”，属于目录编号/排版问题。</p></blockquote>
+<h2 id="section-3">0. 应用层与应用层协议（PDF 2～3页）</h2>
+<h3 id="section-4">0.1 应用层的作用</h3>
+<p>运输层为应用进程提供端到端的通信服务。不同网络应用进程需要不同的通信规则，因此需要不同的应用层协议。</p>
+<p>应用层由各种应用层协议组成，每个协议解决一类网络应用问题。课件列举：</p>
+<table><thead><tr><th>网络应用</th><th>应用层协议</th></tr></thead><tbody><tr><td>万维网</td><td>HTTP</td></tr><tr><td>电子邮件</td><td>SMTP、POP3</td></tr><tr><td>文件传输</td><td>FTP</td></tr></tbody></table>
+<h3 id="section-5">0.2 应用层协议规定什么？</h3>
+<p>应用层协议精确定义不同主机中的多个应用进程之间的通信规则，主要包括：</p>
+<ol><li><strong>报文类型</strong>：应用进程交换什么类型的报文，例如请求报文、响应报文。</li><li><strong>报文语法</strong>：报文有哪些字段，各字段如何组织。</li><li><strong>字段语义</strong>：字段中的信息分别表示什么。</li><li><strong>交互规则</strong>：进程何时、如何发送报文，以及如何响应。</li></ol>
+<p>许多应用采用客户—服务器方式：</p>
+<ul><li>客户（client）：服务请求方，运行客户应用进程。</li><li>服务器（server）：服务提供方，运行服务器应用进程。</li></ul>
+<h2 id="section-6">6.1 域名系统 DNS</h2>
+<h3 id="section-7">6.1.1 域名系统概述（PDF 4～5页）</h3>
+<p>DNS（Domain Name System，域名系统）是互联网使用的命名系统，主要作用是<strong>把人们使用的域名转换为相应的IP地址</strong>，为互联网应用提供核心服务。</p>
+<p>例如，用户访问学校网站时输入域名，浏览器需要通过DNS查询对应的IP地址，之后才能向目标主机发起通信。</p>
+<p>DNS的特点：</p>
+<ul><li>域名采用层次树状结构。</li><li>DNS是一个联机的分布式数据库系统。</li><li>采用客户—服务器方式。</li><li>域名到IP地址的解析由多个域名服务器程序共同完成。</li><li>域名服务器程序运行在专门的结点上，该机器称为域名服务器。</li></ul>
+<p>课件在域名解析示意图中标明DNS使用UDP通信。</p>
+<h3 id="section-8">6.1.2 互联网的域名结构（PDF 6～8页）</h3>
+<h4 id="section-9">一、层次树状命名</h4>
+<p>域名采用层次树状结构。域（domain）是名字空间中一个可被管理的划分；一个域可以继续划分为子域，子域还可以继续划分，形成顶级域、二级域、三级域等。</p>
+<p>例如：<strong>mail.cctv.com</strong></p>
+<table><thead><tr><th>标号</th><th>含义</th></tr></thead><tbody><tr><td>mail</td><td>三级域名，级别较低</td></tr><tr><td>cctv</td><td>二级域名</td></tr><tr><td>com</td><td>顶级域名，级别最高</td></tr></tbody></table>
+<p>域名由一系列标号（label）组成，各标号之间用点号分隔。</p>
+<p>课件给出的域名规则：</p>
+<ul><li>每个标号不超过63个字符。</li><li>完整域名总共不超过255个字符。</li><li>域名不区分英文字母大小写。</li><li>域名是逻辑概念，不代表计算机所在的物理地点。</li><li>互联网名字空间按机构组织划分，与物理网络、IP地址中的子网没有直接关系。</li></ul>
+<h4 id="section-10">二、顶级域名 TLD</h4>
+<p>课件将全球顶级域名分为几类：</p>
+<table><thead><tr><th>类型</th><th>含义</th></tr></thead><tbody><tr><td>国家顶级域名 nTLD</td><td>按国家或地区设置，例如.cn、.uk</td></tr><tr><td>通用顶级域名 gTLD</td><td>例如.com、.net、.org、.edu、.gov</td></tr><tr><td>基础结构域名</td><td>课件列举.arpa</td></tr><tr><td>新顶级域名 New gTLD</td><td>由ICANN申请、审核的新顶级域名</td></tr></tbody></table>
+<p>在国家顶级域名下注册的二级域名由各国家自行确定。课件指出，我国把二级域名划分为“类别域名”和“行政区域名”两大类。</p>
+<h3 id="section-11">6.1.3 域名服务器（PDF 8～14页）</h3>
+<p>DNS使用分布在各地的域名服务器。课件按照作用将其分为四类：</p>
+<h4 id="section-12">1. 根域名服务器</h4>
+<ul><li>位于域名层次结构的最高层。</li><li>知道顶级域名服务器的域名和IP地址。</li><li>当本地域名服务器无法解析某个域名时，会向根域名服务器查询。</li><li><strong>根域名服务器通常不直接返回最终主机IP地址，而是告诉本地域名服务器下一步应查询哪个顶级域名服务器。</strong></li></ul>
+<p>课件介绍了13套根服务器系统，并强调：</p>
+<ul><li>13个根服务器名称并不代表全球只有13台物理机器。</li><li>根服务器分布在世界各地，每个地点可以部署多台机器。</li><li>根服务器采用任播（anycast）技术，使DNS客户的查询能够到达较近的根服务器。</li></ul>
+<h4 id="section-13">2. 顶级域名服务器（TLD服务器）</h4>
+<p>负责管理在该顶级域名下注册的所有二级域名。</p>
+<p>收到DNS查询后，可能直接给出相应回答，也可能告诉查询方下一步应找哪个域名服务器。</p>
+<h4 id="section-14">3. 权限域名服务器</h4>
+<ul><li>负责一个区（zone）的域名服务器。</li><li>保存其管辖区内主机的域名与IP地址映射。</li><li>如果自己无法给出最终答案，会告诉查询方下一步应查询哪个权限域名服务器。</li></ul>
+<p><strong>域（domain）与区（zone）不是完全相同的概念。</strong> 课件图示说明，一个区可以等于一个域，也可以小于一个域；具体划分由组织的管理需要决定。</p>
+<h4 id="section-15">4. 本地域名服务器</h4>
+<ul><li>主机发出DNS查询请求时，通常先把请求发送给本地域名服务器。</li><li>ISP或大学都可以拥有自己的本地域名服务器。</li><li>如果所查询的主机属于本地服务器能够直接解析的范围，就可以直接返回结果。</li><li>本地域名服务器有时也称为默认域名服务器。</li></ul>
+<h4 id="section-16">五、提高域名服务器可靠性</h4>
+<p>课件介绍主域名服务器与辅助域名服务器：</p>
+<ul><li>DNS数据会复制到多个域名服务器中保存。</li><li>主域名服务器发生故障时，辅助域名服务器可以继续提供查询服务。</li><li>主域名服务器定期向辅助域名服务器复制数据。</li><li>课件所述的数据更改在主域名服务器中进行，以保证数据一致性。</li></ul>
+<h3 id="section-17">6.1.4 域名解析过程（PDF 14～16页）</h3>
+<p>域名解析就是把域名转换为IP地址的过程。课件重点区分<strong>递归查询</strong>和<strong>迭代查询</strong>。</p>
+<h4 id="section-18">一、递归查询</h4>
+<p>通常用于主机向本地域名服务器发出查询请求的场景。</p>
+<p>主机提出查询后，希望本地域名服务器最终返回所需结果。如果本地域名服务器不知道答案，就继续代替DNS客户向其他域名服务器查询，最后把结果返回给主机。</p>
+<p>理解：<strong>客户把解析任务交给本地域名服务器，由本地域名服务器负责把结果找回来。</strong></p>
+<h4 id="section-19">二、迭代查询</h4>
+<p>通常用于本地域名服务器向根域名服务器查询的场景。</p>
+<p>被查询的服务器如果不知道最终答案，就返回下一步应当查询的域名服务器信息。本地域名服务器再向下一台服务器发出查询。</p>
+<p>以查询某个域名为例：</p>
+<ol><li>主机向本地域名服务器发出查询。</li><li>本地域名服务器向根域名服务器查询。</li><li>根域名服务器返回对应顶级域名服务器的信息。</li><li>本地域名服务器向顶级域名服务器查询。</li><li>顶级域名服务器返回下一步应查询的权限域名服务器信息。</li><li>本地域名服务器向权限域名服务器查询。</li><li>权限域名服务器返回最终的IP地址。</li><li>本地域名服务器把结果返回给主机。</li></ol>
+<h4 id="section-20">三、递归与迭代的区别</h4>
+<table><thead><tr><th>对比</th><th>递归查询</th><th>迭代查询</th></tr></thead><tbody><tr><td>常见场景</td><td>主机向本地域名服务器查询</td><td>本地域名服务器向根、顶级等服务器查询</td></tr><tr><td>查询方期待什么</td><td>最终结果</td><td>最终结果或下一步服务器的信息</td></tr><tr><td>谁继续查询</td><td>被请求的服务器代为继续查询</td><td>原查询方根据提示继续查询</td></tr></tbody></table>
+<p>课件指出，递归查询也可以发生在域名服务器之间，但这种方式比较少用。</p>
+<h4 id="section-21">四、DNS高速缓存</h4>
+<p>域名服务器广泛使用高速缓存，保存最近查询过的DNS记录。</p>
+<p>作用：</p>
+<ul><li>减轻各级域名服务器的负荷。</li><li>减少DNS查询请求和回答报文的数量。</li><li>提高重复查询的效率。</li></ul>
+<p>缓存记录需要设置计时器，超时后删除，避免长期使用过期记录。</p>
+<h2 id="section-22">6.2 文件传送协议 FTP</h2>
+<h3 id="section-23">6.2.1 FTP概述（PDF 17页）</h3>
+<p>FTP（File Transfer Protocol，文件传送协议）用于在网络中传送文件。</p>
+<p>课件强调的特点：</p>
+<ul><li>提供交互式访问，允许客户指定文件类型和格式。</li><li>可以设置文件存取权限。</li><li>屏蔽不同计算机系统的细节，适合异构网络之间传送文件。</li><li>是文件共享协议中的一类。</li></ul>
+<p>网络环境下复制文件可能遇到的问题：</p>
+<ol><li>不同计算机存储数据的格式不同。</li><li>文件目录结构和命名规定不同。</li><li>操作系统对文件操作使用的命令不同。</li><li>访问控制方法不同。</li></ol>
+<p>FTP提供基本文件传送服务，减少或消除不同操作系统处理文件时的不兼容性。</p>
+<h3 id="section-24">6.2.2 FTP的基本工作原理（PDF 18～19页）</h3>
+<p>FTP使用TCP提供可靠的运输服务，采用客户—服务器方式。</p>
+<p>一个FTP服务器进程可以同时为多个客户进程提供服务。服务器进程由两部分组成：</p>
+<ul><li><strong>主进程</strong>：负责接受新的请求。</li><li><strong>从属进程</strong>：负责处理单个客户请求。</li></ul>
+<p>FTP主进程的工作步骤：</p>
+<ol><li>打开熟知端口21，使客户进程能够连接。</li><li>等待客户进程发出连接请求。</li><li>启动从属进程处理客户请求；请求处理完毕后，从属进程终止。</li><li>主进程返回等待状态，继续接受其他客户请求。主进程和从属进程可以并发处理。</li></ol>
+<h4 id="section-25">⭐ FTP为什么使用两个TCP连接？</h4>
+<p>FTP在客户与服务器之间建立两个不同用途的TCP连接：</p>
+<table><thead><tr><th>连接</th><th>作用</th><th>生命周期</th><th>课件端口</th></tr></thead><tbody><tr><td>控制连接</td><td>传输客户发出的命令和传送请求</td><td>整个FTP会话期间保持打开</td><td>服务器端口21</td></tr><tr><td>数据连接</td><td>实际传送文件</td><td>传输文件时动态创建，传送完毕后释放</td><td>课件图示服务器端口20</td></tr></tbody></table>
+<p>工作过程可以理解为：</p>
+<ol><li>客户先建立控制连接，向服务器发送文件传送请求。</li><li>服务器控制进程收到请求后，创建数据传送进程并建立数据连接。</li><li>数据连接负责实际文件传送。</li><li>文件传送结束后，数据连接关闭；控制连接仍可继续使用。</li></ol>
+<p><strong>易混淆：控制连接负责“谈事情、发命令”，数据连接负责“真正传文件”。</strong></p>
+<blockquote><p>课件目录列出了6.2.3“简单文件传送协议TFTP”，但没有后续详细内容页，因此本笔记不补充TFTP的工作过程。</p></blockquote>
+<h2 id="section-26">6.3 远程终端协议 TELNET</h2>
+<h3 id="section-27">6.3.1 TELNET概述（PDF 20～21页）</h3>
+<p>TELNET（远程终端协议）是一个简单的远程终端协议，也称为<strong>终端仿真协议</strong>。</p>
+<p>它允许用户在本地通过TCP连接登录到远程主机：</p>
+<ul><li>用户在本地系统运行TELNET客户进程。</li><li>远地主机运行TELNET服务器进程。</li><li>用户的键盘输入被传送到远地主机。</li><li>远地主机的输出通过TCP连接返回到用户屏幕。</li></ul>
+<p>TELNET采用客户—服务器方式。服务器主进程等待新的请求，并创建从属进程处理连接。</p>
+<h3 id="section-28">6.3.2 网络虚拟终端 NVT 格式（PDF 21～22页）</h3>
+<p>不同操作系统对字符和文本行结束的表示可能不同，例如回车、换行或回车加换行。</p>
+<p>TELNET使用网络虚拟终端NVT（Network Virtual Terminal）格式，作为客户端与服务器之间统一的数据和命令表示方式。</p>
+<p>基本过程：</p>
+<ol><li>客户端把用户击键和命令转换成NVT格式，再发送给服务器。</li><li>服务器收到NVT数据后，将其转换成远地系统需要的格式。</li><li>服务器向客户返回数据时，先把远地系统格式转换成NVT格式。</li><li>本地客户端再把NVT格式转换成本地系统所需的格式。</li></ol>
+<p>课件把NVT字符分为两类：</p>
+<ul><li>数据字符：首位为0。</li><li>控制字符：首位为1。</li></ul>
+<p><strong>理解：NVT相当于双方约定的中间表示格式，用来屏蔽不同操作系统在终端数据表示上的差异。</strong></p>
+<h2 id="section-29">6.4 万维网 WWW</h2>
+<h3 id="section-30">6.4.1 万维网概述（PDF 23～25页）</h3>
+<p>WWW（World Wide Web，万维网）<strong>并不是某种特殊的计算机网络</strong>，而是一个大规模的、联机式的信息储藏所。</p>
+<p>它通过链接，使用户能够从互联网上一个站点访问另一个站点，按需获取信息。</p>
+<h4 id="section-31">一、超文本与超媒体</h4>
+<p>万维网是分布式超媒体系统，是超文本系统的扩充。</p>
+<table><thead><tr><th>概念</th><th>含义</th></tr></thead><tbody><tr><td>超文本（hypertext）</td><td>由多个文本信息源通过链接组织起来</td></tr><tr><td>超媒体（hypermedia）</td><td>在文本之外，还可以包含图形、图像、声音、动画和视频等内容</td></tr></tbody></table>
+<p>万维网是分布式系统：</p>
+<ul><li>信息分布在整个互联网中。</li><li>每台主机上的文档独立管理。</li><li>各主机对文档的操作不需要相互通知。</li></ul>
+<h4 id="section-32">二、万维网的工作方式</h4>
+<p>WWW采用客户—服务器方式：</p>
+<ul><li>客户程序：浏览器。</li><li>服务器程序：运行在存放万维网文档的计算机上，也称万维网服务器。</li><li>浏览器向服务器发送请求。</li><li>服务器返回浏览器所需要的文档。</li><li>显示在客户程序主窗口中的万维网文档称为页面（page）。</li></ul>
+<h4 id="section-33">三、万维网必须解决的四个问题</h4>
+<table><thead><tr><th>问题</th><th>解决办法</th></tr></thead><tbody><tr><td>如何标识互联网上的文档</td><td>使用URL统一资源定位符</td></tr><tr><td>如何实现万维网上的链接</td><td>使用HTTP超文本传送协议</td></tr><tr><td>如何让不同作者制作的文档能在不同主机上显示</td><td>使用HTML超文本标记语言</td></tr><tr><td>如何帮助用户找到所需信息</td><td>使用搜索工具，即搜索引擎</td></tr></tbody></table>
+<h3 id="section-34">6.4.2 统一资源定位符 URL（PDF 26～29页）</h3>
+<p>URL（Uniform Resource Locator，统一资源定位符）用于简洁表示互联网上资源的位置和访问方法，可以理解为网络范围内的资源地址。</p>
+<p>资源包括文件目录、文件、文档、图像、声音，以及其他可以通过互联网访问的数据。</p>
+<h4 id="section-35">一、URL的一般格式</h4>
+<p><strong>协议://主机:端口/路径</strong></p>
+<table><thead><tr><th>部分</th><th>含义</th></tr></thead><tbody><tr><td>协议</td><td>规定访问资源所使用的方法，例如FTP、HTTP</td></tr><tr><td>主机</td><td>存放资源的主机域名，也可以是IP地址</td></tr><tr><td>端口</td><td>服务器提供服务的端口；省略时使用默认端口</td></tr><tr><td>路径</td><td>资源所在的目录或位置；课件指出路径区分大小写，省略时使用默认路径</td></tr></tbody></table>
+<p>URL中协议和主机等部分遵循规定格式。课件指出URL字符大小写没有统一要求，但资源路径需要区分大小写。</p>
+<h4 id="section-36">二、HTTP URL示例</h4>
+<p><strong>http://www.bistu.edu.cn/publish/newthu/newthu_cnt/faculties/index.html</strong></p>
+<ul><li>协议：HTTP。</li><li>主机：www.bistu.edu.cn。</li><li>端口：省略时使用HTTP默认端口80。</li><li>路径：/publish/newthu/newthu_cnt/faculties/index.html。</li></ul>
+<p>如果路径省略，课件说明通常指向该网站的某个主页。</p>
+<h3 id="section-37">6.4.3 超文本传送协议 HTTP（PDF 29～42页）</h3>
+<p>HTTP（HyperText Transfer Protocol，超文本传送协议）是面向事务的应用层协议，用于规定浏览器和万维网服务器之间通信的格式与规则。</p>
+<p>课件强调：</p>
+<ul><li>HTTP使用TCP连接进行可靠传送。</li><li>可以传输文本、超文本、声音、图像等多媒体信息。</li><li>HTTP请求和响应由ASCII码串构成。</li><li>HTTP本身是无状态的，课件也将其描述为无连接协议。</li></ul>
+<p><strong>注意：HTTP使用TCP进行可靠传输，不等于HTTP应用协议本身就具有连接状态。</strong> 课件中的“无连接、无状态”是HTTP协议自身的特征；TCP连接的建立与释放属于运输层。</p>
+<h4 id="section-38">一、HTTP的基本操作过程</h4>
+<ol><li>浏览器根据URL确定目标服务器。</li><li>浏览器与服务器建立TCP连接。</li><li>浏览器发送HTTP请求报文。</li><li>服务器返回HTTP响应报文。</li><li>根据所采用的连接方式，继续使用或释放TCP连接。</li></ol>
+<p>课件以HTTP默认端口80作为服务器监听端口的示例。</p>
+<p>用户访问页面的两种方式：</p>
+<ul><li>在浏览器地址栏输入URL。</li><li>在已有页面中点击超链接，由浏览器访问链接指向的页面。</li></ul>
+<h4 id="section-39">二、HTTP的主要特点</h4>
+<ul><li>使用TCP作为运输层协议，保证数据可靠传输。</li><li>HTTP协议本身是无状态的。</li><li>课件将HTTP描述为无连接协议。</li><li>无状态简化了服务器设计，使服务器更容易支持大量并发请求。</li></ul>
+<h4 id="section-40">三、非持续连接与持续连接</h4>
+<p><strong>1. HTTP/1.0：非持续连接</strong></p>
+<p>课件指出，HTTP/1.0每请求一个文档，就要重新建立TCP连接。</p>
+<p>请求一个文档的时间至少包括：</p>
+<ul><li>1个RTT：TCP三次握手建立连接。</li><li>1个RTT：发送HTTP请求并接收响应开始。</li><li>文档传输时间。</li></ul>
+<p>因此课件给出的估算为：</p>
+<p><strong>所需时间 ≥ 2 RTT + 文档传输时间</strong></p>
+<p>如果主页包含10个图片链接，每个对象都需要重新建立连接，就会产生大量RTT开销；课件示例估算为至少22 RTT，再加上各文档传输时间。</p>
+<p>缺点：</p>
+<ul><li>每请求一个文档都需要新的TCP连接。</li><li>每次建立连接都需要分配缓存和变量。</li><li>连接反复建立、释放，增加服务器负担和时延。</li></ul>
+<p><strong>2. HTTP/1.1：持续连接</strong></p>
+<p>持续连接（persistent connection）指服务器发送响应后，在一段时间内不释放TCP连接，使同一个客户可以继续通过这条连接发送后续请求并接收响应。</p>
+<p>只要文档都在同一个服务器上，就可以继续使用同一条TCP连接。</p>
+<p>持续连接有两种方式：</p>
+<table><thead><tr><th>方式</th><th>工作过程</th><th>特点</th></tr></thead><tbody><tr><td>非流水线方式</td><td>收到前一个响应后，客户才发送下一个请求</td><td>连接可能处于空闲状态</td></tr><tr><td>流水线方式</td><td>不必等待前一个响应，就可以连续发送后续请求</td><td>多个请求连续到达服务器，服务器可连续返回响应，下载效率提高</td></tr></tbody></table>
+<p>课件图示对比：</p>
+<ul><li>非流水线方式：连接建立后，多个对象依次请求，期间可能出现空闲等待。</li><li>流水线方式：请求可以连续发送，减少等待时间。</li></ul>
+<h4 id="section-41">四、代理服务器与Web高速缓存（PDF 34～37页）</h4>
+<p>代理服务器（proxy server）也称万维网高速缓存（Web cache），它代表浏览器向源点服务器发出HTTP请求。</p>
+<p>作用：如果缓存中已有用户请求的对象，就可以直接返回，减少访问互联网源点服务器的时延，并减轻网络链路负担。</p>
+<p>工作过程：</p>
+<ol><li>浏览器先与校园网中的高速缓存建立TCP连接，并发送HTTP请求。</li><li>如果缓存中已有所请求对象，就把对象放入HTTP响应报文返回浏览器。</li><li>如果缓存中没有对象，代理服务器代表浏览器与互联网源点服务器建立TCP连接并发送请求。</li><li>源点服务器把对象放入HTTP响应报文，返回给代理服务器。</li><li>代理服务器把对象复制到本地存储器留待以后使用，再通过已有连接返回浏览器。</li></ol>
+<h4 id="section-42">五、HTTP报文结构</h4>
+<p>HTTP报文分为两类：</p>
+<ul><li>请求报文：客户发送给服务器。</li><li>响应报文：服务器发送给客户。</li></ul>
+<p>课件将HTTP描述为面向正文的协议，字段值使用ASCII码串，字段长度不固定。</p>
+<p>两类报文都由三个部分组成：</p>
+<ol><li><strong>开始行</strong>：请求报文中是请求行；响应报文中是状态行。</li><li><strong>首部行</strong>：包含浏览器、服务器或报文主体的相关信息，可以有多行。</li><li><strong>实体主体</strong>：承载报文主体数据；请求报文中通常不用，响应报文也可能没有。</li></ol>
+<h5 id="section-43">1. 请求报文</h5>
+<p>请求行的一般结构：</p>
+<p><strong>方法 + URL + HTTP版本</strong></p>
+<p>之后是若干首部字段，每个字段占一行；首部结束后有一个空行，后面可以有实体主体。</p>
+<p>请求方法是对URL所标志资源进行的操作。</p>
+<table><thead><tr><th>方法</th><th>课件给出的含义</th></tr></thead><tbody><tr><td>OPTION</td><td>请求一些选项的信息</td></tr><tr><td>GET</td><td>请求读取URL所标志的信息</td></tr><tr><td>HEAD</td><td>请求读取URL所标志信息的首部</td></tr><tr><td>POST</td><td>给服务器添加信息，例如注释</td></tr><tr><td>PUT</td><td>在指明的URL下存储一个文档</td></tr><tr><td>DELETE</td><td>删除URL所标志的资源</td></tr><tr><td>TRACE</td><td>用于环回测试</td></tr><tr><td>CONNECT</td><td>用于代理服务器</td></tr></tbody></table>
+<p>请求报文示例的字段含义：</p>
+<ul><li>GET：请求读取某个页面。</li><li>Host：给出目标主机域名。</li><li>Connection: close：告诉服务器发送完请求文档后释放连接。</li><li>User-Agent：表明客户使用的浏览器信息。</li><li>Accept-Language：表明客户希望优先得到的语言版本。</li><li>CRLF：请求报文最后的空行，用于分隔首部和实体主体。</li></ul>
+<h5 id="section-44">2. 响应报文</h5>
+<p>响应报文的开始行是状态行，一般结构：</p>
+<p><strong>HTTP版本 + 状态码 + 短语</strong></p>
+<p>之后是首部行、空行和可选的实体主体。</p>
+<ul><li>版本：HTTP版本。</li><li>状态码：服务器操作完成的状态。</li><li>短语：对状态码的文字解释。</li></ul>
+<h5 id="section-45">3. HTTP状态码</h5>
+<p>状态码为三位数字，分为五类：</p>
+<table><thead><tr><th>状态码范围</th><th>含义</th></tr></thead><tbody><tr><td>1xx</td><td>通知信息，例如请求已收到或正在处理</td></tr><tr><td>2xx</td><td>成功</td></tr><tr><td>3xx</td><td>重定向，需要进一步行动才能完成请求</td></tr><tr><td>4xx</td><td>客户端差错，例如请求语法错误或无法完成</td></tr><tr><td>5xx</td><td>服务器差错，例如服务器失效，无法完成请求</td></tr></tbody></table>
+<p>课件示例：</p>
+<ul><li><strong>HTTP/1.1 200 OK</strong>：成功。</li><li><strong>HTTP/1.1 404 Not Found</strong>：找不到请求的资源。</li></ul>
+<h4 id="section-46">六、Cookie与状态信息（PDF 42页）</h4>
+<p>HTTP是无状态的，但实际网站有时需要识别同一个用户在不同请求之间的关联。</p>
+<p>课件介绍使用Cookie跟踪HTTP服务器和客户之间传递的状态信息：</p>
+<ol><li>用户首次访问网站。</li><li>服务器为用户创建唯一识别码。</li><li>服务器在HTTP响应中通过Set-Cookie返回识别码。</li><li>浏览器保存Cookie。</li><li>用户以后再次访问时，浏览器在HTTP请求中发送Cookie。</li><li>服务器根据Cookie识别用户并处理请求。</li></ol>
+<p>理解：<strong>Cookie让服务器能够把不同请求与某个用户关联起来。</strong></p>
+<h3 id="section-47">6.4.4 万维网的文档（PDF 43～49页）</h3>
+<p>在浏览器主窗口中显示的万维网文档称为页面（page）。课件介绍使用HTML制作页面。</p>
+<h4 id="section-48">一、HTML是什么？</h4>
+<p>HTML（HyperText Markup Language，超文本标记语言）是制作万维网页面的标准语言。</p>
+<ul><li>HTML通过标签描述文档结构和排版。</li><li>HTML文档可以用普通文本编辑器创建。</li><li>课件指出HTML文件通常使用.html或.htm后缀。</li><li>HTML不是应用层协议，而是浏览器使用的一种标记语言。</li><li>课件提到HTML 5.0增加了audio和video标签，以支持多媒体内容。</li></ul>
+<h4 id="section-49">二、HTML文档的基本结构</h4>
+<p>课件示例包括：</p>
+<table><thead><tr><th>标签</th><th>作用</th></tr></thead><tbody><tr><td>HTML</td><td>表示HTML文档</td></tr><tr><td>HEAD</td><td>文档首部</td></tr><tr><td>TITLE</td><td>文档标题</td></tr><tr><td>BODY</td><td>文档主体</td></tr><tr><td>H1</td><td>一级标题</td></tr><tr><td>P</td><td>段落</td></tr><tr><td>IMG</td><td>在页面中插入图像</td></tr><tr><td>A</td><td>建立超链接</td></tr></tbody></table>
+<p>HTML文档可以包含首部和主体。主体中可以放标题、段落、图像和链接等内容。</p>
+<h4 id="section-50">三、图像标签IMG</h4>
+<ul><li>用于在万维网页面中插入图像。</li><li>页面本身带有的图像称为内含图像（inline image）。</li><li>课件指出HTML标准没有规定图像格式。</li><li>课件举例GIF和JPEG是大多数浏览器支持的格式。</li></ul>
+<h4 id="section-51">四、链接标签A</h4>
+<p>每个链接都有起点和终点：</p>
+<ul><li>起点：页面中可以引出链接的位置，可以是文字、图像或一段内容。</li><li>终点：可以是其他网站的页面，也可以是本机文件或当前文件中的某个位置。</li></ul>
+<p>链接到其他网站页面称为远程链接，需要指定目标URL；指向本地文件或本文件中的位置称为本地链接，需要指定路径。</p>
+<h3 id="section-52">6.4.5 万维网的信息检索系统（PDF 49～52页）</h3>
+<p>搜索引擎（search engine）是万维网中帮助用户查找信息的程序。</p>
+<h4 id="section-53">一、全文检索与分类目录搜索</h4>
+<table><thead><tr><th>对比</th><th>全文检索搜索引擎</th><th>分类目录搜索引擎</th></tr></thead><tbody><tr><td>信息来源</td><td>使用Spider（蜘蛛、网络机器人）收集网站信息</td><td>网站提交关键词和描述后，经人工审核编辑</td></tr><tr><td>数据组织</td><td>建立在线索引数据库</td><td>建立分类目录数据库</td></tr><tr><td>用户查询</td><td>输入关键词检索</td><td>按分类浏览</td></tr><tr><td>结果特点</td><td>返回与关键词匹配的页面</td><td>返回被收录网站的主页URL</td></tr><tr><td>维护方式</td><td>定期更新索引数据库</td><td>人工审核和编辑目录信息</td></tr></tbody></table>
+<p>全文检索不是查询时实时遍历所有网站，而是查询已经建立的索引数据库。</p>
+<h4 id="section-54">二、垂直搜索引擎</h4>
+<p>针对特定领域、特定人群或特定需求提供搜索服务。课件列举购物、旅游、汽车、求职、房产、交友等行业。</p>
+<h4 id="section-55">三、元搜索引擎</h4>
+<p>将用户的检索请求发送给多个独立搜索引擎，再统一处理和呈现检索结果。</p>
+<p>课件指出其关注搜索速度、结果智能化处理、个性化设置和用户界面等方面。</p>
+<h4 id="section-56">四、PageRank</h4>
+<p>课件介绍Google搜索技术中的网页排名（PageRank）：</p>
+<ul><li>对搜索结果按重要性排序。</li><li>对链接数量进行加权统计。</li><li>来自重要网站的链接具有更大权重。</li><li>同时进行超文本匹配分析，考虑网页与查询内容的相关性。</li></ul>
+<h3 id="section-57">6.4.6 博客和微博（PDF 53页）</h3>
+<table><thead><tr><th>概念</th><th>含义</th></tr></thead><tbody><tr><td>博客（weblog）</td><td>万维网日志的简称，使用户既是互联网内容消费者，也可以成为内容生产者</td></tr><tr><td>微博（microblog）</td><td>微型博客，记录片段、短句和即时感受，通过多种API可从手机或网络更新信息</td></tr></tbody></table>
+<h3 id="section-58">6.4.7 社交网站（PDF 53页）</h3>
+<p>SNS（Social Networking Site，社交网站）用于为具有相同兴趣和活动的人创建在线社区。</p>
+<p>课件列举的功能包括电子邮件、即时聊天、博客、共享相册、上传视频、网页游戏、创建社团和广告等。</p>
+<h2 id="section-59">6.5 电子邮件</h2>
+<h3 id="section-60">6.5.1 电子邮件概述（PDF 54～60页）</h3>
+<p>电子邮件（e-mail）指使用电子设备交换邮件及其方法。</p>
+<p>课件列出的优点：</p>
+<ul><li>使用方便、传递迅速、费用低廉。</li><li>可以传送文字、声音、图像等多种类型的信息。</li></ul>
+<p>电子邮件系统涉及的重要协议和标准：</p>
+<ul><li>SMTP：简单邮件传送协议。</li><li>互联网文本报文格式。</li><li>MIME：通用互联网邮件扩充。</li><li>POP3和IMAP：邮件读取协议。</li></ul>
+<h4 id="section-61">一、电子邮件系统的三个主要构件</h4>
+<ol><li>用户代理（UA）。</li><li>邮件服务器。</li><li>邮件发送和读取协议。</li></ol>
+<p><strong>用户代理（User Agent）</strong>是用户与电子邮件系统之间的接口，也称电子邮件客户端软件。基本功能包括撰写、显示、处理和通信。</p>
+<p><strong>邮件服务器（Mail Server）</strong>又称邮件传输代理，负责发送和接收邮件，并向发信人报告邮件传送情况。它按照客户—服务器方式工作。</p>
+<h4 id="section-62">二、邮件发送和读取协议</h4>
+<table><thead><tr><th>协议</th><th>作用</th></tr></thead><tbody><tr><td>SMTP</td><td>用户代理向邮件服务器发送邮件，以及邮件服务器之间传送邮件</td></tr><tr><td>POP3</td><td>用户代理从邮件服务器读取邮件</td></tr><tr><td>IMAP</td><td>用户代理访问和管理邮件服务器中的邮件</td></tr></tbody></table>
+<p>SMTP和POP3（或IMAP）都使用TCP连接可靠传送邮件。</p>
+<p>邮件发送和读取可以理解为：</p>
+<ul><li>发送邮件是“推”（push）：通过SMTP把邮件送到邮件服务器。</li><li>读取邮件是“拉”（pull）：通过POP3或IMAP从邮件服务器读取邮件。</li></ul>
+<p><strong>不要把SMTP和POP3/IMAP混为一谈：SMTP负责发送，POP3/IMAP负责读取。</strong></p>
+<h4 id="section-63">三、电子邮件的信封与内容</h4>
+<p>电子邮件由两部分组成：</p>
+<ul><li><strong>信封（envelope）</strong>：邮件传输程序根据其中的信息传送邮件，最重要的是收件人地址。</li><li><strong>内容（content）</strong>：用户读取邮件时看到的内容。</li></ul>
+<p>课件给出的电子邮件地址格式：</p>
+<p><strong>收件人邮箱名@邮箱所在主机的域名</strong></p>
+<p>例如：<strong>xiexiren@bistu.edu.cn</strong></p>
+<p>其中用户名在该域名范围内唯一，邮箱所在主机的域名在全世界范围内唯一。</p>
+<h3 id="section-64">6.5.2 简单邮件传送协议 SMTP（PDF 61～66页）</h3>
+<p>SMTP（Simple Mail Transfer Protocol）规定两个相互通信的SMTP进程之间如何交换信息。</p>
+<p>特点：</p>
+<ul><li>采用客户—服务器方式。</li><li>基于TCP通信。</li><li>使用TCP熟知端口25。</li><li>是基于文本（ASCII码）的命令—响应协议。</li></ul>
+<h4 id="section-65">一、SMTP通信的三个阶段</h4>
+<p><strong>1. 连接建立</strong></p>
+<p>发送方的SMTP客户与接收方的SMTP服务器建立TCP连接。课件示意图中，接收方SMTP服务器使用熟知端口25。</p>
+<p>连接建立后：</p>
+<ul><li>服务器发送220，表示Service Ready（服务就绪）。</li><li>客户发送HELO命令，并附上发送方主机名。</li><li>服务器返回250 OK，表示可以接收邮件。</li></ul>
+<p><strong>2. 邮件传送</strong></p>
+<p>课件示例中的主要命令和响应：</p>
+<table><thead><tr><th>命令或响应</th><th>含义</th></tr></thead><tbody><tr><td>MAIL FROM</td><td>指定发件方地址</td></tr><tr><td>RCPT TO</td><td>指定收件方地址</td></tr><tr><td>DATA</td><td>开始传送邮件内容</td></tr><tr><td>354 Start mail input</td><td>服务器允许客户开始输入邮件内容</td></tr><tr><td>单独一行的点号</td><td>表示邮件内容结束</td></tr><tr><td>250 OK</td><td>服务器确认接受</td></tr></tbody></table>
+<p>邮件内容示例包括From、To、Date、Subject等首部，以及正文主体。</p>
+<p><strong>3. 连接释放</strong></p>
+<p>邮件发送完成后，客户发送QUIT命令；服务器返回221 Service closed，然后释放TCP连接。</p>
+<blockquote><p>课件示意图强调发送主机的SMTP客户与接收主机的SMTP服务器建立连接；中间邮件服务器转发的完整互联网邮件路由细节未在本课件中展开。</p></blockquote>
+<h3 id="section-66">6.5.3 电子邮件的信息格式（PDF 66～67页）</h3>
+<p>RFC 5322规定邮件内容中的首部（header）格式，邮件主体（body）由用户自由撰写。</p>
+<p>邮件内容的结构：</p>
+<ol><li>首部（header）。</li><li>空行。</li><li>主体（body）。</li></ol>
+<p>课件列举的首部字段：</p>
+<table><thead><tr><th>字段</th><th>含义</th></tr></thead><tbody><tr><td>From</td><td>发件人</td></tr><tr><td>To</td><td>收件人</td></tr><tr><td>Date</td><td>日期</td></tr><tr><td>Subject</td><td>主题</td></tr><tr><td>Cc</td><td>抄送</td></tr></tbody></table>
+<p>课件指出邮件首部是纯文本信息（ASCII编码），并不具有复杂的固定结构。</p>
+<h3 id="section-67">6.5.4 邮件读取协议 POP3 和 IMAP（PDF 67～69页）</h3>
+<p>两种常见邮件读取协议：</p>
+<ul><li>POP3：邮局协议第3个版本。</li><li>IMAP：网际报文存取协议。</li></ul>
+<p>二者都采用客户—服务器方式，基于TCP通信。</p>
+<p>课件给出的简化对比：</p>
+<table><thead><tr><th>操作</th><th>IMAP</th><th>POP3（课件对比口径）</th></tr></thead><tbody><tr><td>阅读、标记、移动、删除收件箱邮件</td><td>客户端与邮箱更新同步</td><td>仅在客户端内</td></tr><tr><td>保存已发送邮件</td><td>客户端与邮箱更新同步</td><td>仅在客户端内</td></tr><tr><td>创建自定义文件夹</td><td>客户端与邮箱更新同步</td><td>仅在客户端内</td></tr><tr><td>保存草稿</td><td>客户端与邮箱更新同步</td><td>仅在客户端内</td></tr><tr><td>垃圾邮件文件夹</td><td>支持</td><td>课件表格标为不支持</td></tr><tr><td>广告邮件文件夹</td><td>支持</td><td>课件表格标为不支持</td></tr></tbody></table>
+<p><strong>重点：SMTP用于发送邮件；POP3或IMAP用于从目的邮件服务器读取邮件。</strong> 两者承担的任务不同。</p>
+<h3 id="section-68">6.5.5 基于万维网的电子邮件（PDF 69～70页）</h3>
+<p>传统用户代理的不足：</p>
+<ul><li>需要在计算机中安装用户代理软件。</li><li>收发邮件不够方便。</li></ul>
+<p>基于万维网的电子邮件：</p>
+<ul><li>不需要在计算机中安装专门的用户代理软件。</li><li>只要计算机能够联网，就可以通过网站收发邮件。</li><li>界面友好。</li></ul>
+<p>协议分工：</p>
+<ul><li>用户与邮件网站之间发送、读取邮件时使用HTTP。</li><li>两个邮件服务器之间传送邮件时使用SMTP。</li><li>课件示例中，使用HTTP POST提交要发送的邮件，使用HTTP GET读取邮件。</li></ul>
+<blockquote><p><strong>MIME范围说明：</strong> 课件目录和6.5.1概述列出了MIME，但正文没有展开MIME的格式与编码细节。本笔记不自行补充其工作原理。</p></blockquote>
+<h2 id="section-69">6.6 动态主机配置协议 DHCP（PDF 71～79页）</h2>
+<h3 id="section-70">6.6.1 为什么需要DHCP？</h3>
+<p>协议软件在使用前必须正确配置。课件指出，连接到互联网的计算机需要配置的参数包括：</p>
+<ol><li>IP地址。</li><li>子网掩码。</li><li>默认路由器的IP地址。</li><li>域名服务器的IP地址。</li></ol>
+<p>在协议软件中给协议参数赋值的动作称为协议配置。</p>
+<p>DHCP（Dynamic Host Configuration Protocol，动态主机配置协议）提供即插即用连网（plug-and-play networking）机制，使计算机加入网络时可以自动获取IP地址，而不必手工配置。</p>
+<p>课件指出：</p>
+<ul><li>位置固定、运行服务器软件的计算机可以被指派永久地址。</li><li>运行客户端软件的计算机可以获得临时地址。</li></ul>
+<h3 id="section-71">6.6.2 DHCP的客户—服务器方式</h3>
+<p>需要IP地址的主机启动时，向DHCP服务器广播发送发现报文DHCPDISCOVER，此时该主机成为DHCP客户。</p>
+<p>DHCP服务器收到发现报文后：</p>
+<ul><li>先在数据库中查找该计算机的配置信息。</li><li>如果找到，就返回对应配置信息。</li><li>如果找不到，就从IP地址池（address pool）中取一个地址分配给该计算机。</li><li>服务器的回答报文称为DHCPOFFER。</li></ul>
+<p>DHCP基于UDP工作：</p>
+<table><thead><tr><th>角色</th><th>端口</th></tr></thead><tbody><tr><td>DHCP服务器</td><td>UDP 67</td></tr><tr><td>DHCP客户</td><td>UDP 68</td></tr></tbody></table>
+<h3 id="section-72">6.6.3 ⭐ DHCP四步工作过程（DORA）</h3>
+<p>这是本节最重要的工作流程。</p>
+<table><thead><tr><th>步骤</th><th>报文</th><th>方向与作用</th></tr></thead><tbody><tr><td>1</td><td>DHCPDISCOVER</td><td>客户广播发现报文，寻找DHCP服务器</td></tr><tr><td>2</td><td>DHCPOFFER</td><td>服务器提供IP地址等配置信息</td></tr><tr><td>3</td><td>DHCPREQUEST</td><td>客户从收到的服务器提供中选择一个，并请求使用该地址</td></tr><tr><td>4</td><td>DHCPACK</td><td>被选择的服务器确认，客户可以开始使用获得的临时IP地址</td></tr></tbody></table>
+<p>课件图示中的关键细节：</p>
+<ol><li>客户最初还没有可用的IP地址，因此DHCPDISCOVER广播到255.255.255.255。</li><li>DHCP服务器发送DHCPOFFER，提供IP地址、默认网关和子网掩码等信息。</li><li>客户可能收到多个DHCP服务器的DHCPOFFER。</li><li>客户从中选择一个服务器，发送DHCPREQUEST。</li><li>被选择的服务器发送DHCPACK，客户进入已绑定状态。</li></ol>
+<p>记忆顺序：</p>
+<p><strong>Discover（发现） → Offer（提供） → Request（请求） → ACK（确认）</strong></p>
+<h3 id="section-73">6.6.4 租用期与续租（PDF 74～79页）</h3>
+<p>DHCP服务器分配给客户的IP地址是临时的，客户只能在有限时间内使用，这段时间称为<strong>租用期（lease period）</strong>。</p>
+<ul><li>租用期由DHCP服务器决定。</li><li>DHCP客户也可以在发送报文时提出租用期要求。</li></ul>
+<p>假设租用期为T，课件给出的两个计时器：</p>
+<ul><li>T1 = 0.5T，即租用期经过一半。</li><li>T2 = 0.875T，即租用期经过87.5%。</li></ul>
+<p>续租过程：</p>
+<ol><li>到达T1时，DHCP客户发送DHCPREQUEST，请求更新租用期。</li><li>如果服务器同意，返回DHCPACK，客户得到新的租用期并重新设置计时器。</li><li>如果服务器返回DHCPNACK，客户必须立即停止使用原来的IP地址，并重新申请。</li><li>如果服务器没有响应T1时的请求，客户在租用期达到T2时必须再次发送DHCPREQUEST。</li><li>客户可以提前终止租用期，向服务器发送DHCPRELEASE。</li></ol>
+<h3 id="section-74">6.6.5 DHCP常见报文速查</h3>
+<table><thead><tr><th>报文</th><th>含义</th></tr></thead><tbody><tr><td>DHCPDISCOVER</td><td>客户发现服务器</td></tr><tr><td>DHCPOFFER</td><td>服务器提供地址与配置信息</td></tr><tr><td>DHCPREQUEST</td><td>客户请求使用或续租地址</td></tr><tr><td>DHCPACK</td><td>服务器确认</td></tr><tr><td>DHCPNACK</td><td>服务器否认请求</td></tr><tr><td>DHCPRELEASE</td><td>客户主动释放租用的地址</td></tr></tbody></table>
+<h2 id="section-75">6.7 简单网络管理协议 SNMP</h2>
+<h3 id="section-76">6.7.1 网络管理的基本概念（PDF 80～87页）</h3>
+<p>网络管理是对硬件、软件和人力资源进行综合协调，以监视、测试、配置、分析、评价和控制网络资源，满足网络性能和服务质量等需求。</p>
+<h4 id="section-77">一、网络管理的五大功能</h4>
+<table><thead><tr><th>功能</th><th>作用</th></tr></thead><tbody><tr><td>故障管理</td><td>故障检测、隔离和纠正</td></tr><tr><td>配置管理</td><td>初始化网络并配置网络</td></tr><tr><td>计费管理</td><td>记录网络资源使用情况</td></tr><tr><td>性能管理</td><td>评价系统资源运行状况和通信效率</td></tr><tr><td>网络安全管理</td><td>管理授权机制、访问控制、加密和密钥</td></tr></tbody></table>
+<h4 id="section-78">二、网络管理的一般模型</h4>
+<p>课件中的网络管理模型包含：</p>
+<ul><li>管理站（Management Station）。</li><li>被管设备（Managed Device）。</li><li>管理程序。</li><li>代理程序（Agent）。</li><li>网管协议。</li></ul>
+<p>管理站也称网络运行中心NOC（Network Operations Center），是网络管理系统的核心。</p>
+<p>课件特别区分：</p>
+<ul><li><strong>Manager（管理者）</strong>：管理站硬件或管理程序软件，不是指网络管理员这个人。</li><li><strong>Administrator（网络管理员）</strong>：负责网络管理的人员。</li></ul>
+<h4 id="section-79">三、被管对象与代理</h4>
+<p><strong>被管对象（Managed Object）</strong>：被管设备及其软件中能够被管理的对象。一个设备可能包含多个被管对象。</p>
+<p><strong>代理（Agent）</strong>：</p>
+<ul><li>在每个被管设备中运行。</li><li>与管理站中的管理程序通信。</li><li>根据管理程序的命令和控制，在被管设备上采取本地行动。</li></ul>
+<p><strong>网络管理协议</strong>规定管理程序与代理程序之间如何通信。注意：网管协议本身不直接管理网络，而是提供管理者与代理之间的通信规则。</p>
+<h4 id="section-80">四、SNMP的基本功能</h4>
+<p>SNMP（Simple Network Management Protocol，简单网络管理协议）中：</p>
+<ul><li>管理程序运行SNMP客户程序，向代理程序发送请求或命令。</li><li>代理程序运行SNMP服务器程序，返回响应或执行相应动作。</li><li>一个或少数几个管理程序可以与许多代理程序交互。</li></ul>
+<p>SNMP的基本功能：</p>
+<ol><li>监视网络性能。</li><li>检测和分析网络差错。</li><li>配置网络设备。</li></ol>
+<p>课件指出，整个系统必须有一个管理站。如果某个网络元素使用其他网管协议，可以通过委托代理（proxy agent）提供协议转换和过滤操作。</p>
+<h4 id="section-81">五、SNMP网络管理的三个组成部分</h4>
+<p>SNMP网络管理由三部分组成：</p>
+<ol><li>SNMP本身。</li><li>管理信息结构SMI（Structure of Management Information）。</li><li>管理信息库MIB（Management Information Base）。</li></ol>
+<p>SNMP负责定义管理站与代理之间交换的分组格式，分组中包含代理内对象（变量）的名称及其状态（值），并提供读取和改变这些数值的操作。</p>
+<h3 id="section-82">6.7.2 管理信息结构 SMI（PDF 87～89页）</h3>
+<p>SMI规定网络管理信息的通用规则，主要包括：</p>
+<ol><li>被管对象应当如何命名。</li><li>被管对象可以使用哪些数据类型，包括范围和长度。</li><li>管理数据在网络上传输时应当如何编码。</li></ol>
+<p>SMI的目标是保证网络管理数据的语法和语义没有歧义。</p>
+<p>课件强调：SMI不负责定义一个实体应管理多少对象，也不负责定义具体的被管对象及其对象值之间的关联。</p>
+<h4 id="section-83">对象命名树</h4>
+<p>所有被管对象都必须在命名树上。</p>
+<p>课件给出的MIB-2路径：</p>
+<p><strong>1.3.6.1.2.1</strong></p>
+<p>对应：</p>
+<p><strong>iso.org.dod.internet.mgmt.mib-2</strong></p>
+<p>例如：</p>
+<ul><li>system：1</li><li>interfaces：2</li><li>ip：4</li><li>icmp：5</li><li>tcp：6</li><li>udp：7</li></ul>
+<p>课件举例的对象ipInReceives，其对象标识符为：</p>
+<p><strong>1.3.6.1.2.1.4.3</strong></p>
+<h3 id="section-84">6.7.3 管理信息库 MIB（PDF 87、90～91页）</h3>
+<p>MIB中保存被管对象的控制信息和状态信息，并规定对象及其类型。</p>
+<ul><li>管理程序使用MIB中的信息管理网络。</li><li>管理程序可以读取或重新设置MIB中的值。</li><li><strong>只有MIB中定义的对象才是SNMP能够管理的对象。</strong></li></ul>
+<p>课件列举的MIB-2信息类别：</p>
+<table><thead><tr><th>类别</th><th>标号</th><th>信息内容</th></tr></thead><tbody><tr><td>system</td><td>1</td><td>主机或路由器的操作系统</td></tr><tr><td>interfaces</td><td>2</td><td>各种网络接口</td></tr><tr><td>address translation</td><td>3</td><td>地址转换，例如ARP映射</td></tr><tr><td>ip</td><td>4</td><td>IP软件</td></tr><tr><td>icmp</td><td>5</td><td>ICMP软件</td></tr><tr><td>tcp</td><td>6</td><td>TCP软件</td></tr><tr><td>udp</td><td>7</td><td>UDP软件</td></tr><tr><td>egp</td><td>8</td><td>EGP软件</td></tr></tbody></table>
+<p>常见MIB变量：</p>
+<table><thead><tr><th>MIB变量</th><th>所属类别</th><th>含义</th></tr></thead><tbody><tr><td>sysUpTime</td><td>system</td><td>距上次重启动的时间</td></tr><tr><td>ifNumber</td><td>interfaces</td><td>网络接口数</td></tr><tr><td>ifMtu</td><td>interfaces</td><td>特定接口的MTU</td></tr><tr><td>ipDefaultTTL</td><td>ip</td><td>IP生存时间字段使用的值</td></tr><tr><td>ipInReceives</td><td>ip</td><td>接收到的数据报数目</td></tr><tr><td>ipForwDatagrams</td><td>ip</td><td>转发的数据报数目</td></tr><tr><td>ipOutNoRoutes</td><td>ip</td><td>路由选择失败的数目</td></tr><tr><td>ipReasmOKs</td><td>ip</td><td>重装的数据报数目</td></tr><tr><td>ipFragOKs</td><td>ip</td><td>分片的数据报数目</td></tr><tr><td>ipRoutingTable</td><td>ip</td><td>IP路由表</td></tr><tr><td>icmpInEchos</td><td>icmp</td><td>收到的ICMP回送请求数目</td></tr><tr><td>tcpRtoMin</td><td>tcp</td><td>TCP允许的最小重传时间</td></tr><tr><td>tcpMaxConn</td><td>tcp</td><td>允许的最大TCP连接数目</td></tr><tr><td>tcpInSegs</td><td>tcp</td><td>已收到的TCP报文段数目</td></tr><tr><td>udpInDatagrams</td><td>udp</td><td>已收到的UDP数据报数目</td></tr></tbody></table>
+<h3 id="section-85">6.7.4 SNMP的协议数据单元和报文（PDF 92～95页）</h3>
+<h4 id="section-86">一、读操作与写操作</h4>
+<p>SNMP有两种基本管理功能：</p>
+<ul><li><strong>Get读操作</strong>：检测被管对象的状态。</li><li><strong>Set写操作</strong>：改变被管对象的状态。</li></ul>
+<h4 id="section-87">二、探询操作（Polling）</h4>
+<p>SNMP管理进程定时向被管理设备周期性发送探询信息。</p>
+<p>优点：</p>
+<ul><li>系统相对简单。</li><li>能限制网络中管理信息产生的通信量。</li></ul>
+<p>缺点：</p>
+<ul><li>不够灵活。</li><li>可管理的设备数量不能太多。</li><li>仍然有一定的管理开销。</li></ul>
+<h4 id="section-88">三、陷阱 Trap</h4>
+<p>SNMP允许代理不经过管理站询问，就主动发送某些信息，这些信息称为陷阱（Trap）。</p>
+<p>工作过程：</p>
+<ol><li>代理检测到被管对象发生事件。</li><li>代理检查对应门限值。</li><li>只有达到某些门限值的事件才报告给管理进程。</li></ol>
+<p>优点：</p>
+<ul><li>只在达到一定条件的事件发生时才发送信息。</li><li>陷阱报文比较简单，占用字节较少。</li></ul>
+<p><strong>探询用于周期性监视，Trap用于主动报告达到条件的特殊事件。</strong> 两者结合可以进行持续监视并及时报告重要变化。</p>
+<h4 id="section-89">四、SNMP使用UDP</h4>
+<p>课件指出SNMP使用无连接的UDP：</p>
+<table><thead><tr><th>端口</th><th>作用</th></tr></thead><tbody><tr><td>UDP 161</td><td>被管设备上的代理程序接收Get或Set报文，并发送响应</td></tr><tr><td>UDP 162</td><td>管理程序接收各代理发送的Trap报文</td></tr></tbody></table>
+<h4 id="section-90">五、SNMPv1列出的PDU类型</h4>
+<table><thead><tr><th>PDU编号</th><th>PDU名称</th><th>用途</th></tr></thead><tbody><tr><td>0（A0）</td><td>GetRequest</td><td>查询一个或一组变量的值</td></tr><tr><td>1（A1）</td><td>GetNextRequest</td><td>读取MIB树上的下一个变量，可重复执行</td></tr><tr><td>2（A2）</td><td>Response</td><td>返回响应</td></tr><tr><td>3（A3）</td><td>SetRequest</td><td>设置一个或多个变量的值</td></tr><tr><td>5（A5）</td><td>GetBulkRequest</td><td>从代理读取较大数据块</td></tr><tr><td>6（A6）</td><td>InformRequest</td><td>管理者之间的信息请求</td></tr><tr><td>7（A7）</td><td>SNMPv2Trap</td><td>代理向管理者报告异常事件</td></tr><tr><td>8（A8）</td><td>Report</td><td>管理者之间报告某些差错</td></tr></tbody></table>
+<p>课件第95页给出了SNMP报文的封装层次：IP数据报中承载UDP数据报，UDP数据报中承载SNMP报文。报文内容包括版本、安全参数、上下文信息、PDU类型、请求ID、差错状态、差错索引和变量绑定等字段。</p>
+<h2 id="section-91">二、本章常用端口速查</h2>
+<table><thead><tr><th>应用层协议</th><th>传输层协议</th><th>端口号</th><th>备注</th></tr></thead><tbody><tr><td>DNS</td><td>UDP（课件本章概述）</td><td>53</td><td>端口号见第5章常用端口表</td></tr><tr><td>FTP控制连接</td><td>TCP</td><td>21</td><td>本章明确给出</td></tr><tr><td>FTP数据连接</td><td>TCP</td><td>20</td><td>本章图示给出</td></tr><tr><td>TELNET</td><td>TCP</td><td>23</td><td>第5章常用端口表回顾</td></tr><tr><td>HTTP</td><td>TCP</td><td>80</td><td>本章明确给出</td></tr><tr><td>SMTP</td><td>TCP</td><td>25</td><td>本章明确给出</td></tr><tr><td>DHCP服务器</td><td>UDP</td><td>67</td><td>本章明确给出</td></tr><tr><td>DHCP客户</td><td>UDP</td><td>68</td><td>本章明确给出</td></tr><tr><td>SNMP代理</td><td>UDP</td><td>161</td><td>接收Get/Set，发送响应</td></tr><tr><td>SNMP管理站</td><td>UDP</td><td>162</td><td>接收Trap</td></tr></tbody></table>
+<blockquote><p>端口号是运输层用于区分应用进程的标识。DNS、TELNET端口号来自前章端口表回顾；其余端口号按本章课件标注。课件没有在本章展开POP3、IMAP和MIME的端口或内部格式。</p></blockquote>
+<h2 id="section-92">三、本章易混淆点</h2>
+<ol><li><strong>域名与IP地址</strong>：域名是便于人使用的逻辑名称，DNS负责把域名解析为IP地址。</li><li><strong>根域名服务器与本地域名服务器</strong>：根服务器通常告诉查询方下一步找哪个顶级域名服务器；主机通常先向本地域名服务器发出请求。</li><li><strong>递归查询与迭代查询</strong>：递归由被请求方继续查询并返回最终结果；迭代由原查询方根据提示继续找下一台服务器。</li><li><strong>FTP控制连接与数据连接</strong>：控制连接传命令，数据连接传文件；控制连接通常持续整个会话，数据连接随传输建立和释放。</li><li><strong>TELNET与NVT</strong>：TELNET负责远程终端通信，NVT是统一客户端与服务器数据表示的中间格式。</li><li><strong>WWW与互联网</strong>：WWW不是一种特殊网络，而是运行在互联网上的分布式超媒体系统。</li><li><strong>URL、HTTP与HTML</strong>：URL定位资源；HTTP规定浏览器与服务器如何交换请求和响应；HTML描述网页文档结构。</li><li><strong>HTTP与TCP</strong>：HTTP使用TCP可靠传输，但HTTP自身是无状态的；持续连接是TCP连接的复用方式。</li><li><strong>HTTP请求报文与响应报文</strong>：请求报文开始行是请求行；响应报文开始行是状态行。</li><li><strong>SMTP与POP3/IMAP</strong>：SMTP负责发送邮件，POP3或IMAP负责读取邮件。</li><li><strong>邮件信封与邮件内容</strong>：信封用于传输和投递，内容是用户读取时看到的首部与主体。</li><li><strong>DHCP四步交互</strong>：Discover、Offer、Request、ACK；不要把服务器提供地址和客户正式请求使用地址的步骤混为一谈。</li><li><strong>DHCP端口</strong>：服务器UDP 67，客户UDP 68。</li><li><strong>SMI与MIB</strong>：SMI规定命名、类型和编码规则；MIB保存被管理的对象及其信息。</li><li><strong>SNMP探询与Trap</strong>：探询由管理站周期性发起；Trap由代理在满足事件条件时主动报告。</li></ol>
+<h2 id="section-93">四、复习时优先串起的主线</h2>
+<ul><li><strong>DNS</strong>：输入域名 → 本地域名服务器 → 根/TLD/权限服务器 → 得到IP地址 → 缓存结果。</li><li><strong>FTP</strong>：控制连接建立 → 发送传送命令 → 建立数据连接 → 传送文件 → 关闭数据连接。</li><li><strong>WWW</strong>：URL定位资源 → 浏览器发送HTTP请求 → 服务器返回HTTP响应 → 浏览器按HTML等文档内容显示页面。</li><li><strong>电子邮件</strong>：用户代理撰写 → SMTP发送 → 邮件服务器保存与转送 → POP3/IMAP读取。</li><li><strong>DHCP</strong>：Discover → Offer → Request → ACK → 租用期内使用并续租。</li><li><strong>SNMP</strong>：管理站通过代理访问MIB → Get读取、Set修改 → 周期探询或Trap报告事件。</li></ul>
+<h2 id="section-94">五、课件最后的应用层思考（PDF 95页）</h2>
+<p>课件最后列出的复习方向：</p>
+<ol><li>应用层协议特点、客户—服务器方式，以及DNS、HTTP、DHCP、SNMP、FTP、TELNET等协议的用途。</li><li>DNS域名系统、域名结构、域名服务器、递归查询与迭代查询。</li><li>万维网必须解决的问题：URL、HTTP和HTML。</li></ol>
+<p>以上是课件末页明确列出的思考方向；其余小节仍应结合各页正文复习。</p></article><footer>依据用户提供课件整理 · Markdown为内容源，静态正文可直接抓取 · <a href="../SEARCH-ENGINES.md">搜索引擎说明</a></footer></main></body></html>

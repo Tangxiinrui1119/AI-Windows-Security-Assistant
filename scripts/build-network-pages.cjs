@@ -7,7 +7,8 @@ const base = 'https://tangxiinrui1119.github.io/AI-Windows-Security-Assistant/';
 const chapters = [
   { slug: '03-data-link-layer', title: '第3章 数据链路层', description: '计算机网络第3章中文复习笔记：帧、CRC、PPP、CSMA/CD、MAC地址、以太网交换机、VLAN与高速以太网。' },
   { slug: '04-network-layer', title: '第4章 网络层', description: '计算机网络第4章中文复习笔记：IP与CIDR、ARP、IPv4首部和分片、最长前缀匹配、ICMP、IPv6、RIP、OSPF、BGP、VPN与NAT。' },
-  { slug: '05-transport-layer', title: '第5章 运输层', description: '计算机网络第5章中文复习笔记：端口、UDP与TCP、可靠传输、滑动窗口、流量控制、拥塞控制、三次握手与四次挥手。' }
+  { slug: '05-transport-layer', title: '第5章 运输层', description: '计算机网络第5章中文复习笔记：端口、UDP与TCP、可靠传输、滑动窗口、流量控制、拥塞控制、三次握手与四次挥手。' },
+  { slug: '06-application-layer', title: '第6章 应用层', description: '计算机网络第6章中文复习笔记：DNS、FTP、TELNET、WWW、URL、HTTP、电子邮件、DHCP与SNMP。' }
 ];
 const esc = s => s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const renderer = new marked.Renderer();
@@ -40,8 +41,8 @@ for (const c of chapters) {
  const toc = '<nav aria-label="章节目录">'+headings.map(m=>`<a href="#${m[1]}">${m[2]}</a>`).join('')+'</nav>';
  fs.writeFileSync(path.join(root,'docs/network',c.slug+'.html'),page(c.title,c.description,'network/'+c.slug+'.html',toc+html));
 }
-const body = '<h1>计算机网络复习笔记</h1><p>按课件章节复习，从链路层传帧、网络层逐跳转发，串起运输层的进程通信。第3～5章提供不依赖JavaScript的静态全文。</p><ul>'+['01-network-overview','02-physical-layer'].map((s,i)=>`<li><a href="../reader.html?f=notes/network/${s}.md">第${i+1}章 ${i?'物理层':'计算机网络概述'}</a></li>`).join('')+chapters.map(c=>`<li><a href="${c.slug}.html">${c.title}</a>：${c.description}</li>`).join('')+'</ul><p>第3、4章整理于2026-10-22；第5章整理于2026-11-01。课件覆盖范围与内部勘误均在各章正文标注。</p>';
-fs.writeFileSync(path.join(root,'docs/network/index.html'),page('计算机网络课程目录','计算机网络第1至5章复习入口，第3章数据链路层、第4章网络层与第5章运输层中文笔记、公式、对比与例题。','network/index.html',body));
+const body = '<h1>计算机网络复习笔记</h1><p>按课件章节复习，从链路层传帧、网络层逐跳转发，串起运输层的进程通信。第3～6章提供不依赖JavaScript的静态全文。</p><ul>'+['01-network-overview','02-physical-layer'].map((s,i)=>`<li><a href="../reader.html?f=notes/network/${s}.md">第${i+1}章 ${i?'物理层':'计算机网络概述'}</a></li>`).join('')+chapters.map(c=>`<li><a href="${c.slug}.html">${c.title}</a>：${c.description}</li>`).join('')+'</ul><p>第3、4章整理于2026-10-22；第5章整理于2026-11-01；第6章整理于2026-11-05。课件覆盖范围与内部勘误均在各章正文标注。</p>';
+fs.writeFileSync(path.join(root,'docs/network/index.html'),page('计算机网络课程目录','计算机网络第1至6章复习入口，第3章数据链路层、第4章网络层、第5章运输层与第6章应用层中文笔记、公式、对比与例题。','network/index.html',body));
 const urls = ['', 'network/index.html', ...chapters.map(c=>'network/'+c.slug+'.html')];
 fs.writeFileSync(path.join(root,'docs/sitemap.xml'),'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+urls.map(u=>`  <url><loc>${base+u}</loc></url>`).join('\n')+'\n</urlset>\n');
 console.log('Built ' + (chapters.length + 1) + ' network pages and sitemap.xml.');

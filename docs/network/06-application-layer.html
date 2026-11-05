@@ -428,7 +428,8 @@
 <h4 id="section-89">四、SNMP使用UDP</h4>
 <p>课件指出SNMP使用无连接的UDP：</p>
 <table><thead><tr><th>端口</th><th>作用</th></tr></thead><tbody><tr><td>UDP 161</td><td>被管设备上的代理程序接收Get或Set报文，并发送响应</td></tr><tr><td>UDP 162</td><td>管理程序接收各代理发送的Trap报文</td></tr></tbody></table>
-<h4 id="section-90">五、SNMPv1列出的PDU类型</h4>
+<h4 id="section-90">五、课件列出的PDU类型</h4>
+<blockquote><p>课件该表标题写作“SNMPv1定义的PDU类型”，但表中同时列有SNMPv2Trap等项目；本笔记保留课件列项，课件未进一步解释这些PDU的版本归属。</p></blockquote>
 <table><thead><tr><th>PDU编号</th><th>PDU名称</th><th>用途</th></tr></thead><tbody><tr><td>0（A0）</td><td>GetRequest</td><td>查询一个或一组变量的值</td></tr><tr><td>1（A1）</td><td>GetNextRequest</td><td>读取MIB树上的下一个变量，可重复执行</td></tr><tr><td>2（A2）</td><td>Response</td><td>返回响应</td></tr><tr><td>3（A3）</td><td>SetRequest</td><td>设置一个或多个变量的值</td></tr><tr><td>5（A5）</td><td>GetBulkRequest</td><td>从代理读取较大数据块</td></tr><tr><td>6（A6）</td><td>InformRequest</td><td>管理者之间的信息请求</td></tr><tr><td>7（A7）</td><td>SNMPv2Trap</td><td>代理向管理者报告异常事件</td></tr><tr><td>8（A8）</td><td>Report</td><td>管理者之间报告某些差错</td></tr></tbody></table>
 <p>课件第95页给出了SNMP报文的封装层次：IP数据报中承载UDP数据报，UDP数据报中承载SNMP报文。报文内容包括版本、安全参数、上下文信息、PDU类型、请求ID、差错状态、差错索引和变量绑定等字段。</p>
 <h2 id="section-91">二、本章常用端口速查</h2>

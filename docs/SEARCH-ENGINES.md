@@ -1,6 +1,6 @@
 # 搜索引擎收录与网站维护
 
-本仓库已提供GitHub Pages网站。第3～5章的Markdown源在`notes/network/`，可抓取的完整HTML正文在`docs/network/`。HTML不依赖客户端取回Markdown，包含中文标题、描述、规范链接、章节导航与首页入口。
+本仓库已提供GitHub Pages网站。第3～6章的Markdown源在`notes/network/`，可抓取的完整HTML正文在`docs/network/`。HTML不依赖客户端取回Markdown，包含中文标题、描述、规范链接、章节导航与首页入口。
 
 - [网络课程入口](https://tangxiinrui1119.github.io/AI-Windows-Security-Assistant/network/index.html)
 - [站点地图](https://tangxiinrui1119.github.io/AI-Windows-Security-Assistant/sitemap.xml)
@@ -30,8 +30,8 @@ Sitemap: https://tangxiinrui1119.github.io/AI-Windows-Security-Assistant/sitemap
 ## 内容更新
 
 1. 修改对应Markdown；用`node scripts/build-search-index.cjs`重建全部站内索引。
-2. 使用Node.js和marked 17或更新的兼容token接口版本运行`node scripts/build-network-pages.cjs`，重建第3～5章静态正文、课程目录和sitemap。marked需在Node模块解析路径中；可使用现有工具环境，若新装工具依赖按个人偏好放D盘，不必放入仓库或提交node_modules。
+2. 使用Node.js和marked 17或更新的兼容token接口版本运行`node scripts/build-network-pages.cjs`，重建第3～6章静态正文、课程目录和sitemap。marked需在Node模块解析路径中；可使用现有工具环境，若新装工具依赖按个人偏好放D盘，不必放入仓库或提交node_modules。
 3. 运行`node --test tests/search.test.cjs`，检查静态页面链接及标题，将源与生成文件一起提交。
 
-静态生成器目前覆盖第3～5章，新增章节时应更新生成器中的章节清单；它不声称已为其他全部课程生成静态页面。
+静态生成器目前覆盖第3～6章，新增章节时应更新生成器中的章节清单；它不声称已为其他全部课程生成静态页面。
 

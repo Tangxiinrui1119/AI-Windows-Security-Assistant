@@ -9,9 +9,10 @@
 | 第3章 数据链路层 | [笔记](03-data-link-layer.md) | [静态全文](https://tangxiinrui1119.github.io/AI-Windows-Security-Assistant/network/03-data-link-layer.html) |
 | 第4章 网络层 | [笔记](04-network-layer.md) | [静态全文](https://tangxiinrui1119.github.io/AI-Windows-Security-Assistant/network/04-network-layer.html) |
 | 第5章 运输层 | [笔记](05-transport-layer.md) | [静态全文](https://tangxiinrui1119.github.io/AI-Windows-Security-Assistant/network/05-transport-layer.html) |
+| 第6章 应用层 | [笔记](06-application-layer.md) | [静态全文](https://tangxiinrui1119.github.io/AI-Windows-Security-Assistant/network/06-application-layer.html) |
 
-第3、4章依据2026-10-22提供的两份PDF整理；第5章于2026-11-01依据用户上传的109页《计算机网络-第5章-运输层(1).pdf》核对整理。正文保留课件章节结构、关键概念、公式、对比、例题与作业编号，并标明课件未展开的小节及勘误。
+第3、4章依据2026-10-22提供的两份PDF整理；第5章于2026-11-01依据用户上传的109页运输层课件核对整理；第6章于2026-11-05依据用户上传的95页应用层课件核对整理。正文保留课件章节结构、关键概念、公式、对比、例题与作业编号，并标明课件未展开的小节及勘误。
 
-复习主线：物理层传比特 → 链路层在相邻结点间传帧 → 网络层按IP逐跳转发 → 运输层为应用进程提供端到端逻辑通信。先掌握MAC帧、交换机，再串起IP、ARP、路由和ICMP，最后理解端口、TCP/UDP、可靠传输、窗口与连接管理。
+复习主线：物理层传比特 → 链路层在相邻结点间传帧 → 网络层按IP逐跳转发 → 运输层为应用进程提供端到端逻辑通信。先掌握MAC帧、交换机，再串起IP、ARP、路由和ICMP，再理解端口、TCP/UDP、可靠传输、窗口与连接管理，最后进入应用层的DNS、HTTP、电子邮件、DHCP和SNMP。
 
 [搜索全部笔记](https://tangxiinrui1119.github.io/AI-Windows-Security-Assistant/search.html) · [全部课程目录](../README.md)

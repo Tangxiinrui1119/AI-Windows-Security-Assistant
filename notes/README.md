@@ -58,8 +58,12 @@
 
 ### 信息安全数学基础
 - [学习地图与跨章复习](security-mathematics/README.md)
-- [01 · 整数的可除性](security-mathematics/01-divisibility-of-integers.md) —— 2026-09-20
-- [02 · 同余](security-mathematics/02-congruence.md) —— 2026-09-20
+- [01 · 整数的可除性](security-mathematics/01-divisibility-of-integers.md) —— 2026-09-20，2026-11-09 按课件修订
+- [02 · 同余](security-mathematics/02-congruence.md) —— 2026-09-20，2026-11-09 按课件修订
+- [03 · 一次同余方程](security-mathematics/03-linear-congruences.md) —— 2026-11-09
+- [04 · 二次同余](security-mathematics/04-quadratic-congruences.md) —— 2026-11-09
+- [05 · 原根和阶](security-mathematics/05-primitive-roots-and-orders.md) —— 2026-11-09
+- [06 · 近世代数基础](security-mathematics/06-abstract-algebra.md) —— 2026-11-09
 
 ### AI 应用
 - （大三下开始）

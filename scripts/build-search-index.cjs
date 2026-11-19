@@ -13,7 +13,7 @@ function walk(dir) {
     return e.isDirectory() ? walk(file) : [file];
   });
 }
-const documents = walk(path.join(root, 'notes')).map(file => {
+const documents = ['notes', 'project'].flatMap(dir => walk(path.join(root, dir))).map(file => {
   const relative = path.relative(root, file).split(path.sep).join('/');
   if (!core.eligible(relative)) return null;
   const content = fs.readFileSync(file);

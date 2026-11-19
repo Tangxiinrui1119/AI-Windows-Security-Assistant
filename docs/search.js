@@ -1,7 +1,7 @@
 (function () {
   'use strict';
   var core = window.NoteSearch, repo = 'Tangxiinrui1119/AI-Windows-Security-Assistant';
-  var cacheKey = 'ai-windows-notes-search-v1', documents = [], selected = '', allResults = [], syncing = false;
+  var cacheKey = 'ai-windows-notes-search-v3', documents = [], selected = '', allResults = [], syncing = false;
   var input = document.getElementById('query'), results = document.getElementById('results');
   var status = document.getElementById('sync-status'), retry = document.getElementById('retry');
   var cache = null, debounce, isReady = false;
@@ -43,9 +43,10 @@
           if (link.origin !== 'https://notes.invalid') continue;
           var path;
           try { path = decodeURIComponent(link.pathname.slice(1)); } catch (_) { continue; }
-          if (/^notes\/(?:[\w-]+\/)*README\.md$/i.test(path)) {
+          if (/^(?:notes|project)\/(?:[\w-]+\/)*README\.md$/i.test(path)) {
             if (!visited.has(path)) queue.push(path);
-          } else if (core.eligible(path)) paths.add(path);
+          }
+          if (core.eligible(path)) paths.add(path);
         }
       });
     }
@@ -69,7 +70,7 @@
     var groups = new Map();
     documents.forEach(function (doc) { groups.set(doc.category, doc.label); });
     var order = Object.keys(core.labels);
-    var entries = [['', '全部笔记']].concat(Array.from(groups).sort(function (a, b) { return order.indexOf(a[0]) - order.indexOf(b[0]); }));
+    var entries = [['', '全部内容']].concat(Array.from(groups).sort(function (a, b) { return order.indexOf(a[0]) - order.indexOf(b[0]); }));
     if (selected && !groups.has(selected)) selected = '';
     var filters = document.getElementById('filters'); filters.replaceChildren();
     entries.forEach(function (entry) {
@@ -95,7 +96,7 @@
     categoryButtons(); results.replaceChildren();
     var matches = allResults.filter(function (r) { return !selected || r.doc.category === selected; });
     document.getElementById('result-count').textContent = !isReady ? '' : query ?
-      '找到 ' + matches.length + ' 篇相关笔记' : '可搜索 ' + documents.length + ' 篇学习笔记';
+      '找到 ' + matches.length + ' 条相关内容' : '可搜索 ' + documents.length + ' 条内容';
     matches.forEach(function (match) {
       var li = document.createElement('li'), link = document.createElement('a');
       link.className = 'search-result';
@@ -108,13 +109,13 @@
       line(link, 'h2', 'search-result-title', match.doc.title, terms);
       if (match.heading && match.heading !== match.doc.title) line(link, 'p', 'search-result-section', match.heading, terms);
       line(link, 'p', 'search-result-snippet', match.snippet, terms);
-      line(link, 'span', 'search-result-open', '打开笔记，定位到相关内容 →', []);
+      line(link, 'span', 'search-result-open', '阅读并定位到相关内容', []);
       li.appendChild(link); results.appendChild(li);
     });
     var empty = document.getElementById('empty'); empty.hidden = matches.length > 0;
     document.getElementById('empty-title').textContent = query ? (isReady ? '暂时没有找到' : '正在准备搜索') : '从一个关键词开始';
     document.getElementById('empty-message').textContent = query ?
-      (selected ? '可以切换到「全部笔记」，或换一个更短的关键词。' : '试试缩短关键词，或用另一种说法，例如「三次握手」「TGT」。') :
+      (selected ? '可以切换到「全部内容」，或换一个更短的关键词。' : '试试缩短关键词，或用另一种说法，例如「三次握手」「TGT」。') :
       '可以输入中文概念、英文术语或代码中的名字。';
     document.getElementById('examples').hidden = Boolean(query);
   }
@@ -171,7 +172,7 @@
   (async function () {
     try { var saved = JSON.parse(localStorage.getItem(cacheKey)); if (valid(saved)) use(saved); } catch (_) {}
     try {
-      var seed = await request('search-index.json', true);
+      var seed = await request('search-index.json?v=3', true);
       if (!valid(seed)) throw new Error('Invalid index');
       if (!cache || seed.generatedAt > cache.generatedAt) use(seed);
     } catch (_) { /* The live repository is the second source if the snapshot is unavailable. */ }

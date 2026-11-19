@@ -27,9 +27,28 @@ renderer.link = function (token) {
   }
   return `<a href="${esc(href)}">${this.parser.parseInline(token.tokens)}</a>`;
 };
-const style = `body{margin:0;background:#f4f7fb;color:#172238;font:17px/1.85 system-ui,"Microsoft YaHei",sans-serif}main{max-width:1000px;margin:auto;padding:28px 24px 70px}article{background:white;border:1px solid #d9e2ee;border-radius:16px;padding:clamp(18px,4vw,48px)}a{color:#075fb5}nav{display:flex;flex-wrap:wrap;gap:18px;margin-bottom:24px}h1{font-size:2em}h2{margin-top:2em;border-bottom:1px solid #dae3ed;padding-bottom:8px}h3{margin-top:1.6em}table{display:block;overflow:auto;border-collapse:collapse;max-width:100%;margin:22px 0;font-size:.92em}td,th{border:1px solid #cad5e3;padding:9px 13px;text-align:left}th{background:#eaf2fc}pre{overflow:auto;padding:18px;background:#eef3f9;border-radius:8px}code{font-family:Consolas,monospace;overflow-wrap:anywhere}blockquote{border-left:4px solid #2475ba;margin:18px 0;padding:1px 18px;background:#f2f7fd;color:#40526a}.search{display:flex;gap:8px;margin:18px 0}input{min-width:0;flex:1;padding:10px;font:inherit}button{padding:8px 16px;font:inherit}footer{margin-top:28px;color:#52647a}li{margin:5px 0}html{scroll-behavior:smooth}@media(max-width:600px){main{padding:16px 10px}body{font-size:16px}h1{font-size:1.6em}}`;
+const style = `
+:root{--bg:#06090f;--panel:#0a1120;--panel2:#0d1626;--border:#1b2a45;--text:#dbe7f5;--dim:#8596b3;--cyan:#53c8ff;--green:#3df5b0}
+body{margin:0;background:radial-gradient(ellipse at 50% 0,rgba(83,200,255,.12),transparent 65%),var(--bg);color:var(--text);font:17px/1.85 -apple-system,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;min-height:100vh}
+main{max-width:940px;margin:auto;padding:28px 24px 70px}
+article{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:clamp(18px,4vw,48px)}
+a{color:var(--cyan)}a:hover{color:var(--green)}
+nav{display:flex;flex-wrap:wrap;gap:12px 18px;margin-bottom:24px}
+h1{font-size:clamp(24px,4.5vw,36px);line-height:1.3;background:linear-gradient(92deg,#53c8ff,#3df5b0,#9d7bff);background-clip:text;color:transparent}
+h2{margin-top:2em;border-bottom:1px solid var(--border);padding-bottom:8px}h3{margin-top:1.6em;color:var(--cyan)}
+table{display:block;overflow:auto;border-collapse:collapse;max-width:100%;margin:22px 0;font-size:.92em}
+td,th{border:1px solid var(--border);padding:9px 13px;text-align:left}th{background:rgba(83,200,255,.09);color:var(--cyan)}
+pre{overflow:auto;padding:18px;background:var(--panel2);border:1px solid var(--border);border-radius:12px}
+code{font-family:"Cascadia Code",Consolas,monospace;overflow-wrap:anywhere}
+blockquote{border-left:3px solid var(--green);padding:8px 16px;background:rgba(61,245,176,.05);color:var(--dim)}
+.search{display:flex;gap:8px;margin:18px 0}
+input,button{padding:8px 12px;font:inherit;color:inherit;background:var(--panel);border:1px solid var(--border);border-radius:8px}
+input{min-width:0;flex:1}button{color:var(--green);cursor:pointer}
+footer{margin-top:28px;color:var(--dim)}li{margin:5px 0}
+@media(max-width:600px){main{padding:16px 10px}body{font-size:16px}}
+`;
 function page(title, description, relative, body) {
- return `<!doctype html>\n<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${esc(title)} · 计算机网络复习笔记</title><meta name="description" content="${esc(description)}"><meta name="robots" content="index,follow"><link rel="canonical" href="${base+relative}"><link rel="sitemap" type="application/xml" href="../sitemap.xml"><style>${style}</style></head><body><main><nav><a href="../index.html">网站首页</a><a href="index.html">网络课程目录</a><a href="../reader.html?f=notes/README.md">全部学习笔记</a><a href="../search.html">知识点搜索</a></nav><form class="search" action="../search.html" role="search"><input type="search" name="q" aria-label="搜索全部学习笔记" placeholder="搜索知识点"><button>搜索</button></form><article>${body}</article><footer>依据用户提供课件整理 · Markdown为内容源，静态正文可直接抓取 · <a href="../SEARCH-ENGINES.md">搜索引擎说明</a></footer></main></body></html>\n`;
+ return `<!doctype html>\n<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${esc(title)} · 计算机网络复习笔记</title><meta name="description" content="${esc(description)}"><meta name="robots" content="index,follow"><link rel="canonical" href="${base+relative}"><link rel="sitemap" type="application/xml" href="../sitemap.xml"><style>${style}</style></head><body><main><nav><a href="../index.html">网站首页</a><a href="index.html">网络课程目录</a><a href="../reader.html?f=notes/courses/README.md">课内学习</a><a href="../search.html">知识点搜索</a></nav><form class="search" action="../search.html" role="search"><input type="search" name="q" aria-label="搜索笔记与项目" placeholder="搜索知识点"><button>搜索</button></form><article>${body}</article><footer>依据用户提供课件整理 · Markdown为内容源，静态正文可直接抓取 · <a href="../SEARCH-ENGINES.md">搜索引擎说明</a></footer></main></body></html>\n`;
 }
 fs.mkdirSync(path.join(root,'docs/network'), {recursive:true});
 for (const c of chapters) {

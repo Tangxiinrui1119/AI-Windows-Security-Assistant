@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Windows 安全助手 · 三年成长计划</title>
-<meta name="description" content="豆豆的大学三年长期项目：以 Python、C++ 与 AI 构建真正的 Windows 安全助手。">
+<title>AI Windows 安全助手 · 本科知识库</title>
+<meta name="description" content="按课内学习、课外学习和实验项目浏览本科知识库，按章节阅读并搜索笔记。">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
 <style>
 :root{
   --bg:#06090f; --panel:#0a1120; --panel2:#0d1626;
   --border:#1b2a45; --border-hi:#2e466e;
-  --green:#3df5b0; --cyan:#53c8ff; --purple:#9d7bff; --pink:#ff6ec7;
+  --green:#3df5b0; --cyan:#53c8ff; --purple:#9d7bff;
   --text:#dbe7f5; --dim:#8596b3; --faint:#5a6884;
   --mono:"Cascadia Code","JetBrains Mono",Consolas,"Courier New",monospace;
   --sans:-apple-system,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
@@ -32,7 +32,7 @@ a{color:inherit;text-decoration:none}
   background:repeating-linear-gradient(0deg, transparent 0 3px, rgba(255,255,255,.012) 3px 4px)}
 .wrap{max-width:1020px;margin:0 auto;padding:0 22px 60px}
 /* 顶栏 */
-.top{display:flex;justify-content:space-between;align-items:center;padding:22px 0}
+.top{display:flex;justify-content:space-between;align-items:center;padding:22px 0;gap:10px;flex-wrap:wrap}
 .logo{font-family:var(--mono);font-size:14px;color:var(--cyan);letter-spacing:.5px}
 .logo b{color:var(--text)}
 .gh-link{font-family:var(--mono);font-size:13px;color:var(--dim);border:1px solid var(--border);border-radius:8px;padding:6px 14px;transition:.25s}
@@ -55,20 +55,13 @@ a{color:inherit;text-decoration:none}
 .typed{color:var(--text)}
 .cursor{display:inline-block;color:var(--green);animation:blink 1s steps(1) infinite;margin-left:2px}
 @keyframes blink{50%{opacity:0}}
-/* 徽章 */
-.chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:26px}
-.chip{font-family:var(--mono);font-size:13px;padding:7px 16px;border-radius:999px;border:1px solid var(--border-hi);color:var(--dim);background:rgba(10,17,32,.7)}
-.chip b{color:var(--text)}
-.chip.g{border-color:rgba(61,245,176,.5);color:var(--green)}
-.chip.c{border-color:rgba(83,200,255,.5);color:var(--cyan)}
-.chip.p{border-color:rgba(157,123,255,.5);color:var(--purple)}
 /* 区块 */
 .sec{margin-top:66px}
 .hash{color:var(--green);font-family:var(--mono);margin-right:6px}
 .sec-title{font-size:22px;letter-spacing:1px;margin-bottom:20px;display:flex;align-items:center;gap:10px}
 .sec-title::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--border-hi),transparent)}
 /* 卡片 */
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%, 280px),1fr));gap:16px}
 .card{position:relative;display:block;padding:22px 22px 20px;border:1px solid var(--border);border-radius:14px;background:linear-gradient(180deg,var(--panel2),var(--panel));transition:.28s;overflow:hidden}
 .card::before{content:"";position:absolute;inset:0;opacity:0;transition:.28s;background:radial-gradient(ellipse 120% 90% at 50% -20%,var(--ca,.0),transparent 70%)}
 .card:hover{transform:translateY(-4px);border-color:var(--border-hi);box-shadow:0 14px 40px -14px rgba(0,0,0,.8),0 0 26px -6px var(--ca,.0)}
@@ -76,21 +69,6 @@ a{color:inherit;text-decoration:none}
 .card .ico{font-size:30px}
 .card h3{font-size:17px;margin:12px 0 6px;letter-spacing:.5px}
 .card p{font-size:13.5px;color:var(--dim)}
-.card .go{position:absolute;right:20px;bottom:16px;font-family:var(--mono);font-size:13px;color:var(--faint);transition:.28s}
-.card:hover .go{color:var(--ca,#3df5b0);transform:translateX(4px)}
-/* 路线图 */
-.road{display:flex;align-items:stretch;gap:0}
-.stop{flex:1;border:1px solid var(--border);border-radius:14px;padding:22px 20px;background:linear-gradient(180deg,var(--panel2),var(--panel));position:relative}
-.stop.now{border-color:rgba(61,245,176,.55);box-shadow:0 0 30px -8px rgba(61,245,176,.35)}
-.stop .yr{font-family:var(--mono);font-size:15px;color:var(--cyan);letter-spacing:2px}
-.stop.now .yr{color:var(--green)}
-.stop .tag{font-family:var(--mono);font-size:12px;margin-top:6px;color:var(--dim)}
-.stop ul{list-style:none;margin-top:12px;font-size:13.5px;color:var(--dim)}
-.stop ul li{padding:3px 0}
-.stop ul li::before{content:"▹ ";color:var(--green)}
-.stop.now ul li{color:var(--text)}
-.arrow{align-self:center;color:var(--faint);font-family:var(--mono);font-size:22px;padding:0 10px;flex-shrink:0}
-.nowtag{display:inline-block;margin-top:12px;font-family:var(--mono);font-size:11px;color:#06130d;background:var(--green);padding:3px 10px;border-radius:999px;font-weight:700}
 /* 动态 */
 .panel{border:1px solid var(--border);border-radius:14px;background:var(--panel);padding:6px 0;overflow:hidden}
 #activity{list-style:none}
@@ -109,8 +87,6 @@ footer .quote{color:var(--dim);font-size:14px;margin-bottom:10px}
 footer .quote b{color:var(--green)}
 footer a:hover{color:var(--cyan)}
 @media (max-width:720px){
-  .road{flex-direction:column;gap:0}
-  .arrow{transform:rotate(90deg);padding:8px 0}
   .tbody{padding:20px 18px 24px}
 }
 </style>
@@ -138,18 +114,12 @@ footer a:hover{color:var(--cyan)}
     </div>
     <div class="tbody">
       <p class="line"><span class="ps1">$</span> whoami</p>
-      <p class="out">豆豆 · 大二 · 信息安全专业 · 本仓库唯一开发者</p>
-      <p class="line"><span class="ps1">$</span> start --mission</p>
+      <p class="out">豆豆 · 信息安全专业 · 本科知识库</p>
+      <p class="line"><span class="ps1">$</span> open --knowledge</p>
       <h1 class="title">AI WINDOWS 安全助手</h1>
-      <p class="line"><span class="ps1">$</span> echo <span class="typed" id="typed">从一条 PowerShell 命令开始。</span><span class="cursor">▊</span></p>
+      <p class="line"><span class="ps1">$</span> echo <span class="typed" id="typed">课程章节、课外笔记与实验记录。</span><span class="cursor">▊</span></p>
     </div>
   </section>
-
-  <div class="chips">
-    <span class="chip g">● LEVEL 1 · PowerShell 起步</span>
-    <span class="chip c">三年之约 · 第 <b id="day">1</b> 天</span>
-    <span class="chip p">启动于 2026-09-06</span>
-  </div>
 
   <form class="knowledge-search" action="search.html" method="get" role="search">
     <label for="home-search">知识点搜索</label>
@@ -160,93 +130,21 @@ footer a:hover{color:var(--cyan)}
     <p class="search-hint">搜标题，也搜正文 · <kbd>Ctrl</kbd> + <kbd>K</kbd> 快速搜索</p>
   </form>
 
-  <!-- 项目架构 -->
-  <section class="sec">
-    <h2 class="sec-title"><span class="hash">#</span>项目分工</h2>
+  <section class="sec" aria-labelledby="explore-title">
+    <h2 class="sec-title" id="explore-title"><span class="hash">#</span>探索入口</h2>
     <div class="cards">
-      <a class="card" style="--ca:rgba(83,200,255,.18)" href="reader.html?f=docs/PLAN.md">
-        <span class="ico">🐍</span><h3>Python：主控与 AI 分析</h3>
-        <p>采集和整理 Windows 信息，用规则判断风险，再由 AI 解释发生了什么。</p>
-        <span class="go">查看规划 →</span>
+      <a class="card" style="--ca:rgba(61,245,176,.18)" href="reader.html?f=notes/courses/README.md">
+        <span class="ico" aria-hidden="true">📚</span><h3>课内学习</h3>
+        <p>计算机网络、数据结构、信息安全数学基础与其他大学课程。</p>
       </a>
-      <a class="card" style="--ca:rgba(157,123,255,.18)" href="reader.html?f=docs/PLAN.md">
-        <span class="ico">⚙️</span><h3>C++：后续底层能力</h3>
-        <p>逐步走向 Windows API、进程、权限、服务与 ETW 等系统能力。</p>
-        <span class="go">查看规划 →</span>
+      <a class="card" style="--ca:rgba(83,200,255,.18)" href="reader.html?f=notes/extracurricular/README.md">
+        <span class="ico" aria-hidden="true">💻</span><h3>课外学习</h3>
+        <p>CTF Web、Windows 主机安全、渗透测试、Python / C++ 与 AI。</p>
       </a>
-      <a class="card" style="--ca:rgba(61,245,176,.18)" href="reader.html?f=docs/PLAN.md">
-        <span class="ico">🛡️</span><h3>Windows Security</h3>
-        <p>从启动项、进程、日志、注册表、网络和权限出发，持续构建自己的安全助手。</p>
-        <span class="go">查看规划 →</span>
+      <a class="card" style="--ca:rgba(157,123,255,.18)" href="reader.html?f=project/README.md">
+        <span class="ico" aria-hidden="true">🧪</span><h3>实验项目</h3>
+        <p>数据库应用设计大赛、VulnBot / 烛阴研究与个人实验。</p>
       </a>
-    </div>
-  </section>
-
-  <!-- 入口 -->
-  <section class="sec">
-    <h2 class="sec-title"><span class="hash">#</span>探索入口</h2>
-    <div class="cards">
-      <a class="card" style="--ca:rgba(61,245,176,.18)" href="reader.html?f=docs/devlog/2026/09.md">
-        <span class="ico">📅</span><h3>学习日志</h3>
-        <p>每天 3 分钟记一笔，按月份归档，看得到「一直做」的轨迹</p>
-        <span class="go">进入 →</span>
-      </a>
-      <a class="card" style="--ca:rgba(83,200,255,.18)" href="reader.html?f=project/level1-powershell-startup/README.md">
-        <span class="ico">💻</span><h3>项目记录</h3>
-        <p>项目代码，从 Level 1 的 PowerShell 脚本开始一路生长</p>
-        <span class="go">进入 →</span>
-      </a>
-      <a class="card" style="--ca:rgba(157,123,255,.18)" href="reader.html?f=docs/PLAN.md">
-        <span class="ico">🧭</span><h3>三年规划</h3>
-        <p>大二 → 大三 → 大四 完整路线图，随执行情况持续更新</p>
-        <span class="go">进入 →</span>
-      </a>
-      <a class="card" style="--ca:rgba(255,110,199,.15)" href="reader.html?f=notes/README.md&v=c92ee3fa68a2233fd94f88d1d3615d6a144cdc10">
-        <span class="ico">📚</span><h3>学习笔记</h3>
-        <p>C++ · Python · Git · PowerShell · 网络 · AI · 安全</p>
-        <span class="go">进入 →</span>
-      </a>
-      <a class="card" style="--ca:rgba(61,245,176,.18)" href="https://github.com/Tangxiinrui1119/AI-Windows-Security-Assistant" target="_blank" rel="noopener">
-        <span class="ico">🐙</span><h3>仓库主页</h3>
-        <p>源代码 · 提交历史 · Issue · Release，开发者视角的全貌</p>
-        <span class="go">进入 →</span>
-      </a>
-    </div>
-  </section>
-
-  <section class="sec"><h2 class="sec-title"><span class="hash">#</span>计算机网络复习</h2><div class="cards"><a class="card" href="network/03-data-link-layer.html"><h3>第3章 数据链路层</h3><p>CRC · PPP · CSMA/CD · MAC · 交换机 · VLAN</p></a><a class="card" href="network/04-network-layer.html"><h3>第4章 网络层</h3><p>IP · CIDR · ARP · 分片 · 路由 · IPv6 · NAT</p></a><a class="card" href="network/05-transport-layer.html"><h3>第5章 运输层</h3><p>UDP · TCP · 可靠传输 · 窗口 · 拥塞控制 · 三次握手</p></a><a class="card" href="network/index.html"><h3>网络课程目录</h3><p>按章节浏览，静态正文可直接阅读</p></a></div></section>
-
-  <!-- 路线图 -->
-  <section class="sec">
-    <h2 class="sec-title"><span class="hash">#</span>三年路线</h2>
-    <div class="road">
-      <div class="stop now">
-        <div class="yr">大二</div><div class="tag">基础 + 开发</div>
-        <ul>
-          <li>C++ / Python / Git / PowerShell</li>
-          <li>Level 1~5：可运行的 Windows 小工具</li>
-          <li>第一次独立完成一个软件</li>
-        </ul>
-        <span class="nowtag">你现在在这里</span>
-      </div>
-      <div class="arrow">▸</div>
-      <div class="stop">
-        <div class="yr">大三</div><div class="tag">软件 + AI + 网络</div>
-        <ul>
-          <li>计算机网络：TCP / HTTP / DNS</li>
-          <li>网络状态分析功能</li>
-          <li>AI 解释扫描结果</li>
-        </ul>
-      </div>
-      <div class="arrow">▸</div>
-      <div class="stop">
-        <div class="yr">大四</div><div class="tag">整合 + 安全</div>
-        <ul>
-          <li>性能 · 架构 · 用户体验</li>
-          <li>真正的信息安全能力</li>
-          <li>毕业时的代表作品</li>
-        </ul>
-      </div>
     </div>
   </section>
 
@@ -268,10 +166,9 @@ footer a:hover{color:var(--cyan)}
 // 打字机
 (function () {
   var phrases = [
-    '从一条 PowerShell 命令开始。',
-    'Python 主控与 AI 分析，C++ 走向 Windows 底层能力。',
-    '三年，把它做成真正的 Windows 安全软件。',
-    '不追求每天完成很多，追求一直做。'
+    '按章节复习课程笔记。',
+    '从 CTF Web 学习地图开始。',
+    '浏览竞赛与实验项目。'
   ];
   var el = document.getElementById('typed');
   var pi = 0, ci = 0, deleting = false;
@@ -286,13 +183,6 @@ footer a:hover{color:var(--cyan)}
   }
   el.textContent = '';
   tick();
-})();
-
-// 三年之约天数
-(function () {
-  var start = new Date('2026-09-06T00:00:00');
-  var days = Math.max(1, Math.floor((Date.now() - start.getTime()) / 86400000) + 1);
-  document.getElementById('day').textContent = days;
 })();
 
 // 最近提交（失败则静默降级）

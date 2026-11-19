@@ -2,7 +2,7 @@
 
 > Level 1 项目记录 · 日期：2026-09-06（Day 1）
 > 本目录还有 Level 1 脚本 [Get-StartupItems.ps1](Get-StartupItems.ps1)（用注册表方式查询启动项），可与本文的 CIM 方式对照。
-> 详细知识整理见笔记：[notes/powershell/01-windows-registry-startup-sid.md](../../notes/powershell/01-windows-registry-startup-sid.md)
+> 详细知识整理见笔记：[notes/security/penetration-testing/06-windows-host-security/01-windows-registry-startup-sid.md](../../notes/security/penetration-testing/06-windows-host-security/01-windows-registry-startup-sid.md)
 
 ## 项目目的
 通过 PowerShell 和 Windows 注册表，探索 Windows 的启动项、用户配置和 SID，建立「机器 / 用户 / 身份 / 权限」的初步认识——这是整个 AI Windows 安全助手项目的第一块地基。
@@ -78,7 +78,7 @@ Get-ItemProperty 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Run'
 - （实验后新增）Win32_StartupCommand 显示我的 SID 的 Run 键里有 10+ 条，但 Get-ItemProperty 直接查 HKCU Run 只有 2 条——它们应该是同一个位置，为什么数量对不上？（待查证）
 
 ## 问题解决
-以上问题在笔记 [notes/powershell/01-windows-registry-startup-sid.md](../../notes/powershell/01-windows-registry-startup-sid.md) 中逐条整理，核心结论：
+以上问题在笔记 [notes/security/penetration-testing/06-windows-host-security/01-windows-registry-startup-sid.md](../../notes/security/penetration-testing/06-windows-host-security/01-windows-registry-startup-sid.md) 中逐条整理，核心结论：
 
 - 启动项 = 注册表 Run 键等位置的键值，登录时被 Windows 读取执行
 - 注册表按「机器（HKLM）/ 用户（HKU 按 SID 分键）」组织，HKCU 是当前用户 SID 子键的便捷视图
@@ -98,7 +98,7 @@ Get-ItemProperty 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Run'
 
 ## 后续计划
 - Windows 用户与组（Get-LocalUser、组与 SID）
-- ACL / NTFS 权限 / icacls ← ✅ 完成：理论（[Day 2](../../notes/security/01-windows-permissions-basics.md)）+ 实机验证（[Day 3](../../notes/security/02-windows-acl-effective-permissions.md)，2026-09-08）
+- ACL / NTFS 权限 / icacls ← ✅ 完成：理论（[Day 2](../../notes/security/penetration-testing/06-windows-host-security/02-windows-permissions-basics.md)）+ 实机验证（[Day 3](../../notes/security/penetration-testing/06-windows-host-security/03-windows-acl-effective-permissions.md)，2026-09-08）
 - Access Token 与 Windows 安全模型 ← ✅ 理论已学 + Day 3 实机验证了组 SID 匹配 ACE
 - 注册表权限
 - Windows 服务与更完整的启动机制

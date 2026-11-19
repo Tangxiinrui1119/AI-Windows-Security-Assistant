@@ -5,13 +5,15 @@
   'use strict';
   var labels = { cpp: 'C++', python: 'Python', network: '计算机网络',
     'data-structures': '数据结构', 'security-mathematics': '信息安全数学基础',
-    security: '信息安全', git: 'Git & GitHub', ai: 'AI 应用' };
+    ctf: 'CTF 学习', 'windows-host-security': 'Windows 主机安全', security: '信息安全',
+    git: 'Git & GitHub', ai: 'AI Agent 与多智能体', project: '实验项目' };
 
   function normalize(text) { return String(text || '').normalize('NFKC').toLowerCase(); }
   function tokens(query) {
     return Array.from(new Set(normalize(query).trim().slice(0, 160).split(/\s+/).filter(Boolean)));
   }
   function eligible(path) {
+    if (/^project\/(?:[\w-]+\/)*[\w.-]+\.md$/i.test(path)) return path.toLowerCase() !== 'project/readme.md';
     return /^notes\/(?:[\w-]+\/)+[\w.-]+\.md$/i.test(path) && !/\/readme\.md$/i.test(path);
   }
   function plain(text) {
@@ -24,7 +26,9 @@
       .replace(/`/g, '').replace(/\*\*(.*?)\*\*/g, '$1').replace(/\s+/g, ' ').trim();
   }
   function parse(path, markdown, sha) {
-    var parts = path.split('/'), category = parts[1], title = '';
+    var parts = path.split('/'), category = parts[0] === 'project' ? 'project' : parts[1], title = '';
+    if (path === 'notes/security/penetration-testing/04-web-security/01-web-security-learning-map.md') category = 'ctf';
+    if (parts[1] === 'security' && parts[3] === '06-windows-host-security') category = 'windows-host-security';
     var sections = [], heading = '', headingIndex = -1, lines = [], fence = null;
     function flush() {
       var text = plain(lines.join('\n'));
@@ -45,7 +49,7 @@
       } else lines.push(line);
     });
     flush();
-    var part = category === 'security' && parts[3] && parts[3].match(/^\d{2}/);
+    var part = parts[1] === 'security' && category !== 'ctf' && parts[3] && parts[3].match(/^\d{2}/);
     return { path: path, sha: sha || '', title: title || parts[parts.length - 1].replace(/\.md$/, ''),
       category: category, label: labels[category] || category,
       part: part ? 'Part ' + part[0] : '', sections: sections };

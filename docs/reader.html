@@ -84,7 +84,7 @@ footer a:hover{color:var(--cyan)}
 }
 </style>
 <link rel="stylesheet" href="search.css?v=1">
-<script src="search-core.js?v=2" defer></script>
+<script src="search-core.js?v=3" defer></script>
 <script src="reader-search.js?v=2" defer></script>
 <script src="search-shortcuts.js?v=1" defer></script>
 </head>
@@ -95,14 +95,15 @@ footer a:hover{color:var(--cyan)}
 <main class="wrap">
   <header class="top">
     <div class="logo">🛡️ <b>AI-Windows-Security-Assistant</b></div>
-    <nav class="nav">
+    <nav class="nav" aria-label="页面导航">
       <a class="gh-link" href="index.html">← 回到首页</a>
+      <a class="gh-link" href="reader.html?f=notes/README.md">知识库目录</a>
       <a class="gh-link" id="src-link" href="#" target="_blank" rel="noopener">GitHub 查看原文 ↗</a>
     </nav>
   </header>
 
   <form class="knowledge-search search-reader" action="search.html" method="get" role="search">
-    <label class="sr-only" for="reader-search">搜索全部学习笔记</label>
+    <label class="sr-only" for="reader-search">搜索笔记与项目</label>
     <div class="search-row">
       <input class="search-input" id="reader-search" name="q" type="search" maxlength="160" placeholder="搜索知识点，例如：三次握手、ACL、new / delete" autocomplete="off">
       <button class="search-button" type="submit">搜索</button>
@@ -141,7 +142,7 @@ if (!window.marked) {
 
   // 只允许仓库内的白名单路径，防止任意 URL
   function cleanPath(p) {
-    if (!p) return 'docs/PLAN.md';
+    if (!p) return 'notes/README.md';
     p = String(p).replace(/\\/g, '/');
     if (/^(https?:)?\/\//i.test(p) || p.indexOf('/') === 0) return null;
     var parts = [];

@@ -1,78 +1,13 @@
-# 🛡️ AI Windows 安全助手
+# 🛡️ AI Windows 安全助手 · 本科知识库
 
-> 从一条 PowerShell 命令开始，用三年时间，把它做成一个真正的 Windows 安全软件。
+[打开 GitHub Pages 阅读器](https://tangxiinrui1119.github.io/AI-Windows-Security-Assistant/) · [搜索知识点](https://tangxiinrui1119.github.io/AI-Windows-Security-Assistant/search.html)
 
-🌐 **项目主页（访客入口）**：https://tangxiinrui1119.github.io/AI-Windows-Security-Assistant/
+| 入口 | 内容 |
+| --- | --- |
+| [📚 课内学习](notes/courses/README.md) | 计算机网络、数据结构、信息安全数学基础与其他大学课程 |
+| [💻 课外学习](notes/extracurricular/README.md) | CTF Web、Windows 主机安全、渗透测试、编程与 AI |
+| [🧪 实验项目](project/README.md) | 竞赛、研究与个人实验项目 |
 
-这是我在大学期间（**大二 → 大三 → 大四**）的长期项目仓库。
-代码、学习笔记、开发日志全部记录在这里，一步一步从零成长为一个完整的「AI Windows 安全助手」。
+数据库应用设计大赛的设计文档和实验记录在 [AI-Intranet-Alert-System](https://github.com/Tangxiinrui1119/AI-Intranet-Alert-System) 维护。
 
-## 计算机网络复习
-
-第3章数据链路层、第4章网络层、第5章运输层与第6章应用层已按上传PDF整理：[Markdown目录](notes/network/README.md) · [静态全文网页](https://tangxiinrui1119.github.io/AI-Windows-Security-Assistant/network/index.html) · [站内搜索](https://tangxiinrui1119.github.io/AI-Windows-Security-Assistant/search.html)。
-
-包含章节结构、概念对比、公式、例题与课件勘误；[搜索引擎收录与维护说明](docs/SEARCH-ENGINES.md)。
-
-## 项目方向
-
-项目以 **Python** 作为主控、数据处理与 AI 分析层：把 Windows 的系统信息整理成可靠的事实，再结合规则和 AI 帮用户理解风险。
-
-**C++** 会在后续逐步承担 Windows 底层采集与系统能力层，学习并使用 Windows API、进程、权限、服务和 ETW 等能力。两者一起服务于同一个目标：从启动项、进程、日志、注册表、网络和权限等方向，构建并不断创新 AI Windows 安全助手。
-
-## 我在做什么
-
-| 阶段 | 核心目标 | 项目里程碑 |
-|------|---------|-----------|
-| 大二（现在） | C++ + Python + Git + PowerShell 基础 | Level 1~5：从 PowerShell 实验到可运行的 Windows 小工具 |
-| 大三 | 计算机网络 + AI | 网络状态分析 → AI 解释扫描结果 |
-| 大四 | 整合 + 完善 | 完整的 AI Windows 安全助手，加入真正的信息安全能力 |
-
-完整的三年规划见 [docs/PLAN.md](docs/PLAN.md)。
-
-## 项目等级（Level）
-
-- **Level 1**：PowerShell 小实验（查看自启动项）← *现在在这里*
-- **Level 2**：C++ / Python 小工具
-- **Level 3**：Windows 信息检测工具
-- **Level 4**：安全检查
-- **Level 5**：真正的软件雏形
-
-## 仓库结构
-
-```
-├── README.md            # 项目介绍（你在这里）
-├── docs/
-│   ├── PLAN.md          # 三年完整规划
-│   └── devlog/          # 学习日志（按月记录）
-│       ├── README.md    # 日志怎么写
-│       ├── TEMPLATE.md  # 日志模板
-│       └── 2026/        # 按年份归档
-├── notes/               # 学习笔记（按主题分类）
-│   ├── cpp/             # C++
-│   ├── python/          # Python
-│   ├── git/             # Git & GitHub
-│   ├── powershell/      # PowerShell
-│   ├── network/         # 计算机网络
-│   ├── ai/              # AI 应用
-│   └── security/        # 信息安全
-└── project/             # 项目代码，从 Level 1 开始
-    └── level1-powershell-startup/
-```
-
-## 学习方式
-
-**碎片化学习**，不追求每天完成很多，追求**一直做**：
-
-- 有 30 分钟 → 做一个小任务
-- 有 1 小时 → 学一点 + 做一点
-- 有 2 小时 → 学习 + 项目
-
-**图书馆模式**：没法和 AI 语音时，新开聊天输入
-「开始今天的任务，我今天有 X 分钟」，按三年规划安排当天任务。
-
-## 下一步
-
-1. 复习 Day 1~6：认证（NTLM / Kerberos）与授权（ACL）两条线（笔记：`notes/security/` 下 01~05 篇）
-2. 开始 C++：指针
-3. Level 2：把「查启动项」写成自己的小程序
-
+网站由 GitHub Pages 发布，来源为 `main` 分支的 `docs/` 目录。新增内容时参考[笔记索引](notes/README.md)和[搜索维护说明](docs/SEARCH.md)。

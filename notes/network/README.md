@@ -15,4 +15,4 @@
 
 复习主线：物理层传比特 → 链路层在相邻结点间传帧 → 网络层按IP逐跳转发 → 运输层为应用进程提供端到端逻辑通信。先掌握MAC帧、交换机，再串起IP、ARP、路由和ICMP，再理解端口、TCP/UDP、可靠传输、窗口与连接管理，最后进入应用层的DNS、HTTP、电子邮件、DHCP和SNMP。
 
-[搜索全部笔记](https://tangxiinrui1119.github.io/AI-Windows-Security-Assistant/search.html) · [全部课程目录](../README.md)
+[搜索全部笔记](https://tangxiinrui1119.github.io/AI-Windows-Security-Assistant/search.html) · [课内学习](../courses/README.md)

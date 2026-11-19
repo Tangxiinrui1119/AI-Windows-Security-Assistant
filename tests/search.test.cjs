@@ -27,7 +27,7 @@ test('Code fences do not create false section headings', () => {
   assert.deepEqual(doc.sections.map(s => s.heading), ['Python', '示例', '总结']);
   assert.ok(doc.sections[1].text.includes('注释'));
 });
-test('Only course note files are eligible and Part folders are labeled', () => {
+test('Directory and journal pages are excluded and Part folders are labeled', () => {
   assert.equal(core.eligible('notes/python/README.md'), false);
   assert.equal(core.eligible('docs/devlog/2026/09.md'), false);
   assert.equal(core.eligible('../notes/cpp/01.md'), false);
@@ -53,4 +53,16 @@ test('Snippets include distant body hits and strip Markdown link URLs', () => {
   assert.ok(result.snippet.includes('悬空指针'));
   assert.ok(!doc.sections[0].text.includes('https://'));
 });
-
+test('CTF, Windows and project records are classified without changing their URLs', () => {
+  const ctf = 'notes/security/penetration-testing/04-web-security/01-web-security-learning-map.md';
+  const future = 'notes/ctf/web/02-http.md';
+  const windows = 'notes/security/penetration-testing/06-windows-host-security/01.md';
+  const project = 'project/level1-powershell-startup/README.md';
+  for (const [file, category] of [[ctf, 'ctf'], [future, 'ctf'], [windows, 'windows-host-security'], [project, 'project']]) {
+    assert.ok(core.eligible(file));
+    const doc = core.parse(file, '# 示例');
+    assert.equal(doc.path, file);
+    assert.equal(doc.category, category);
+  }
+  assert.equal(core.eligible('project/README.md'), false);
+});

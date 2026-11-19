@@ -12,6 +12,7 @@
 - [Part 02 · 信息收集与 Nmap](security/penetration-testing/02-recon-and-nmap/README.md)
 - [Part 03 · 常见网络服务](security/penetration-testing/03-common-services/README.md)
 - [Part 04 · Web 安全](security/penetration-testing/04-web-security/README.md)
+  - [CTF Web 学习地图](security/penetration-testing/04-web-security/01-web-security-learning-map.md)
 - [Part 05 · Linux 基础](security/penetration-testing/05-linux-basics/README.md)
 - [Part 06 · Windows 主机安全](security/penetration-testing/06-windows-host-security/README.md)
 - [Part 07 · Active Directory 与 Kerberos](security/penetration-testing/07-active-directory-and-kerberos/README.md)
@@ -65,8 +66,8 @@
 - [05 · 原根和阶](security-mathematics/05-primitive-roots-and-orders.md) —— 2026-11-09
 - [06 · 近世代数基础](security-mathematics/06-abstract-algebra.md) —— 2026-11-09
 
-### AI 应用
-- （大三下开始）
+### AI 应用与安全
+- [01 · AI-LogInsight 前置知识地图](ai/01-ai-loginsight-prerequisites.md) —— 2026-11-19（先导学习，项目开发暂缓）
 
 ### 信息安全
 - （大四开始，长期积累）

@@ -18,7 +18,7 @@
 
   Active Directory、Kerberos、日志与修复
 
-## 编程与 AI
+## 编程
 
 - [Python](../python/README.md)
 
@@ -26,6 +26,9 @@
 - [C++](../cpp/README.md)
 
   指针、内存管理、STL 与编程练习
+
+## AI
+
 - [AI Agent 与多智能体](../ai/README.md)
 
   日志研判基础与智能体研究

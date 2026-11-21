@@ -74,6 +74,39 @@ a{color:inherit}
 .md tbody tr:hover{background:rgba(255,255,255,.02)}
 .md hr{border:none;height:1px;margin:30px 0;background:linear-gradient(90deg,transparent,var(--border-hi),transparent)}
 .md img{max-width:100%;border-radius:10px;border:1px solid var(--border)}
+/* 专题目录 */
+.path.directory-path{border:0;background:none;padding:0;color:var(--dim);word-break:normal}
+.directory-path nav{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px}
+.directory-path a{color:var(--cyan);text-decoration:none}
+.directory-path a:hover{text-decoration:underline}
+.directory-path [aria-current]{color:var(--text)}
+.md.note-directory > h1{letter-spacing:.02em;margin-bottom:22px}
+.md.note-directory > h2{margin:30px 0 12px;font-size:19px;letter-spacing:0}
+.md.note-directory > h2::before{content:none}
+.md.note-directory > ul,.md.note-directory > ol{list-style:none;display:grid;gap:12px;padding:0;margin:0 0 18px}
+.md.directory--courses > ul{grid-template-columns:repeat(2,minmax(0,1fr))}
+.md.directory--topics > ul{grid-template-columns:repeat(3,minmax(0,1fr))}
+.note-directory > ul > li,.note-directory > ol > li,.note-directory > blockquote{
+  position:relative;min-width:0;padding:14px 16px;margin:0;border:1px solid var(--border);border-radius:12px;
+  background:linear-gradient(180deg,var(--panel2),var(--panel));transition:border-color .2s}
+.note-directory > ul > li:hover,.note-directory > ol > li:hover,.note-directory > blockquote:hover{border-color:var(--border-hi)}
+.note-directory > ul > li:focus-within,.note-directory > ol > li:focus-within,.note-directory > blockquote:focus-within{outline:2px solid var(--cyan);outline-offset:2px}
+.note-directory li > p,.md.note-directory > blockquote > p{margin:0}
+.note-directory li > p + p,.md.note-directory > blockquote > p + p{color:var(--dim);font-size:.925rem;margin-top:3px}
+.note-directory li > p:first-child > a,.note-directory > blockquote > p:first-child > a{font-weight:700;border:0}
+.note-directory li > p:first-child > a::after,.note-directory > blockquote > p:first-child > a::after{content:"";position:absolute;inset:0;border-radius:inherit}
+.md.directory--topics > blockquote{padding:18px 20px;border-color:var(--border-hi);border-left:3px solid var(--green)}
+.directory--topics > blockquote > p:first-child > a{font-size:1.25rem;color:var(--green)}
+.md.directory--topics > blockquote + p,.md.directory--courses > p:last-of-type{font-size:.925rem;color:var(--dim);margin-top:14px}
+.md.directory--chapters > ol{gap:8px}
+.directory--chapters > ol > li{display:grid;grid-template-columns:minmax(210px, 1fr) 1.4fr;align-items:baseline;gap:4px 12px;padding:10px 14px}
+.directory--chapters > ol > li > p + p{margin:0}
+@media (max-width:760px){.md.directory--topics > ul{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:540px){
+  .md.directory--courses > ul,.md.directory--topics > ul,.directory--chapters > ol > li{grid-template-columns:minmax(0,1fr)}
+  .directory--chapters > ol > li{gap:1px}
+}
+
 /* 页脚 */
 footer{margin-top:64px;padding-top:24px;border-top:1px solid var(--border);text-align:center;color:var(--faint);font-size:13px}
 footer .quote{color:var(--dim);font-size:14px;margin-bottom:8px}
@@ -136,6 +169,12 @@ if (!window.marked) {
   var GH_BLOB = 'https://github.com/' + REPO + '/blob/main/';
   var GH_TREE = 'https://github.com/' + REPO + '/tree/main/';
 
+  var directories = new Map([
+    ['notes/courses/README.md', { kind: 'courses', label: '课内学习' }],
+    ['notes/extracurricular/README.md', { kind: 'topics', label: '课外学习' }],
+    ['notes/network/README.md', { kind: 'chapters', label: '计算机网络', parent: 'notes/courses/README.md' }]
+  ]);
+
   var doc = document.getElementById('doc');
   var pathEl = document.getElementById('path');
   var srcLink = document.getElementById('src-link');
@@ -185,11 +224,36 @@ if (!window.marked) {
       '</div>';
   }
 
+  function showDirectoryPath(directory) {
+    var nav = document.createElement('nav');
+    nav.setAttribute('aria-label', '当前位置');
+    var parents = [['知识库', 'notes/README.md']];
+    if (directory.parent) parents.push([directories.get(directory.parent).label, directory.parent]);
+    parents.forEach(function (parent) {
+      var link = document.createElement('a');
+      link.href = 'reader.html?f=' + encodeURIComponent(parent[1]);
+      link.textContent = parent[0];
+      var separator = document.createElement('span');
+      separator.textContent = '/';
+      separator.setAttribute('aria-hidden', 'true');
+      nav.append(link, separator);
+    });
+    var current = document.createElement('span');
+    current.setAttribute('aria-current', 'page');
+    current.textContent = directory.label;
+    nav.append(current);
+    pathEl.classList.add('directory-path');
+    pathEl.replaceChildren(nav);
+  }
+
   function render(md, file) {
     if (!window.marked) { showError(file); return; }
     var baseDir = file.slice(0, file.lastIndexOf('/') + 1);
     var html = marked.parse(md);
     doc.innerHTML = '<div class="md">' + html + '</div>';
+
+    var directory = directories.get(file);
+    if (directory) doc.firstElementChild.classList.add('note-directory', 'directory--' + directory.kind);
 
     var h1 = doc.querySelector('.md h1');
     if (h1) document.title = h1.textContent.trim() + ' · AI Windows 安全助手';
@@ -228,7 +292,8 @@ if (!window.marked) {
     showError(null);
     return;
   }
-  pathEl.textContent = '$ cat ' + file;
+  if (directories.has(file)) showDirectoryPath(directories.get(file));
+  else pathEl.textContent = '$ cat ' + file;
   srcLink.href = GH_BLOB + file;
 
   var rawUrl = RAW + file + (version ? '?v=' + encodeURIComponent(version) : '');
